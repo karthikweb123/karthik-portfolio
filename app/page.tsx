@@ -68,7 +68,7 @@ export default function Home() {
         </h1>
 
         <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl font-light leading-relaxed">
-          Multidisciplinary <span className="text-white font-medium">UI/UX Designer & Frontend Engineer</span> focused on crafting high-performance digital products. 
+          Multidisciplinary <span className="text-white font-medium">UI/UX Designer & Frontend Developer</span> focused on crafting high-performance digital products. 
           Expertise in architecting scalable interfaces with <span className="text-white">React</span> and <span className="text-white">Next.js</span>, 
           with a robust background in <span className="text-white">Full-stack development</span> and <span className="text-white">E-commerce solutions</span>.
         </p>
@@ -92,7 +92,22 @@ export default function Home() {
       {/* SKILLS */}
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <div className="flex flex-wrap justify-center gap-3">
-          {["React", "Next.js", "TypeScript", "Tailwind", "UI/UX", "MERN Stack", "Shopify", "Figma"].map((skill) => (
+          {[
+  "UI/UX Design",
+  "Frontend Development",
+  "Full Stack (PHP & Node.js)",
+  "React",
+  "Next.js",
+  "JavaScript",
+  "TypeScript",
+  "Tailwind CSS",
+  "MERN Stack",
+  "WordPress",
+  "Shopify",
+  "Figma",
+  "Photoshop",
+  "Video Editing"
+].map((skill) => (
             <span
               key={skill}
               className="px-5 py-2 text-[10px] font-bold tracking-widest uppercase bg-slate-900/40 border border-slate-800 rounded-full text-slate-500 hover:text-blue-400 hover:border-blue-400/50 transition cursor-default"

@@ -6,7 +6,7 @@ Modern portfolio built with Next.js and Tailwind CSS.
 👉 https://karthik-portfolio-jet.vercel.app/
 
 ## 🚀 Preview
-<img src="public/images/portfolio.png" width="900"/>
+<img src="https://github.com/karthikweb123/karthik-portfolio/blob/main/public/portfolio.jpg" width="900"/>
 
 ## 🛠 Tech Stack
 - React

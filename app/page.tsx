@@ -1,4 +1,4 @@
-"use client"; // Add this at the very top if using Next.js App Router
+"use client";
 import React, { useState, useEffect } from "react";
 import { 
   Globe, 
@@ -9,7 +9,7 @@ import {
   Phone, 
   ArrowUpRight, 
   Layers,
-  User // Added for the table header icon
+  User 
 } from "lucide-react";
 
 // Local SVG components to bypass 'Github/Linkedin' build errors

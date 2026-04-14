@@ -1,4 +1,5 @@
-import React from "react";
+"use client"; // Add this at the very top if using Next.js App Router
+import React, { useState, useEffect } from "react";
 import { 
   Globe, 
   Code2, 
@@ -7,7 +8,8 @@ import {
   Mail, 
   Phone, 
   ArrowUpRight, 
-  Layers
+  Layers,
+  User // Added for the table header icon
 } from "lucide-react";
 
 // Local SVG components to bypass 'Github/Linkedin' build errors
@@ -24,6 +26,17 @@ const LinkedInIcon = ({ className }: { className?: string }) => (
 );
 
 export default function Home() {
+  // --- CRUD DATA LOGIC ---
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    // Pulls data from the key used in your Admin Panel
+    const savedData = localStorage.getItem("crud-data");
+    if (savedData) {
+      setItems(JSON.parse(savedData));
+    }
+  }, []);
+
   return (
     <main className="min-h-screen bg-[#050814] text-slate-300 font-sans selection:bg-blue-500/20 scroll-smooth">
 
@@ -36,6 +49,7 @@ export default function Home() {
           <div className="flex items-center gap-8">
             <div className="hidden md:flex gap-8 text-[10px] font-bold tracking-[0.2em] uppercase">
               <a href="#projects" className="hover:text-white transition">Work</a>
+              <a href="#careers" className="hover:text-white transition">Careers</a>
               <a href="#contact" className="hover:text-white transition">Contact</a>
             </div>
             <div className="flex items-center gap-4 border-l border-slate-800 pl-6">
@@ -50,8 +64,55 @@ export default function Home() {
         </div>
       </nav>
 
+      {/* CRUD DISPLAY SECTION - PLACED BELOW NAV */}
+      <section id="careers" className="max-w-6xl mx-auto px-6 pt-32 pb-10">
+        <div className="bg-slate-900/20 border border-slate-800 rounded-3xl overflow-hidden backdrop-blur-sm">
+          <div className="px-8 py-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/40">
+            <div className="flex items-center gap-3">
+              <User className="w-4 h-4 text-blue-500" />
+              <h3 className="text-white text-xs font-bold uppercase tracking-[0.2em]">Active Records</h3>
+            </div>
+            <span className="text-[10px] font-medium text-slate-500 uppercase tracking-widest">Read Only View</span>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-slate-800/50 text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                  <th className="px-8 py-4">Name</th>
+                  <th className="px-8 py-4">Email Address</th>
+                  <th className="px-8 py-4 text-right">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800/30">
+                {items.length > 0 ? (
+                  items.map((item: any) => (
+                    <tr key={item.id} className="hover:bg-blue-500/5 transition duration-300">
+                      <td className="px-8 py-4 text-sm font-semibold text-white tracking-tight">{item.name}</td>
+                      <td className="px-8 py-4 text-sm text-slate-400 font-light">{item.email}</td>
+                      <td className="px-8 py-4 text-right">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-bold text-emerald-400 uppercase tracking-tighter">
+                          <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                          Verified
+                        </span>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={3} className="px-8 py-10 text-center text-slate-600 text-xs italic tracking-widest uppercase">
+                      No candidate data found. Update via Admin Panel.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       {/* HERO */}
-      <section className="max-w-6xl mx-auto px-6 pt-44 pb-24 text-center">
+      <section className="max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-[10px] font-bold tracking-[0.3em] text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -68,7 +129,7 @@ export default function Home() {
         </h1>
 
         <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl font-light leading-relaxed">
-          Multidisciplinary <span className="text-white font-medium">UI/UX Designer & Frontend Engineer</span> focused on crafting high-performance digital products. 
+          Multidisciplinary <span className="text-white font-medium">UI/UX Designer & Frontend Developer</span> focused on crafting high-performance digital products. 
           Expertise in architecting scalable interfaces with <span className="text-white">React</span> and <span className="text-white">Next.js</span>, 
           with a robust background in <span className="text-white">Full-stack development</span> and <span className="text-white">E-commerce solutions</span>.
         </p>
@@ -92,7 +153,22 @@ export default function Home() {
       {/* SKILLS */}
       <section className="max-w-6xl mx-auto px-6 pb-24">
         <div className="flex flex-wrap justify-center gap-3">
-          {["React", "Next.js", "TypeScript", "Tailwind", "UI/UX", "MERN Stack", "Shopify", "Figma"].map((skill) => (
+          {[
+            "UI/UX Design",
+            "Frontend Development",
+            "Full Stack (PHP & Node.js)",
+            "React",
+            "Next.js",
+            "JavaScript",
+            "TypeScript",
+            "Tailwind CSS",
+            "MERN Stack",
+            "WordPress",
+            "Shopify",
+            "Figma",
+            "Photoshop",
+            "Video Editing"
+          ].map((skill) => (
             <span
               key={skill}
               className="px-5 py-2 text-[10px] font-bold tracking-widest uppercase bg-slate-900/40 border border-slate-800 rounded-full text-slate-500 hover:text-blue-400 hover:border-blue-400/50 transition cursor-default"

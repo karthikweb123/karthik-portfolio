@@ -1,304 +1,327 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { 
-  Globe, 
-  Code2, 
-  Layout, 
-  Smartphone, 
-  Mail, 
-  Phone, 
-  ArrowUpRight, 
-  Layers,
-  User 
-} from "lucide-react";
 
-// Local SVG components to bypass 'Github/Linkedin' build errors
-const GitHubIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>
+import React, { useEffect, useRef } from "react";
+import Link from "next/link";
+import * as THREE from "three";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// --- INLINE SVG COMPONENTS (Ensures no ReferenceErrors) ---
+
+const ArrowRight = ({ size = 18, className = "" }: { size?: number; className?: string }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
   </svg>
 );
 
-const LinkedInIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+const ExternalLink = ({ size = 14 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M15 3h6v6" /><path d="M10 14 21 3" /><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
   </svg>
 );
 
-export default function Home() {
-  // --- CRUD DATA LOGIC ---
-  const [items, setItems] = useState([]);
+const GithubIcon = ({ size = 18 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+  </svg>
+);
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+export default function TechPortfolio() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Pulls data from the key used in your Admin Panel
-    const savedData = localStorage.getItem("crud-data");
-    if (savedData) {
-      setItems(JSON.parse(savedData));
+    if (!canvasRef.current) return;
+
+    // --- THREE.JS TECH-PARTICLE ENGINE ---
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasRef.current,
+      alpha: true,
+      antialias: true,
+    });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const particlesCount = 2000;
+    const posArray = new Float32Array(particlesCount * 3);
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray[i] = (Math.random() - 0.5) * 12;
     }
+
+    const particlesGeometry = new THREE.BufferGeometry();
+    particlesGeometry.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+      size: 0.005,
+      color: "#3b82f6",
+      transparent: true,
+      opacity: 0.7,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+    camera.position.z = 3;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    const animateParticles = (event: MouseEvent) => {
+      mouseX = event.clientX / window.innerWidth - 0.5;
+      mouseY = event.clientY / window.innerHeight - 0.5;
+    };
+    window.addEventListener("mousemove", animateParticles);
+
+    const clock = new THREE.Clock();
+    const animate = () => {
+      const elapsedTime = clock.getElapsedTime();
+      particlesMesh.rotation.y = elapsedTime * 0.05;
+      particlesMesh.rotation.x += (mouseY * 0.1 - particlesMesh.rotation.x) * 0.05;
+      particlesMesh.rotation.y += (mouseX * 0.1 - particlesMesh.rotation.y) * 0.05;
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    };
+    animate();
+
+    // --- GSAP REVEALS ---
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline();
+      tl.from(".hero-tag", { opacity: 0, y: 20, duration: 0.8 })
+        .from(".hero-title", { opacity: 0, y: 40, duration: 1, ease: "power4.out" }, "-=0.4")
+        .from(".hero-desc", { opacity: 0, x: -20, duration: 0.8 }, "-=0.6")
+        .from(".hero-stats", { opacity: 0, y: 20, duration: 0.8 }, "-=0.6");
+
+      gsap.from(".cyber-line", {
+        scaleX: 0,
+        transformOrigin: "left",
+        duration: 1.5,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: ".work-section",
+          start: "top 80%",
+        }
+      });
+    }, containerRef);
+
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("mousemove", animateParticles);
+      window.removeEventListener("resize", handleResize);
+      renderer.dispose();
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#050814] text-slate-300 font-sans selection:bg-blue-500/20 scroll-smooth">
+    <main ref={containerRef} className="relative bg-[#02040a] text-white overflow-x-hidden selection:bg-blue-500/30">
+      <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-0" />
+      
+      {/* GRID OVERLAY */}
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none z-0" />
 
       {/* NAV */}
-      <nav className="fixed top-0 w-full z-50 bg-[#050814]/70 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-white font-bold tracking-tighter">
-            KARTHIK<span className="text-blue-500">.</span>
-          </div>
-          <div className="flex items-center gap-8">
-            <div className="hidden md:flex gap-8 text-[10px] font-bold tracking-[0.2em] uppercase">
-              <a href="#projects" className="hover:text-white transition">Work</a>
-              <a href="#careers" className="hover:text-white transition">Careers</a>
-              <a href="#contact" className="hover:text-white transition">Contact</a>
-            </div>
-            <div className="flex items-center gap-4 border-l border-slate-800 pl-6">
-              <a href="https://github.com/karthikweb123/mynextjshit" target="_blank" rel="noopener noreferrer">
-                <GitHubIcon className="w-5 h-5 text-slate-500 hover:text-white transition" />
-              </a>
-              <a href="https://www.linkedin.com/in/karthik-neelarapu-831b3018" target="_blank" rel="noopener noreferrer">
-                <LinkedInIcon className="w-5 h-5 text-slate-500 hover:text-white transition" />
-              </a>
-            </div>
-          </div>
+      <nav className="relative z-50 flex justify-between items-center px-8 py-8 max-w-7xl mx-auto">
+        <div className="text-xl font-bold tracking-tighter flex items-center gap-2">
+          <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-sm">KN</div>
+          KARTHIK
+        </div>
+        <div className="hidden md:flex gap-10 text-[10px] font-bold tracking-[0.2em] text-gray-500">
+          <Link href="#work" className="hover:text-blue-500 transition-colors uppercase">Projects</Link>
+          <Link href="#expertise" className="hover:text-blue-500 transition-colors uppercase">Expertise</Link>
+          <Link href="#contact" className="hover:text-blue-500 transition-colors uppercase">Contact</Link>
+        </div>
+        <div className="flex gap-4">
+          <Link href="https://github.com" className="text-gray-500 hover:text-white transition-colors">
+            <GithubIcon size={20} />
+          </Link>
         </div>
       </nav>
 
-      {/* CRUD DISPLAY SECTION - PLACED BELOW NAV */}
-      <section id="careers" className="max-w-6xl mx-auto px-6 pt-32 pb-10">
-        <div className="bg-slate-900/20 border border-slate-800 rounded-3xl overflow-hidden backdrop-blur-sm">
-          <div className="px-8 py-6 border-b border-slate-800 flex justify-between items-center bg-slate-900/40">
-            <div className="flex items-center gap-3">
-              <User className="w-4 h-4 text-blue-500" />
-              <h3 className="text-white text-xs font-bold uppercase tracking-[0.2em]">Active Records</h3>
-            </div>
-            <span className="text-[10px] font-medium text-slate-500 uppercase tracking-widest">Read Only View</span>
-          </div>
-          
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
-              <thead>
-                <tr className="border-b border-slate-800/50 text-[10px] font-bold uppercase tracking-widest text-slate-500">
-                  <th className="px-8 py-4">Name</th>
-                  <th className="px-8 py-4">Email Address</th>
-                  <th className="px-8 py-4 text-right">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/30">
-                {items.length > 0 ? (
-                  items.map((item: any) => (
-                    <tr key={item.id} className="hover:bg-blue-500/5 transition duration-300">
-                      <td className="px-8 py-4 text-sm font-semibold text-white tracking-tight">{item.name}</td>
-                      <td className="px-8 py-4 text-sm text-slate-400 font-light">{item.email}</td>
-                      <td className="px-8 py-4 text-right">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[9px] font-bold text-emerald-400 uppercase tracking-tighter">
-                          <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
-                          Verified
-                        </span>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={3} className="px-8 py-10 text-center text-slate-600 text-xs italic tracking-widest uppercase">
-                      No candidate data found. Update via Admin Panel.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
       {/* HERO */}
-      <section className="max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-[10px] font-bold tracking-[0.3em] text-blue-400 uppercase bg-blue-400/10 border border-blue-400/20 rounded-full">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-          </span>
-          Open to Full-time & Project Roles
+      <section className="relative z-10 min-h-[85vh] flex flex-col justify-center px-6 max-w-7xl mx-auto">
+        <div className="hero-tag mb-6 w-fit px-3 py-1 border border-blue-500/20 bg-blue-500/5 rounded text-[10px] tracking-[0.3em] text-blue-400 font-bold uppercase">
+          Full-Stack Web Architect
         </div>
-
-        <h1 className="text-4xl md:text-7xl font-black bg-gradient-to-b tracking-tighter leading-none mb-8">
-          Karthik{" "}
-          <span className="text-transparent bg-clip-text from-white text-white to-slate-500">
-            Neelarapu
-          </span>
+        
+        <h1 className="hero-title text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
+          CRAFTING <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-400">DIGITAL</span><br />FRONTIERS
         </h1>
 
-        <p className="max-w-2xl mx-auto text-slate-400 text-lg md:text-xl font-light leading-relaxed">
-          Multidisciplinary <span className="text-white font-medium">UI/UX Designer & Frontend Developer</span> focused on crafting high-performance digital products. 
-          Expertise in architecting scalable interfaces with <span className="text-white">React</span> and <span className="text-white">Next.js</span>, 
-          with a robust background in <span className="text-white">Full-stack development</span> and <span className="text-white">E-commerce solutions</span>.
-        </p>
-
-        <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-6">
-          <a
-            href="#contact"
-            className="px-10 py-4 bg-white text-black rounded-full font-bold hover:scale-105 transition transform duration-200"
-          >
-            Start a Conversation
-          </a>
-          <a
-            href="#projects"
-            className="px-10 py-4 bg-slate-900 border border-slate-800 text-white rounded-full font-bold hover:bg-slate-800 transition transform duration-200"
-          >
-            View Work
-          </a>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+          <div>
+            <p className="hero-desc text-gray-400 text-lg md:text-xl font-light leading-relaxed mb-10 max-w-xl">
+              Over <span className="text-white">12 years of experience</span> engineering high-performance ecosystems. 
+              Specializing in WordPress, SEO-driven architecture, and conversion-centric UI/UX design.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="#work" className="px-8 py-4 bg-blue-600 hover:bg-blue-700 rounded-full font-bold flex items-center gap-2 transition-all group">
+                VIEW SYSTEMS <ArrowRight className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+          
+          <div className="hero-stats hidden md:grid grid-cols-2 gap-4">
+            <div className="p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+              <h4 className="text-blue-500 font-bold text-3xl">12+</h4>
+              <p className="text-[10px] text-gray-500 tracking-[0.2em] uppercase mt-1">Years Experience</p>
+            </div>
+            <div className="p-8 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+              <h4 className="text-blue-500 font-bold text-3xl">50+</h4>
+              <p className="text-[10px] text-gray-500 tracking-[0.2em] uppercase mt-1">Global Projects</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* SKILLS */}
-      <section className="max-w-6xl mx-auto px-6 pb-24">
-        <div className="flex flex-wrap justify-center gap-3">
-          {[
-            "UI/UX Design",
-            "Frontend Development",
-            "Full Stack (PHP & Node.js)",
-            "React",
-            "Next.js",
-            "JavaScript",
-            "TypeScript",
-            "Tailwind CSS",
-            "MERN Stack",
-            "WordPress",
-            "Shopify",
-            "Figma",
-            "Photoshop",
-            "Video Editing"
-          ].map((skill) => (
-            <span
-              key={skill}
-              className="px-5 py-2 text-[10px] font-bold tracking-widest uppercase bg-slate-900/40 border border-slate-800 rounded-full text-slate-500 hover:text-blue-400 hover:border-blue-400/50 transition cursor-default"
-            >
-              {skill}
-            </span>
-          ))}
+      {/* PROJECTS GRID */}
+      <section id="work" className="work-section relative z-10 py-32 px-6 max-w-7xl mx-auto">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="cyber-line h-[1px] w-12 bg-blue-500" />
+          <span className="text-blue-500 font-bold text-xs tracking-[0.3em] uppercase">Deployment Log</span>
+        </div>
+        <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-20 uppercase">Selected Works</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <WorkCard
+            cols="md:col-span-8"
+            title="Dhruvanth Forex"
+            desc="Full-lifecycle forex trading platform. Advanced UX and WP integration for financial markets."
+            tags={["Fintech", "WordPress", "SEO"]}
+            href="https://dhruvanthforex.com"
+          />
+          <WorkCard
+            cols="md:col-span-4"
+            title="Hathority"
+            desc="Enterprise IT Solutions Branding and strategic platform design."
+            tags={["Enterprise", "B2B"]}
+            href="https://hathority.com"
+          />
+          <WorkCard
+            cols="md:col-span-4"
+            title="Y-Axis"
+            desc="Conversion-optimized landing pages and digital strategy for immigration leaders."
+            tags={["CRO", "Landing Pages"]}
+            href="https://y-axis.com"
+          />
+          <WorkCard
+            cols="md:col-span-4"
+            title="Dr. Pramod Kumar"
+            desc="Medical professional digital identity and patient information portal."
+            tags={["Medical", "Portfolio"]}
+            href="https://drpramodkumar.com"
+          />
+          <WorkCard
+            cols="md:col-span-4"
+            title="CIAS Canada"
+            desc="Complex immigration consultancy platform with integrated user flows."
+            tags={["Consultancy", "UI/UX"]}
+            href="https://www.ciascanada.com"
+          />
+          <WorkCard
+            cols="md:col-span-6"
+            title="Xadelit"
+            desc="High-performance modern business platform with custom PHP backend."
+            tags={["Performance", "Custom PHP"]}
+            href="https://xadelit.com"
+          />
+          <WorkCard
+            cols="md:col-span-6"
+            title="Anisan Ads"
+            desc="Marketing agency visual identity and creative campaign management."
+            tags={["Creative", "Agency"]}
+            href="https://anisanads.com"
+          />
         </div>
       </section>
 
-      {/* PROJECTS */}
-      <section id="projects" className="max-w-6xl mx-auto px-6 pb-32">
-        <div className="flex items-center gap-4 mb-16">
-          <h2 className="text-white text-4xl font-black tracking-tighter uppercase">Selected Work</h2>
-          <div className="h-px flex-1 bg-slate-800"></div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          <Card
-            title="Enterprise & IT Solutions"
-            icon={<Globe className="w-6 h-6 text-blue-400" />}
-            desc="Developing scalable digital architectures for IT consultancies and modern enterprise platforms."
-            links={[
-              { name: "Hathority", url: "https://hathority.com/" },
-              { name: "Xadelit", url: "https://xadelit.com/" },
-              { name: "Access Networks", url: "https://accessnetworks.com/" }
-            ]}
+      {/* EXPERTISE */}
+      <section id="expertise" className="relative z-10 py-32 bg-[#05070a]/80 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-16">
+          <ExpertiseBlock 
+            title="Development" 
+            items={["WordPress (Custom Themes)", "Next.js / React", "PHP / Node.js", "API Integrations"]} 
           />
-
-          <Card
-            title="Financial Services"
-            icon={<Layers className="w-6 h-6 text-emerald-400" />}
-            desc="Secure, high-performance banking and forex interfaces built with trust and precision."
-            links={[
-              { name: "Dhruvanth Forex", url: "https://dhruvanthforex.com/" },
-              { name: "Naroda Bank", url: "https://naroda.bank.in/" },
-              { name: "Fly High Logistics", url: "https://flyhighlogistics.com/" }
-            ]}
+          <ExpertiseBlock 
+            title="Design" 
+            items={["User Experience (UX)", "Responsive Interface", "Conversion Mapping", "Branding Design"]} 
           />
-
-          <Card
-            title="Education & Global Learning"
-            icon={<Code2 className="w-6 h-6 text-purple-400" />}
-            desc="Interactive learning platforms designed for modern educational institutions and global reach."
-            links={[
-              { name: "Creekside Intl", url: "https://creekside.edu.in/" },
-              { name: "Lets Learn Global", url: "https://letslearn.global/" },
-              { name: "Shiksha Tarang", url: "https://shikshatarang.com/" }
-            ]}
-          />
-
-          <Card
-            title="SaaS & Marketing Tech"
-            icon={<Layout className="w-6 h-6 text-orange-400" />}
-            desc="High-conversion landing pages and ad-tech platforms optimized for speed and user retention."
-            links={[
-              { name: "Anisan Ads", url: "https://anisanads.com/" },
-              { name: "Gadpit", url: "https://gadpit.com/" },
-              { name: "MS Life", url: "https://mslife.com/" }
-            ]}
+          <ExpertiseBlock 
+            title="Growth" 
+            items={["Technical SEO", "Speed Optimization", "Lead Generation", "Analytics Tracking"]} 
           />
         </div>
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="max-w-6xl mx-auto px-6 pb-32">
-        <div className="relative group overflow-hidden border border-slate-800 rounded-[3rem] p-16 md:p-24 bg-gradient-to-b from-slate-900/50 to-transparent text-center">
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500/10 blur-[100px] group-hover:bg-blue-500/20 transition duration-700"></div>
-          
-          <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter uppercase leading-none">
-            Let’s start a <br /> conversation
-          </h2>
-
-          <p className="text-slate-400 mt-3 max-w-lg mx-auto mb-12 text-lg">
-            Whether it's a <strong>full-time engineering role</strong>, a complex project, 
-            or a creative collaboration—I'm ready to bring your vision to life.
-          </p>
-
-          <div className="flex flex-col md:flex-row justify-center items-center gap-12">
-            <a href="mailto:karthikneelaram@gmail.com" className="group flex flex-col items-center">
-              <div className="mb-4 p-5 bg-slate-900 rounded-2xl border border-slate-800 group-hover:border-blue-500 transition duration-300">
-                <Mail className="w-6 h-6 text-blue-500" />
-              </div>
-              <span className="text-white font-medium">karthikneelaram@gmail.com</span>
-              <span className="text-slate-500 text-[10px] tracking-[0.2em] uppercase mt-1">Get in touch</span>
+      <section id="contact" className="relative z-10 py-40 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-10">READY TO <br /><span className="text-blue-600">BUILD?</span></h2>
+          <p className="text-gray-400 text-xl mb-12 font-light">Currently accepting new projects for Q3 2026.</p>
+          <div className="flex flex-col md:flex-row gap-6 justify-center">
+            <a href="mailto:karthikneelaram@gmail.com" className="px-10 py-5 bg-white text-black font-bold rounded-full hover:bg-blue-500 hover:text-white transition-all">
+              EMAIL ME
             </a>
-
-            <div className="h-16 w-px bg-slate-800 hidden md:block"></div>
-
-            <a href="tel:+919502905237" className="group flex flex-col items-center">
-              <div className="mb-4 p-5 bg-slate-900 rounded-2xl border border-slate-800 group-hover:border-emerald-500 transition duration-300">
-                <Phone className="w-6 h-6 text-emerald-500" />
-              </div>
-              <span className="text-white font-medium">+91 9502905237</span>
-              <span className="text-slate-500 text-[10px] tracking-[0.2em] uppercase mt-1">Call for details</span>
+            <a href="https://wa.me/919494935616" className="px-10 py-5 border border-white/20 rounded-full font-bold hover:bg-white/5 transition-all">
+              WHATSAPP
             </a>
           </div>
         </div>
       </section>
 
-      <footer className="text-center text-[10px] font-bold tracking-[0.3em] uppercase text-slate-600 pb-16">
-        © {new Date().getFullYear()} Karthik Neelaram • Designed for Excellence
+      <footer className="relative z-10 py-10 text-center border-t border-white/5 text-[10px] font-bold tracking-[0.5em] text-gray-600 uppercase">
+        © {new Date().getFullYear()} Karthik Neelapu // All Systems Operational
       </footer>
     </main>
   );
 }
 
-function Card({ title, icon, desc, links }: any) {
+// --- SUB-COMPONENTS ---
+
+function WorkCard({ title, desc, tags, href, cols }: any) {
   return (
-    <div className="group border border-slate-800 rounded-3xl p-8 bg-slate-900/20 hover:bg-slate-900/40 hover:border-slate-700 transition duration-500">
-      <div className="flex items-center gap-4 mb-6">
-        <div className="p-3 bg-black rounded-2xl border border-slate-800 group-hover:scale-110 transition duration-500">
-          {icon}
+    <div className={`group relative ${cols} bg-white/[0.03] border border-white/10 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-500 overflow-hidden`}>
+      <div className="relative z-10">
+        <h3 className="text-2xl font-bold tracking-tight mb-2 group-hover:text-blue-500 transition-colors uppercase">{title}</h3>
+        <p className="text-gray-500 text-sm mb-6 line-clamp-2 font-light leading-relaxed">{desc}</p>
+        <div className="flex flex-wrap gap-2 mb-10">
+          {tags.map((tag: string) => (
+            <span key={tag} className="px-2 py-0.5 bg-blue-500/10 rounded text-[9px] font-bold text-blue-400 border border-blue-500/20 uppercase tracking-[0.1em]">
+              {tag}
+            </span>
+          ))}
         </div>
-        <h3 className="text-xl font-bold text-white tracking-tight">{title}</h3>
+        <Link href={href} target="_blank" className="inline-flex items-center gap-2 text-[10px] font-black tracking-[0.2em] uppercase text-gray-400 group-hover:text-blue-500 transition-all">
+          Protocol Link <ExternalLink size={12} />
+        </Link>
       </div>
-      <p className="text-slate-400 leading-relaxed mb-8 text-sm">{desc}</p>
-      <div className="flex flex-wrap gap-x-5 gap-y-3">
-        {links.map((link: any) => (
-          <a 
-            key={link.name} 
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-blue-400 hover:text-white transition"
-          >
-            {link.name} <ArrowUpRight className="w-3 h-3" />
-          </a>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 blur-[60px] group-hover:bg-blue-600/10 transition-all" />
+    </div>
+  );
+}
+
+function ExpertiseBlock({ title, items }: { title: string, items: string[] }) {
+  return (
+    <div>
+      <h3 className="text-blue-500 font-bold text-xs tracking-[0.3em] uppercase mb-6">{title}</h3>
+      <ul className="space-y-4">
+        {items.map(item => (
+          <li key={item} className="text-gray-400 font-light flex items-center gap-3">
+            <span className="w-1 h-1 bg-white/20 rounded-full" /> {item}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

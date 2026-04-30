@@ -224,7 +224,7 @@ export default function Home() {
       </section>
 
       <footer className="text-center text-[10px] font-bold tracking-[0.3em] uppercase text-slate-600 pb-16">
-        © {new Date().getFullYear()} Karthik Neelaram • Designed for Excellence
+        © {new Date().getFullYear()} Karthik Neelarapu • Designed for Excellence
       </footer>
     </main>
   );

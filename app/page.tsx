@@ -107,9 +107,7 @@ export default function Home() {
         </div>
 
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-8">
-          <span className="text-white">UI/UX Designer</span>
-          <br />
-          <span className="text-slate-500">& Frontend Developer</span>
+          <span className="text-white">UI/UX Designer • Frontend & Full-Stack Developerr</span>
         </h1>
 
         <div className="max-w-4xl mx-auto space-y-6">

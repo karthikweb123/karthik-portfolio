@@ -106,8 +106,8 @@ export default function Home() {
           Available for Full-Time Roles • Freelance Projects
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-8">
-          <span className="text-white">UI/UX Designer • Frontend & Full-Stack Developerr</span>
+        <h1 className="text-5xl md:text-3xl font-black tracking-tighter leading-none mb-8">
+          <span className="text-white">UI/UX Designer • Frontend & Full-Stack Developer</span>
         </h1>
 
         <div className="max-w-4xl mx-auto space-y-6">

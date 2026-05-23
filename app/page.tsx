@@ -105,6 +105,30 @@ const allProjects = [
     category: "Marketing & SaaS",
     desc: "Lifestyle and wellness brand with immersive product showcases, modern editorial layout, and high-conversion landing page architecture.",
   },
+  {
+    name: "AS Enterprises",
+    url: "https://the-as-enterprises.in/",
+    category: "Enterprise & IT",
+    desc: "Business solutions enterprise website with a professional layout, service-focused content architecture, and clean responsive design.",
+  },
+  {
+    name: "Little Tortos",
+    url: "https://littletortos.com/",
+    category: "Marketing & SaaS",
+    desc: "Brand website with a vibrant visual identity, engaging product presentation, and a seamless user experience built for modern audiences.",
+  },
+  {
+    name: "SRD Infotek",
+    url: "https://www.srdinfotek.com/",
+    category: "Enterprise & IT",
+    desc: "IT solutions and technology services platform with structured service pages, a performance-optimized stack, and professional corporate design.",
+  },
+  {
+    name: "Modulyn Interiors",
+    url: "https://modulyninteriors.com/",
+    category: "Design & Lifestyle",
+    desc: "Interior design studio website with a curated portfolio showcase, elegant visual hierarchy, and an immersive browsing experience for premium spaces.",
+  },
 ];
 
 const skillsUX = [

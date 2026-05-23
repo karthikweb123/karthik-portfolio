@@ -72,8 +72,8 @@ const allProjects = [
   {
     name: "Fly High Logistics",
     url: "https://flyhighlogistics.com/",
-    category: "Financial Services",
-    desc: "End-to-end logistics management platform with dynamic tracking interfaces, shipment dashboards, and a clean visual hierarchy.",
+    category: "Global Freight & Logistics Solutions",
+    desc: "Fly High Logistics provides reliable freight forwarding, cargo transportation, supply chain, and global logistics solutions with efficient delivery management and customer-focused services.",
   },
   {
     name: "Creekside International",
@@ -102,8 +102,8 @@ const allProjects = [
   {
     name: "MS Life",
     url: "https://mslife.com/",
-    category: "Marketing & SaaS",
-    desc: "Lifestyle and wellness brand with immersive product showcases, modern editorial layout, and high-conversion landing page architecture.",
+    category: "Best Quality TMT Bars in India",
+    desc: "MS Life Steel manufactures high-quality CRS TMT bars and steel products in India with advanced integrated steel plant technology, superior strength, durability, and reliable construction solutions.",
   },
   {
     name: "AS Enterprises",
@@ -114,8 +114,8 @@ const allProjects = [
   {
     name: "Little Tortos",
     url: "https://littletortos.com/",
-    category: "Marketing & SaaS",
-    desc: "Brand website with a vibrant visual identity, engaging product presentation, and a seamless user experience built for modern audiences.",
+    category: "Kids Sports & Activity Platform",
+    desc: "Little Tortos is a modern platform focused on kids sports, activities, and engagement through interactive experiences, creative learning, and skill development in a fun environment.",
   },
   {
     name: "SRD Infotek",

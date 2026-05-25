@@ -222,7 +222,7 @@ const coreSkills = [
 ];
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const t = isDark ? darkTheme : lightTheme;
 
   useEffect(() => {
@@ -418,6 +418,48 @@ export default function Home() {
               {skill}
             </span>
           ))}
+        </div>
+      </section>
+
+      {/* ── WORDPRESS ── */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="Custom WordPress Development" color="#C13383" t={t} />
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: `rgba(193,51,131,0.05)`, border: `1px solid rgba(193,51,131,0.15)` }}>
+            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom CMS</h3>
+            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+              Building tailored WordPress installations with fully custom content management systems — no page-builder lock-in. Every content type, taxonomy, and admin UI is crafted to match the client&apos;s exact editorial workflow.
+            </p>
+          </div>
+          <div className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: `rgba(193,51,131,0.05)`, border: `1px solid rgba(193,51,131,0.15)` }}>
+            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Designs</h3>
+            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+              Pixel-perfect theme development from scratch — no pre-made templates. Full-fidelity Figma-to-WordPress builds with responsive layouts, custom Gutenberg blocks, and performance-optimised markup.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── REACT / NEXT.JS ── */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="React / Next.js UI Development" color="#7928A2" t={t} />
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: `rgba(121,40,162,0.05)`, border: `1px solid rgba(121,40,162,0.15)` }}>
+            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Component-Driven UIs</h3>
+            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+              Crafting reusable, accessible React component libraries with clean prop APIs. From design-system foundations to fully interactive dashboards — built for maintainability and scale.
+            </p>
+          </div>
+          <div className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: `rgba(121,40,162,0.05)`, border: `1px solid rgba(121,40,162,0.15)` }}>
+            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Next.js Applications</h3>
+            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+              Full-stack Next.js apps with server components, dynamic routing, and optimised data-fetching strategies. Deployed to Vercel with edge caching, image optimisation, and Core Web Vitals in mind.
+            </p>
+          </div>
         </div>
       </section>
 

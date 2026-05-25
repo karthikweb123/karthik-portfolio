@@ -29,6 +29,9 @@ body {
   border-radius: 10px;
 }
 
+/* Light mode scrollbar track */
+html[data-theme="light"] ::-webkit-scrollbar-track { background: #faf9ff; }
+
 /* Gradient text utility */
 .gradient-text {
   background: linear-gradient(135deg, #E05454 0%, #C13383 35%, #792CA2 65%, #443199 100%);

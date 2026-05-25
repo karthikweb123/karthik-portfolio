@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Code2,
   Layout,
   Mail,
   Phone,
   ArrowUpRight,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -37,6 +39,76 @@ const LinkedInIcon = ({ className }: { className?: string }) => (
 );
 
 const COLORS = ["#E05454", "#C13383", "#792CA2", "#443199"];
+
+const darkTheme = {
+  mainBg: "#08060f",
+  mainText: "text-slate-300",
+  navBg: "rgba(8,6,15,0.8)",
+  navBorder: "rgba(255,255,255,0.05)",
+  navLinkClass: "text-slate-500 hover:text-white",
+  navIconDivider: "rgba(255,255,255,0.08)",
+  navIconClass: "text-slate-600 hover:text-white",
+  heading: "text-white",
+  subText: "text-slate-400",
+  cardBg: "rgba(255,255,255,0.02)",
+  cardBorder: "rgba(255,255,255,0.06)",
+  cardHeading: "text-white",
+  viewBtnText: "text-white",
+  viewBtnBg: "rgba(255,255,255,0.05)",
+  viewBtnBorder: "rgba(255,255,255,0.1)",
+  viewBtnHover: "hover:bg-white/10",
+  sectionHeading: "text-white",
+  projectCardBg: "rgba(255,255,255,0.02)",
+  projectCardBorder: "rgba(255,255,255,0.05)",
+  projectTitle: "text-white",
+  projectDesc: "text-slate-500",
+  contactBorder: "rgba(255,255,255,0.05)",
+  contactP: "text-slate-400",
+  contactDivider: "rgba(255,255,255,0.08)",
+  contactIconBg: "rgba(255,255,255,0.04)",
+  contactIconBorder: "rgba(255,255,255,0.08)",
+  contactLabel: "text-white",
+  footer: "text-slate-700",
+  toggleBg: "rgba(255,255,255,0.06)",
+  toggleBorder: "rgba(255,255,255,0.12)",
+  toggleIconClass: "text-amber-400",
+};
+
+const lightTheme = {
+  mainBg: "#faf9ff",
+  mainText: "text-slate-700",
+  navBg: "rgba(250,249,255,0.8)",
+  navBorder: "rgba(0,0,0,0.06)",
+  navLinkClass: "text-slate-500 hover:text-slate-900",
+  navIconDivider: "rgba(0,0,0,0.1)",
+  navIconClass: "text-slate-400 hover:text-slate-900",
+  heading: "text-slate-900",
+  subText: "text-slate-600",
+  cardBg: "rgba(255,255,255,0.9)",
+  cardBorder: "rgba(0,0,0,0.07)",
+  cardHeading: "text-slate-900",
+  viewBtnText: "text-slate-800",
+  viewBtnBg: "rgba(0,0,0,0.05)",
+  viewBtnBorder: "rgba(0,0,0,0.12)",
+  viewBtnHover: "hover:bg-black/5",
+  sectionHeading: "text-slate-900",
+  projectCardBg: "rgba(255,255,255,0.95)",
+  projectCardBorder: "rgba(0,0,0,0.07)",
+  projectTitle: "text-slate-900",
+  projectDesc: "text-slate-600",
+  contactBorder: "rgba(0,0,0,0.05)",
+  contactP: "text-slate-600",
+  contactDivider: "rgba(0,0,0,0.1)",
+  contactIconBg: "rgba(0,0,0,0.04)",
+  contactIconBorder: "rgba(0,0,0,0.08)",
+  contactLabel: "text-slate-900",
+  footer: "text-slate-400",
+  toggleBg: "rgba(0,0,0,0.05)",
+  toggleBorder: "rgba(0,0,0,0.1)",
+  toggleIconClass: "text-slate-600",
+};
+
+type Theme = typeof darkTheme;
 
 const allProjects = [
   {
@@ -150,49 +222,74 @@ const coreSkills = [
 ];
 
 export default function Home() {
+  const [isDark, setIsDark] = useState(true);
+  const t = isDark ? darkTheme : lightTheme;
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+  }, [isDark]);
+
   return (
-    <main className="min-h-screen bg-[#08060f] text-slate-300 overflow-x-hidden">
+    <main
+      className={`min-h-screen ${t.mainText} overflow-x-hidden transition-colors duration-300`}
+      style={{ background: t.mainBg }}
+    >
 
       {/* Ambient background orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="orb-1 absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[140px]"
-          style={{ background: "radial-gradient(circle, #443199 0%, transparent 70%)", opacity: 0.25 }} />
+          style={{ background: "radial-gradient(circle, #443199 0%, transparent 70%)", opacity: isDark ? 0.25 : 0.15 }} />
         <div className="orb-2 absolute top-1/2 -right-40 w-[400px] h-[400px] rounded-full blur-[120px]"
-          style={{ background: "radial-gradient(circle, #792CA2 0%, transparent 70%)", opacity: 0.2 }} />
+          style={{ background: "radial-gradient(circle, #792CA2 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }} />
         <div className="orb-3 absolute bottom-1/3 left-1/3 w-[350px] h-[350px] rounded-full blur-[110px]"
-          style={{ background: "radial-gradient(circle, #C13383 0%, transparent 70%)", opacity: 0.15 }} />
+          style={{ background: "radial-gradient(circle, #C13383 0%, transparent 70%)", opacity: isDark ? 0.15 : 0.1 }} />
         <div className="orb-4 absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full blur-[100px]"
-          style={{ background: "radial-gradient(circle, #E05454 0%, transparent 70%)", opacity: 0.2 }} />
+          style={{ background: "radial-gradient(circle, #E05454 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }} />
       </div>
 
       {/* NAVBAR */}
-      <nav className="fixed top-0 w-full z-50 bg-[#08060f]/80 backdrop-blur-xl"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}>
+      <nav
+        className="fixed top-0 w-full z-50 backdrop-blur-xl transition-colors duration-300"
+        style={{ background: t.navBg, borderBottom: `1px solid ${t.navBorder}` }}
+      >
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
-          <div className="font-black tracking-tight text-lg text-white">
+          <div className="font-black tracking-tight text-lg" style={{ color: isDark ? "#fff" : "#0f0720" }}>
             KARTHIK
             <span className="gradient-text">.</span>
           </div>
 
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase">
               {["Work", "Skills", "Contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="text-slate-500 hover:text-white transition-colors duration-300"
+                  className={`${t.navLinkClass} transition-colors duration-300`}
                 >
                   {item}
                 </a>
               ))}
             </div>
-            <div className="flex items-center gap-4 pl-6" style={{ borderLeft: "1px solid rgba(255,255,255,0.08)" }}>
+
+            {/* Theme toggle */}
+            <button
+              onClick={() => setIsDark(!isDark)}
+              aria-label="Toggle theme"
+              className="p-2 rounded-full transition-all duration-300 hover:scale-110"
+              style={{ background: t.toggleBg, border: `1px solid ${t.toggleBorder}` }}
+            >
+              {isDark
+                ? <Sun className={`w-4 h-4 ${t.toggleIconClass}`} />
+                : <Moon className={`w-4 h-4 ${t.toggleIconClass}`} />}
+            </button>
+
+            <div className="flex items-center gap-4 pl-4" style={{ borderLeft: `1px solid ${t.navIconDivider}` }}>
               <a href="https://github.com/karthikweb123" target="_blank" rel="noopener noreferrer">
-                <GitHubIcon className="w-5 h-5 text-slate-600 hover:text-white transition-colors duration-300" />
+                <GitHubIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
               </a>
               <a href="https://www.linkedin.com/in/karthik-neelarapu-831b3018" target="_blank" rel="noopener noreferrer">
-                <LinkedInIcon className="w-5 h-5 text-slate-600 hover:text-white transition-colors duration-300" />
+                <LinkedInIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
               </a>
             </div>
           </div>
@@ -220,12 +317,12 @@ export default function Home() {
 
         {/* Heading */}
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
-          <span className="text-white block">UI/UX Designer</span>
+          <span className={`${t.heading} block transition-colors duration-300`}>UI/UX Designer</span>
           <span className="gradient-text block">&amp; Full-Stack</span>
-          <span className="text-white block">Developer</span>
+          <span className={`${t.heading} block transition-colors duration-300`}>Developer</span>
         </h1>
 
-        <p className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-16">
+        <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-16 transition-colors duration-300`}>
           Designing modern user experiences and building scalable, high-performance
           websites with deep expertise in frontend engineering, responsive UI systems,
           and full-stack web development.
@@ -234,8 +331,8 @@ export default function Home() {
         {/* Expertise cards */}
         <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto mb-16 text-left">
 
-          <div className="rounded-3xl p-7 relative overflow-hidden"
-            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
+            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}>
             <div className="absolute top-0 left-0 right-0 h-[1px]"
               style={{ background: "linear-gradient(90deg, #E05454, #C13383)" }} />
             <div className="flex items-center gap-3 mb-5">
@@ -243,7 +340,7 @@ export default function Home() {
                 style={{ background: "linear-gradient(135deg, #E05454, #C13383)" }}>
                 <Layout className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-white text-lg font-bold">UI/UX Designer</h3>
+              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>UI/UX Designer</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skillsUX.map((item, i) => (
@@ -259,8 +356,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-3xl p-7 relative overflow-hidden"
-            style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}>
+          <div className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
+            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}>
             <div className="absolute top-0 left-0 right-0 h-[1px]"
               style={{ background: "linear-gradient(90deg, #792CA2, #443199)" }} />
             <div className="flex items-center gap-3 mb-5">
@@ -268,7 +365,7 @@ export default function Home() {
                 style={{ background: "linear-gradient(135deg, #792CA2, #443199)" }}>
                 <Code2 className="w-4 h-4 text-white" />
               </div>
-              <h3 className="text-white text-lg font-bold">Frontend / Full-Stack Developer</h3>
+              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Frontend / Full-Stack Developer</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skillsDev.map((item, i) => (
@@ -298,8 +395,8 @@ export default function Home() {
           </a>
           <a
             href="#work"
-            className="px-10 py-4 rounded-full font-bold text-white text-sm tracking-wide transition-all duration-300 hover:bg-white/10"
-            style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
+            className={`px-10 py-4 rounded-full font-bold ${t.viewBtnText} text-sm tracking-wide transition-all duration-300 ${t.viewBtnHover}`}
+            style={{ background: t.viewBtnBg, border: `1px solid ${t.viewBtnBorder}` }}>
             View Projects
           </a>
         </div>
@@ -307,7 +404,7 @@ export default function Home() {
 
       {/* ── SKILLS ── */}
       <section id="skills" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Core Skills" color="#E05454" />
+        <SectionHeader label="Core Skills" color="#E05454" t={t} />
         <div className="flex flex-wrap gap-3">
           {coreSkills.map((skill, i) => (
             <span
@@ -326,21 +423,21 @@ export default function Home() {
 
       {/* ── PROJECTS ── */}
       <section id="work" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
-        <SectionHeader label="Selected Work" color="#C13383" />
+        <SectionHeader label="Selected Work" color="#C13383" t={t} />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {allProjects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} color={COLORS[i % 4]} />
+            <ProjectCard key={project.name} project={project} index={i} color={COLORS[i % 4]} t={t} />
           ))}
         </div>
       </section>
 
       {/* ── CONTACT ── */}
       <section id="contact" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
-        <div className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center"
+        <div className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center transition-colors duration-300"
           style={{
             background: "linear-gradient(135deg, rgba(224,84,84,0.07) 0%, rgba(193,51,131,0.06) 30%, rgba(121,44,162,0.06) 60%, rgba(68,49,153,0.08) 100%)",
-            border: "1px solid rgba(255,255,255,0.05)",
+            border: `1px solid ${t.contactBorder}`,
           }}>
 
           {/* Corner glows */}
@@ -350,12 +447,12 @@ export default function Home() {
             style={{ background: "#443199", opacity: 0.2 }} />
 
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-8">
-            <span className="text-white">Let&apos;s Build</span>
+            <span className={`${t.heading} transition-colors duration-300`}>Let&apos;s Build</span>
             <br />
             <span className="gradient-text">Something Great</span>
           </h2>
 
-          <p className="text-slate-400 max-w-2xl mx-auto mb-14 text-lg leading-relaxed">
+          <p className={`${t.contactP} max-w-2xl mx-auto mb-14 text-lg leading-relaxed transition-colors duration-300`}>
             Open to frontend development, UI/UX design, full-stack web applications,
             and long-term product collaborations.
           </p>
@@ -367,21 +464,23 @@ export default function Home() {
               color="#E05454"
               label="karthikneelaram@gmail.com"
               sublabel="Email"
+              t={t}
             />
-            <div className="hidden md:block h-16 w-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+            <div className="hidden md:block h-16 w-px" style={{ background: t.contactDivider }} />
             <ContactItem
               href="tel:+919502905237"
               icon={<Phone className="w-6 h-6" style={{ color: "#792CA2" }} />}
               color="#792CA2"
               label="+91 9502905237"
               sublabel="Phone"
+              t={t}
             />
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="relative z-10 text-center text-[10px] font-bold tracking-[0.3em] uppercase text-slate-700 pb-16">
+      <footer className={`relative z-10 text-center text-[10px] font-bold tracking-[0.3em] uppercase ${t.footer} pb-16 transition-colors duration-300`}>
         &copy; {new Date().getFullYear()} Karthik Neelarapu &bull; Portfolio
       </footer>
     </main>
@@ -390,10 +489,10 @@ export default function Home() {
 
 /* ── Sub-components ── */
 
-function SectionHeader({ label, color }: { label: string; color: string }) {
+function SectionHeader({ label, color, t }: { label: string; color: string; t: Theme }) {
   return (
     <div className="flex items-center gap-5 mb-14">
-      <h2 className="text-white text-4xl font-black tracking-tighter uppercase whitespace-nowrap">
+      <h2 className={`${t.sectionHeading} text-4xl font-black tracking-tighter uppercase whitespace-nowrap transition-colors duration-300`}>
         {label}
       </h2>
       <div className="h-px flex-1 rounded-full"
@@ -406,10 +505,12 @@ function ProjectCard({
   project,
   index,
   color,
+  t,
 }: {
   project: (typeof allProjects)[0];
   index: number;
   color: string;
+  t: Theme;
 }) {
   return (
     <a
@@ -418,8 +519,8 @@ function ProjectCard({
       rel="noopener noreferrer"
       className="group block rounded-2xl p-6 relative overflow-hidden transition-all duration-500 hover:-translate-y-1"
       style={{
-        background: "rgba(255,255,255,0.02)",
-        border: "1px solid rgba(255,255,255,0.05)",
+        background: t.projectCardBg,
+        border: `1px solid ${t.projectCardBorder}`,
       }}
     >
       {/* Top accent bar */}
@@ -446,12 +547,12 @@ function ProjectCard({
       </div>
 
       {/* Title */}
-      <h3 className="text-white text-xl font-bold mb-3 transition-transform duration-300 group-hover:translate-x-1">
+      <h3 className={`${t.projectTitle} text-xl font-bold mb-3 transition-all duration-300 group-hover:translate-x-1`}>
         {project.name}
       </h3>
 
       {/* Description */}
-      <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">
+      <p className={`${t.projectDesc} text-sm leading-relaxed mb-6 line-clamp-3 transition-colors duration-300`}>
         {project.desc}
       </p>
 
@@ -472,34 +573,35 @@ function ContactItem({
   color,
   label,
   sublabel,
+  t,
 }: {
   href: string;
   icon: React.ReactNode;
   color: string;
   label: string;
   sublabel: string;
+  t: Theme;
 }) {
   return (
     <a href={href} className="group flex flex-col items-center">
       <div
         className="mb-4 p-5 rounded-2xl transition-all duration-300 group-hover:scale-105"
         style={{
-          background: "rgba(255,255,255,0.04)",
-          border: "1px solid rgba(255,255,255,0.08)",
-          boxShadow: `0 0 0 0 ${color}`,
+          background: t.contactIconBg,
+          border: `1px solid ${t.contactIconBorder}`,
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLDivElement).style.borderColor = `${color}50`;
           (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 20px ${color}25`;
         }}
         onMouseLeave={(e) => {
-          (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.08)";
-          (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 0 0 ${color}`;
+          (e.currentTarget as HTMLDivElement).style.borderColor = t.contactIconBorder;
+          (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
         }}
       >
         {icon}
       </div>
-      <span className="text-white font-medium">{label}</span>
+      <span className={`${t.contactLabel} font-medium transition-colors duration-300`}>{label}</span>
       <span className="text-[10px] tracking-[0.2em] uppercase mt-1" style={{ color: `${color}80` }}>
         {sublabel}
       </span>

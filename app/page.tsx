@@ -9,6 +9,13 @@ import {
   ArrowUpRight,
   Sun,
   Moon,
+  Globe,
+  Zap,
+  Server,
+  Palette,
+  Search,
+  MapPin,
+  Calendar,
 } from "lucide-react";
 
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -85,6 +92,23 @@ const darkTheme = {
   toggleBg: "rgba(255,255,255,0.06)",
   toggleBorder: "rgba(255,255,255,0.12)",
   toggleIconClass: "text-amber-400",
+  statBg: "rgba(255,255,255,0.03)",
+  statBorder: "rgba(255,255,255,0.07)",
+  statLabel: "text-slate-500",
+  expCardBg: "rgba(255,255,255,0.02)",
+  expCardBorder: "rgba(255,255,255,0.06)",
+  expCompany: "text-white",
+  expMeta: "text-slate-500",
+  expBullet: "text-slate-400",
+  skillCatBg: "rgba(255,255,255,0.02)",
+  skillCatBorder: "rgba(255,255,255,0.06)",
+  skillCatLabel: "text-white",
+  aboutBg: "rgba(255,255,255,0.02)",
+  aboutBorder: "rgba(255,255,255,0.06)",
+  aboutText: "text-slate-400",
+  pipeBg: "rgba(255,255,255,0.02)",
+  pipeBorder: "rgba(255,255,255,0.06)",
+  pipeItem: "text-slate-400",
 };
 
 const lightTheme = {
@@ -119,6 +143,23 @@ const lightTheme = {
   toggleBg: "rgba(0,0,0,0.05)",
   toggleBorder: "rgba(0,0,0,0.1)",
   toggleIconClass: "text-slate-600",
+  statBg: "rgba(255,255,255,0.9)",
+  statBorder: "rgba(0,0,0,0.07)",
+  statLabel: "text-slate-500",
+  expCardBg: "rgba(255,255,255,0.9)",
+  expCardBorder: "rgba(0,0,0,0.07)",
+  expCompany: "text-slate-900",
+  expMeta: "text-slate-500",
+  expBullet: "text-slate-600",
+  skillCatBg: "rgba(255,255,255,0.9)",
+  skillCatBorder: "rgba(0,0,0,0.07)",
+  skillCatLabel: "text-slate-900",
+  aboutBg: "rgba(255,255,255,0.9)",
+  aboutBorder: "rgba(0,0,0,0.07)",
+  aboutText: "text-slate-600",
+  pipeBg: "rgba(255,255,255,0.9)",
+  pipeBorder: "rgba(0,0,0,0.07)",
+  pipeItem: "text-slate-600",
 };
 
 type Theme = typeof darkTheme;
@@ -128,25 +169,25 @@ const allProjects = [
     name: "Hathority",
     url: "https://hathority.com/",
     category: "Enterprise & IT",
-    desc: "Scalable enterprise IT solutions platform with performance-first frontend architecture, clean UI systems, and seamless user experience.",
+    desc: "Complete brand identity design + custom WordPress build from scratch. Sole owner of UI/UX and frontend implementation. 90+ PageSpeed, full technical SEO.",
+  },
+  {
+    name: "Dhruvanth Forex",
+    url: "https://dhruvanthforex.com/",
+    category: "Financial Services",
+    desc: "High-conversion lead gen platform for NRI/forex clients. Mobile-first UX, secure interfaces, and real-time data integration. 90+ PageSpeed, full SEO.",
   },
   {
     name: "Xadelit",
     url: "https://xadelit.com/",
     category: "Enterprise & IT",
-    desc: "Digital transformation company website with a robust tech stack, conversion-optimized design, and structured navigation architecture.",
+    desc: "IT services website with a robust tech stack, conversion-optimized design, and structured navigation architecture. WordPress dev & SEO — 90+ PageSpeed.",
   },
   {
     name: "Access Networks",
     url: "https://accessnetworks.com/",
     category: "Enterprise & IT",
     desc: "Professional network solutions provider with enterprise-grade design, structured content strategy, and responsive multi-device layout.",
-  },
-  {
-    name: "Dhruvanth Forex",
-    url: "https://dhruvanthforex.com/",
-    category: "Financial Services",
-    desc: "Forex trading platform designed for trust and clarity, featuring mobile-first UX, secure interfaces, and real-time data integration.",
   },
   {
     name: "Naroda Bank",
@@ -157,8 +198,8 @@ const allProjects = [
   {
     name: "Fly High Logistics",
     url: "https://flyhighlogistics.com/",
-    category: "Global Freight & Logistics Solutions",
-    desc: "Fly High Logistics provides reliable freight forwarding, cargo transportation, supply chain, and global logistics solutions with efficient delivery management and customer-focused services.",
+    category: "Freight & Logistics",
+    desc: "Reliable freight forwarding and global logistics platform with efficient delivery management, cargo tracking, and customer-focused service flows.",
   },
   {
     name: "Creekside International",
@@ -175,7 +216,7 @@ const allProjects = [
   {
     name: "Anisan Ads",
     url: "https://anisanads.com/",
-    category: "Marketing & SaaS",
+    category: "Marketing & Advertising",
     desc: "Performance marketing agency site with bold visual identity, animated hero sections, lead capture forms, and measurable conversion flows.",
   },
   {
@@ -187,8 +228,8 @@ const allProjects = [
   {
     name: "MS Life",
     url: "https://mslife.com/",
-    category: "Best Quality TMT Bars in India",
-    desc: "MS Life Steel manufactures high-quality CRS TMT bars and steel products in India with advanced integrated steel plant technology, superior strength, durability, and reliable construction solutions.",
+    category: "Manufacturing & Steel",
+    desc: "MS Life Steel — high-quality CRS TMT bars and steel products. Advanced integrated steel plant technology with superior strength and durability.",
   },
   {
     name: "AS Enterprises",
@@ -199,8 +240,8 @@ const allProjects = [
   {
     name: "Little Tortos",
     url: "https://littletortos.com/",
-    category: "Kids Sports & Activity Platform",
-    desc: "Little Tortos is a modern platform focused on kids sports, activities, and engagement through interactive experiences, creative learning, and skill development in a fun environment.",
+    category: "Kids Sports & Activity",
+    desc: "Modern platform focused on kids sports and activities — interactive experiences, creative learning, and skill development in a fun environment.",
   },
   {
     name: "SRD Infotek",
@@ -216,22 +257,125 @@ const allProjects = [
   },
 ];
 
-const skillsUX = [
-  "Figma", "Photoshop", "Illustrator", "Canva",
-  "Wireframing", "UI Design", "Landing Pages", "Brand Design", "Prototyping",
+const skillsWordPress = [
+  "Custom Themes", "Gutenberg Blocks", "Plugin Development",
+  "WooCommerce", "REST API", "CMS Architecture", "PHP", "MySQL",
 ];
 
-const skillsDev = [
-  "HTML", "CSS", "JavaScript", "PHP", "WordPress",
-  "React", "Next.js", "Vue.js", "Node.js",
-  "Bootstrap", "Tailwind CSS", "GSAP", "API Integration",
+const skillsFrontend = [
+  "HTML5", "CSS3", "JavaScript", "TypeScript",
+  "React", "Vue.js", "Bootstrap", "Figma", "Technical SEO",
 ];
 
-const coreSkills = [
-  "UI/UX Design", "Frontend Development", "Full-Stack Development",
-  "React", "Next.js", "Vue.js", "Node.js", "JavaScript", "TypeScript",
-  "Tailwind CSS", "Bootstrap", "GSAP", "WordPress", "Shopify",
-  "Figma", "Photoshop", "Illustrator", "Canva",
+const skillCategories = [
+  {
+    label: "Frontend",
+    color: "#E05454",
+    Icon: Code2,
+    skills: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Angular", "Vue.js", "Bootstrap", "Tailwind CSS", "Responsive Design"],
+  },
+  {
+    label: "WordPress",
+    color: "#C13383",
+    Icon: Globe,
+    skills: ["Custom Themes", "Gutenberg Blocks", "Plugin Development", "WooCommerce", "REST API", "CMS Architecture"],
+  },
+  {
+    label: "Backend & API",
+    color: "#792CA2",
+    Icon: Server,
+    skills: ["PHP", "MySQL", "REST APIs", "GraphQL", "Boomi", "NetSuite ERP Integration"],
+  },
+  {
+    label: "Design",
+    color: "#443199",
+    Icon: Palette,
+    skills: ["Figma", "Photoshop", "Canva", "Wireframing", "Prototyping", "Brand Identity", "Marketing Creatives"],
+  },
+  {
+    label: "SEO & Performance",
+    color: "#E05454",
+    Icon: Search,
+    skills: ["Technical SEO", "Schema Markup", "Core Web Vitals", "Open Graph", "Canonical Tags", "CDN", "PageSpeed"],
+  },
+  {
+    label: "DevOps",
+    color: "#C13383",
+    Icon: Zap,
+    skills: ["Git", "GitHub", "XAMPP", "Laragon", "Docker", "Dev → Staging → Production"],
+  },
+];
+
+const experience = [
+  {
+    role: "Senior Web Developer",
+    company: "Hathority LLC",
+    location: "Hyderabad",
+    period: "Feb 2021 – Feb 2026",
+    color: "#E05454",
+    highlights: [
+      "Designed Hathority's complete brand identity — logo, typography, colours — and built the corporate website from scratch as sole UI/UX and frontend owner.",
+      "Led UI/UX design across 15+ client projects — wireframes, Figma prototypes, and pixel-perfect builds focused on conversion and brand consistency.",
+      "Built 7+ custom WordPress themes for enterprise clients in finance, SaaS, and IT — achieving 90+ PageSpeed scores on every delivery.",
+      "Integrated complex web forms via PHP and Boomi into NetSuite ERP workflows, reducing manual data handling for clients.",
+      "Drove technical SEO strategy across all client sites — schema markup, Core Web Vitals, meta optimisation — improving organic rankings.",
+      "Produced marketing creatives, ad banners, and LinkedIn content for 5+ client brands, supporting digital campaign performance.",
+    ],
+  },
+  {
+    role: "Web Designer",
+    company: "Y-Axis Solutions",
+    location: "Hyderabad",
+    period: "Jan 2016 – Sep 2020",
+    color: "#792CA2",
+    highlights: [
+      "Designed and developed 30+ high-converting landing pages (HTML, CSS, Bootstrap) — all scoring 90+ PageSpeed with full technical SEO.",
+      "Built and maintained 20+ custom WordPress websites across immigration, education, and financial services verticals.",
+      "Implemented end-to-end technical SEO: schema markup, canonical tags, Open Graph, and keyword-aligned content — contributing to top-ranking pages for key immigration queries.",
+      "Produced 100+ marketing creatives (banners, display ads, videos) and managed LinkedIn and blog content for a globally operating immigration consultancy.",
+      "Collaborated cross-functionally with content, PPC, and backend teams to deliver cohesive digital experiences.",
+    ],
+  },
+];
+
+const pipelineStages = [
+  {
+    stage: "Development",
+    subtitle: "Local · Active Coding",
+    color: "#443199",
+    items: [
+      "Local setup: XAMPP / Laragon / Docker",
+      "Feature branches per task (Git)",
+      "Environment variables for local config",
+    ],
+  },
+  {
+    stage: "Staging",
+    subtitle: "Client Review & QA",
+    color: "#792CA2",
+    items: [
+      "Mirrors production — client UAT sign-off",
+      "Plugin compatibility & DB migration checks",
+      "Cache clearing & performance validation",
+    ],
+  },
+  {
+    stage: "Production",
+    subtitle: "Live · End Users",
+    color: "#C13383",
+    items: [
+      "Full backup before every deployment",
+      "Cache purged — functionality verified",
+      "Rollback plan in place for critical issues",
+    ],
+  },
+];
+
+const stats = [
+  { value: "9+", label: "Years Experience" },
+  { value: "50+", label: "Websites Delivered" },
+  { value: "90+", label: "PageSpeed Score" },
+  { value: "15+", label: "Enterprise Clients" },
 ];
 
 export default function Home() {
@@ -274,7 +418,7 @@ export default function Home() {
 
           <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase">
-              {["Work", "Skills", "Contact"].map((item) => (
+              {["Work", "Skills", "Experience", "Contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -325,21 +469,35 @@ export default function Home() {
             <span className="relative inline-flex rounded-full h-2 w-2"
               style={{ background: "#E05454" }}></span>
           </span>
-          Available for Full-Time Roles &bull; Freelance Projects
+          Available for Full-Time &bull; Remote &bull; Freelance
         </div>
 
         {/* Heading */}
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
-          <span className={`${t.heading} block transition-colors duration-300`}>UI/UX Designer</span>
-          <span className="gradient-text block">&amp; Full-Stack</span>
-          <span className={`${t.heading} block transition-colors duration-300`}>Developer</span>
+          <span className={`${t.heading} block transition-colors duration-300`}>Senior Web</span>
+          <span className="gradient-text block">Developer</span>
+          <span className={`${t.heading} block transition-colors duration-300`}>&amp; WordPress</span>
         </h1>
 
-        <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-16 transition-colors duration-300`}>
-          Designing modern user experiences and building scalable, high-performance
-          websites with deep expertise in frontend engineering, responsive UI systems,
-          and full-stack web development.
+        <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}>
+          9+ years delivering high-performance websites across finance, SaaS, IT, education, and immigration.
+          Consistently achieves 90+ PageSpeed scores — from Figma wireframes to live production deployments
+          with full technical SEO and ERP integration.
         </p>
+
+        {/* Stats row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16">
+          {stats.map(({ value, label }) => (
+            <div
+              key={label}
+              className="rounded-2xl p-5 transition-colors duration-300"
+              style={{ background: t.statBg, border: `1px solid ${t.statBorder}` }}
+            >
+              <div className="text-3xl md:text-4xl font-black gradient-text leading-none mb-1">{value}</div>
+              <div className={`text-[10px] font-bold tracking-[0.15em] uppercase ${t.statLabel}`}>{label}</div>
+            </div>
+          ))}
+        </div>
 
         {/* Expertise cards */}
         <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto mb-16 text-left">
@@ -347,16 +505,16 @@ export default function Home() {
           <div className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
             style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}>
             <div className="absolute top-0 left-0 right-0 h-[1px]"
-              style={{ background: "linear-gradient(90deg, #E05454, #C13383)" }} />
+              style={{ background: "linear-gradient(90deg, #C13383, #E05454)" }} />
             <div className="flex items-center gap-3 mb-5">
               <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #E05454, #C13383)" }}>
-                <Layout className="w-4 h-4 text-white" />
+                style={{ background: "linear-gradient(135deg, #C13383, #E05454)" }}>
+                <Globe className="w-4 h-4 text-white" />
               </div>
-              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>UI/UX Designer</h3>
+              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>WordPress Specialist</h3>
             </div>
             <div className="flex flex-wrap gap-2">
-              {skillsUX.map((item, i) => (
+              {skillsWordPress.map((item, i) => (
                 <span key={item} className="px-3 py-1.5 text-xs font-semibold rounded-full"
                   style={{
                     background: `${COLORS[i % 4]}12`,
@@ -376,12 +534,12 @@ export default function Home() {
             <div className="flex items-center gap-3 mb-5">
               <div className="w-9 h-9 rounded-xl flex items-center justify-center"
                 style={{ background: "linear-gradient(135deg, #792CA2, #443199)" }}>
-                <Code2 className="w-4 h-4 text-white" />
+                <Layout className="w-4 h-4 text-white" />
               </div>
-              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Frontend / Full-Stack Developer</h3>
+              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Frontend & UI/UX</h3>
             </div>
             <div className="flex flex-wrap gap-2">
-              {skillsDev.map((item, i) => (
+              {skillsFrontend.map((item, i) => (
                 <span key={item} className="px-3 py-1.5 text-xs font-semibold rounded-full"
                   style={{
                     background: `${COLORS[(i + 2) % 4]}12`,
@@ -415,21 +573,128 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── ABOUT ── */}
+      <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="Professional Summary" color="#E05454" t={t} />
+        <div
+          className="rounded-3xl p-10 md:p-14 relative overflow-hidden transition-colors duration-300"
+          style={{ background: t.aboutBg, border: `1px solid ${t.aboutBorder}` }}
+        >
+          <div className="absolute top-0 left-0 right-0 h-[1px]"
+            style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
+          <p className={`${t.aboutText} text-base md:text-lg leading-relaxed mb-8 transition-colors duration-300`}>
+            Senior Web Developer with <strong className="gradient-text font-bold">9+ years of experience</strong> delivering{" "}
+            <strong className="gradient-text font-bold">50+ websites</strong> across finance, SaaS, IT, education, and immigration verticals.
+            Consistently achieves <strong className="gradient-text font-bold">90+ PageSpeed scores</strong>, builds brand identities from scratch,
+            and leads end-to-end delivery — from Figma wireframes to live production deployments with full technical SEO and ERP integration.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {["End-to-End Ownership", "Design-to-Dev", "Brand Identity", "ERP Integration", "Technical SEO", "Full-Time · Remote · Freelance"].map((tag, i) => (
+              <span
+                key={tag}
+                className="px-4 py-2 text-[11px] font-bold tracking-widest uppercase rounded-full"
+                style={{
+                  background: `${COLORS[i % 4]}10`,
+                  border: `1px solid ${COLORS[i % 4]}28`,
+                  color: COLORS[i % 4],
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── SKILLS ── */}
       <section id="skills" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Core Skills" color="#E05454" t={t} />
-        <div className="flex flex-wrap gap-3">
-          {coreSkills.map((skill, i) => (
-            <span
-              key={skill}
-              className="px-5 py-3 text-[11px] font-bold tracking-widest uppercase rounded-full cursor-default transition-all duration-300 hover:scale-105"
-              style={{
-                background: `${COLORS[i % 4]}10`,
-                border: `1px solid ${COLORS[i % 4]}28`,
-                color: COLORS[i % 4],
-              }}>
-              {skill}
-            </span>
+        <SectionHeader label="Technical Skills" color="#C13383" t={t} />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {skillCategories.map(({ label, color, Icon, skills }) => (
+            <div
+              key={label}
+              className="rounded-2xl p-7 relative overflow-hidden transition-colors duration-300"
+              style={{ background: t.skillCatBg, border: `1px solid ${t.skillCatBorder}` }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ background: `${color}18`, border: `1px solid ${color}30` }}>
+                  <Icon className="w-4 h-4" style={{ color }} />
+                </div>
+                <h3 className={`${t.skillCatLabel} font-bold text-sm tracking-wide transition-colors duration-300`}>{label}</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill, i) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1.5 text-[11px] font-semibold rounded-full transition-all duration-200 hover:scale-105 cursor-default"
+                    style={{
+                      background: `${color}10`,
+                      border: `1px solid ${color}25`,
+                      color,
+                    }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── EXPERIENCE ── */}
+      <section id="experience" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="Experience" color="#792CA2" t={t} />
+        <div className="space-y-8">
+          {experience.map((job, idx) => (
+            <div
+              key={job.company}
+              className="rounded-2xl p-8 md:p-10 relative overflow-hidden transition-colors duration-300"
+              style={{ background: t.expCardBg, border: `1px solid ${t.expCardBorder}` }}
+            >
+              <div className="absolute top-0 left-0 bottom-0 w-[3px] rounded-l-2xl" style={{ background: job.color }} />
+              <div className="pl-2">
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-7">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <span
+                        className="px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-full"
+                        style={{ background: `${job.color}15`, color: job.color }}>
+                        {idx === 0 ? "Most Recent" : "Previous Role"}
+                      </span>
+                    </div>
+                    <h3 className={`${t.expCompany} text-2xl font-black tracking-tight mt-2 transition-colors duration-300`}>
+                      {job.role}
+                    </h3>
+                    <div className="flex items-center gap-4 mt-1.5">
+                      <span className="font-bold text-base" style={{ color: job.color }}>{job.company}</span>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5 md:text-right shrink-0">
+                    <div className={`flex items-center gap-1.5 ${t.expMeta} text-[12px] font-medium md:justify-end transition-colors duration-300`}>
+                      <Calendar className="w-3.5 h-3.5" />
+                      {job.period}
+                    </div>
+                    <div className={`flex items-center gap-1.5 ${t.expMeta} text-[12px] font-medium md:justify-end transition-colors duration-300`}>
+                      <MapPin className="w-3.5 h-3.5" />
+                      {job.location}
+                    </div>
+                  </div>
+                </div>
+                {/* Bullets */}
+                <ul className="space-y-3">
+                  {job.highlights.map((point) => (
+                    <li key={point} className={`flex gap-3 text-[13px] leading-relaxed ${t.expBullet} transition-colors duration-300`}>
+                      <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full" style={{ background: job.color }} />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ))}
         </div>
       </section>
@@ -440,16 +705,19 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-8">
           <div className="rounded-2xl p-8 transition-colors duration-300"
             style={{ background: `rgba(193,51,131,0.05)`, border: `1px solid rgba(193,51,131,0.15)` }}>
-            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom CMS</h3>
+            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Themes & CMS</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
-              Building tailored WordPress installations with fully custom content management systems — no page-builder lock-in. Every content type, taxonomy, and admin UI is crafted to match the client&apos;s exact editorial workflow.
+              Building tailored WordPress installations with fully custom themes and content management systems — no page-builder lock-in.
+              Every content type, taxonomy, and admin UI crafted to match the client&apos;s exact editorial workflow.
+              7+ enterprise-grade custom themes delivered with 90+ PageSpeed on every build.
             </p>
           </div>
           <div className="rounded-2xl p-8 transition-colors duration-300"
             style={{ background: `rgba(193,51,131,0.05)`, border: `1px solid rgba(193,51,131,0.15)` }}>
-            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Designs</h3>
+            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>ERP & Plugin Integration</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
-              Pixel-perfect theme development from scratch — no pre-made templates. Full-fidelity Figma-to-WordPress builds with responsive layouts, custom Gutenberg blocks, and performance-optimised markup.
+              Pixel-perfect Figma-to-WordPress builds with responsive layouts and custom Gutenberg blocks. Complex web form integration
+              via PHP and Boomi into NetSuite ERP workflows — reducing manual data handling and streamlining operations for enterprise clients.
             </p>
           </div>
         </div>
@@ -463,16 +731,59 @@ export default function Home() {
             style={{ background: `rgba(121,40,162,0.05)`, border: `1px solid rgba(121,40,162,0.15)` }}>
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Component-Driven UIs</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
-              Crafting reusable, accessible React component libraries with clean prop APIs. From design-system foundations to fully interactive dashboards — built for maintainability and scale.
+              Crafting reusable, accessible React component libraries with clean prop APIs. From design-system foundations to fully
+              interactive dashboards — built for maintainability and scale.
             </p>
           </div>
           <div className="rounded-2xl p-8 transition-colors duration-300"
             style={{ background: `rgba(121,40,162,0.05)`, border: `1px solid rgba(121,40,162,0.15)` }}>
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Next.js Applications</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
-              Full-stack Next.js apps with server components, dynamic routing, and optimised data-fetching strategies. Deployed to Vercel with edge caching, image optimisation, and Core Web Vitals in mind.
+              Full-stack Next.js apps with server components, dynamic routing, and optimised data-fetching strategies.
+              Deployed to Vercel with edge caching, image optimisation, and Core Web Vitals in mind.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* ── DEPLOYMENT PIPELINE ── */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="Deployment Pipeline" color="#443199" t={t} />
+        <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
+          Structured Dev → Staging → Production workflow maintained across all projects with version control,
+          pre-deployment backups, and post-release verification.
+        </p>
+        <div className="grid md:grid-cols-3 gap-6">
+          {pipelineStages.map((stage, i) => (
+            <div
+              key={stage.stage}
+              className="rounded-2xl p-8 relative overflow-hidden transition-colors duration-300"
+              style={{ background: t.pipeBg, border: `1px solid ${t.pipeBorder}` }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: stage.color }} />
+              <div className="flex items-center gap-3 mb-2">
+                <span
+                  className="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 rounded-full"
+                  style={{ background: `${stage.color}15`, color: stage.color }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <h3 className="text-xl font-black mb-1 transition-colors duration-300" style={{ color: stage.color }}>
+                {stage.stage}
+              </h3>
+              <p className={`text-[11px] font-bold tracking-widest uppercase mb-5 ${t.expMeta} transition-colors duration-300`}>
+                {stage.subtitle}
+              </p>
+              <ul className="space-y-3">
+                {stage.items.map((item) => (
+                  <li key={item} className={`flex gap-2.5 text-[12px] leading-relaxed ${t.pipeItem} transition-colors duration-300`}>
+                    <span className="mt-1.5 shrink-0 w-1 h-1 rounded-full" style={{ background: stage.color }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -508,8 +819,8 @@ export default function Home() {
           </h2>
 
           <p className={`${t.contactP} max-w-2xl mx-auto mb-14 text-lg leading-relaxed transition-colors duration-300`}>
-            Open to frontend development, UI/UX design, full-stack web applications,
-            and long-term product collaborations.
+            Open to WordPress development, frontend engineering, UI/UX design, full-stack web applications,
+            and long-term product collaborations. Full-time, remote, or freelance.
           </p>
 
           <div className="flex flex-col md:flex-row justify-center items-center gap-12">
@@ -545,7 +856,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className={`relative z-10 text-center text-[10px] font-bold tracking-[0.3em] uppercase ${t.footer} pb-16 transition-colors duration-300`}>
-        &copy; {new Date().getFullYear()} Karthik Neelarapu &bull; Portfolio
+        &copy; {new Date().getFullYear()} Karthik Neelarapu &bull; Senior Web Developer &bull; Hyderabad, India
       </footer>
     </main>
   );

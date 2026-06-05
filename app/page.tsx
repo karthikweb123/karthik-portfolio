@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Code2,
   Layout,
@@ -16,6 +16,8 @@ import {
   Search,
   MapPin,
   Calendar,
+  Award,
+  Quote,
 } from "lucide-react";
 
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -390,6 +392,78 @@ const stats = [
   { value: "15+", label: "Enterprise Clients" },
 ];
 
+const certifications = [
+  {
+    name: "Google Analytics 4",
+    credential: "Google Analytics Individual Qualification",
+    issuer: "Google",
+    year: "2024",
+    color: "#E05454",
+  },
+  {
+    name: "Yoast SEO Specialist",
+    credential: "WordPress SEO Certification",
+    issuer: "Yoast Academy",
+    year: "2023",
+    color: "#C13383",
+  },
+  {
+    name: "HubSpot Content Marketing",
+    credential: "Content Marketing Certification",
+    issuer: "HubSpot Academy",
+    year: "2023",
+    color: "#792CA2",
+  },
+  {
+    name: "Responsive Web Design",
+    credential: "freeCodeCamp Certification",
+    issuer: "freeCodeCamp",
+    year: "2022",
+    color: "#443199",
+  },
+  {
+    name: "JavaScript Algorithms",
+    credential: "JS Algorithms & Data Structures",
+    issuer: "freeCodeCamp",
+    year: "2023",
+    color: "#E05454",
+  },
+  {
+    name: "WordPress Developer",
+    credential: "WordPress Essential Training",
+    issuer: "LinkedIn Learning",
+    year: "2022",
+    color: "#C13383",
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Karthik built our entire corporate identity from scratch, including the logo, typography, colour system, and website. He developed a fully custom WordPress theme tailored to our business needs, allowing non-technical team members to easily manage blogs, career openings, pages, and navigation menus without developer assistance. The attention to detail, performance optimisation, and overall quality of delivery were exceptional, with PageSpeed scores consistently exceeding 90 without compromising design or functionality.",
+    author: "",
+    role: "Hathority LLC",
+    initials: "RM",
+    color: "#E05454",
+  },
+  {
+    quote:
+      "Karthik quickly understood our financial services business and built a professional, conversion-focused WordPress platform tailored to our target audience. Beyond development, he implemented a strong technical SEO foundation and continues to optimise the website for improved search visibility. His ongoing work has helped us gain rankings for important local search terms such as 'forex in Madhapur' and 'currency exchange in Madhapur', while positioning the website for sustained organic growth and future business opportunities.",
+    author: "",
+    role: "Dhruvanth Forex",
+    initials: "PS",
+    color: "#C13383",
+  },
+  {
+    quote:
+      "Karthik developed and continues to maintain our corporate website with exceptional attention to detail. The platform was built using a custom HTML, CSS, JavaScript, and PHP stack, delivering excellent performance, flexibility, and long-term maintainability. Over the past four years, he has consistently handled updates, enhancements, technical SEO, and ongoing improvements with professionalism and reliability.",
+    author: "",
+    role: "Xadelit",
+    initials: "SR",
+    color: "#792CA2",
+  },
+];
+
 // ── Dev Insights data ──────────────────────────────────────────────────────────
 
 type TipItem = {
@@ -419,7 +493,7 @@ const devTips: TipItem[] = [
       <>
         WP Rocket & Perfmatters automate most Core Web Vitals fixes — but knowing{" "}
         <C color="#C13383">fetchpriority</C>, <C color="#C13383">width/height</C> attributes, and
-        long-task budgets shows real depth to interviewers.
+        long-task budgets matters on every high-performance build.
       </>
     ),
   },
@@ -527,8 +601,8 @@ const devTips: TipItem[] = [
       <>
         Server Components have no <C color="#443199">useState</C> /{" "}
         <C color="#443199">useEffect</C>. Client Components need the{" "}
-        <C color="#443199">&quot;use client&quot;</C> directive. This boundary is the #1 App
-        Router interview topic in 2026.
+        <C color="#443199">&quot;use client&quot;</C> directive. Getting this boundary right is the
+        #1 App Router architectural decision in every project.
       </>
     ),
   },
@@ -618,6 +692,125 @@ const devTips: TipItem[] = [
 
 const insightCategories = ["All", "WordPress", "Next.js", "React", "JavaScript", "CSS", "SEO"];
 
+// ── Scroll reveal hook ─────────────────────────────────────────────────────────
+
+function useScrollReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in-view");
+            io.unobserve(e.target);
+          }
+        }),
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
+// ── Particle canvas ────────────────────────────────────────────────────────────
+
+function ParticleCanvas({ isDark }: { isDark: boolean }) {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const raf = useRef<number>(0);
+
+  useEffect(() => {
+    const canvas = ref.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    const PAL = ["#E05454", "#C13383", "#792CA2", "#443199"];
+    const count = W < 768 ? 30 : 65;
+    const pts = Array.from({ length: count }, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.6 + 0.7,
+      c: PAL[Math.floor(Math.random() * 4)],
+    }));
+
+    const lineA = isDark ? 0.14 : 0.06;
+
+    function tick() {
+      ctx!.clearRect(0, 0, W, H);
+
+      for (let i = 0; i < pts.length; i++) {
+        for (let j = i + 1; j < pts.length; j++) {
+          const dx = pts[i].x - pts[j].x;
+          const dy = pts[i].y - pts[j].y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 160) {
+            ctx!.beginPath();
+            ctx!.strokeStyle = `rgba(168,100,210,${lineA * (1 - d / 160)})`;
+            ctx!.lineWidth = 0.5;
+            ctx!.moveTo(pts[i].x, pts[i].y);
+            ctx!.lineTo(pts[j].x, pts[j].y);
+            ctx!.stroke();
+          }
+        }
+      }
+
+      pts.forEach((p) => {
+        ctx!.beginPath();
+        ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx!.fillStyle = `${p.c}${isDark ? "bb" : "55"}`;
+        ctx!.fill();
+        p.x = (p.x + p.vx + W) % W;
+        p.y = (p.y + p.vy + H) % H;
+      });
+
+      raf.current = requestAnimationFrame(tick);
+    }
+    tick();
+
+    const onResize = () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      cancelAnimationFrame(raf.current);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [isDark]);
+
+  return (
+    <canvas
+      ref={ref}
+      className="fixed inset-0 pointer-events-none"
+      style={{ zIndex: 1 }}
+    />
+  );
+}
+
+// ── Scroll progress bar ────────────────────────────────────────────────────────
+
+function ScrollProgress() {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const el = document.documentElement;
+      const max = el.scrollHeight - el.clientHeight;
+      setPct(max > 0 ? (el.scrollTop / max) * 100 : 0);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return <div className="scroll-bar" style={{ width: `${pct}%` }} />;
+}
+
 // ── Main Component ─────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -628,7 +821,11 @@ export default function Home() {
     document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
   }, [isDark]);
 
+  useScrollReveal();
+
   return (
+    <>
+    <ScrollProgress />
     <main
       className={`min-h-screen ${t.mainText} overflow-x-hidden transition-colors duration-300`}
       style={{ background: t.mainBg }}
@@ -653,6 +850,8 @@ export default function Home() {
         />
       </div>
 
+      <ParticleCanvas isDark={isDark} />
+
       {/* NAVBAR */}
       <nav
         className="fixed top-0 w-full z-50 backdrop-blur-xl transition-colors duration-300"
@@ -665,7 +864,7 @@ export default function Home() {
 
           <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase">
-              {["Work", "Skills", "Experience", "Insights", "Contact"].map((item) => (
+              {["About", "Work", "Skills", "Experience", "Testimonials", "Contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -726,11 +925,11 @@ export default function Home() {
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16">
-          {stats.map(({ value, label }) => (
+          {stats.map(({ value, label }, i) => (
             <div
               key={label}
-              className="rounded-2xl p-5 transition-colors duration-300"
-              style={{ background: t.statBg, border: `1px solid ${t.statBorder}` }}
+              className="rounded-2xl p-5 reveal transition-colors duration-300"
+              style={{ background: t.statBg, border: `1px solid ${t.statBorder}`, animationDelay: `${i * 90}ms` }}
             >
               <div className="text-3xl md:text-4xl font-black gradient-text leading-none mb-1">{value}</div>
               <div className={`text-[10px] font-bold tracking-[0.15em] uppercase ${t.statLabel}`}>{label}</div>
@@ -741,8 +940,8 @@ export default function Home() {
         {/* Expertise cards */}
         <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto mb-16 text-left">
           <div
-            className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
-            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}
+            className="rounded-3xl p-7 relative overflow-hidden reveal transition-colors duration-300"
+            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: "0ms" }}
           >
             <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #C13383, #E05454)" }} />
             <div className="flex items-center gap-3 mb-5">
@@ -765,8 +964,8 @@ export default function Home() {
           </div>
 
           <div
-            className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
-            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}
+            className="rounded-3xl p-7 relative overflow-hidden reveal transition-colors duration-300"
+            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: "130ms" }}
           >
             <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #792CA2, #443199)" }} />
             <div className="flex items-center gap-3 mb-5">
@@ -810,28 +1009,64 @@ export default function Home() {
 
       {/* ── ABOUT ── */}
       <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Professional Summary" color="#E05454" t={t} />
-        <div
-          className="rounded-3xl p-10 md:p-14 relative overflow-hidden transition-colors duration-300"
-          style={{ background: t.aboutBg, border: `1px solid ${t.aboutBorder}` }}
-        >
-          <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
-          <p className={`${t.aboutText} text-base md:text-lg leading-relaxed mb-8 transition-colors duration-300`}>
-            Senior Web Developer with <strong className="gradient-text font-bold">10+ years of experience</strong> delivering{" "}
-            <strong className="gradient-text font-bold">50+ websites</strong> across finance, SaaS, IT, education, and immigration verticals.
-            Consistently achieves <strong className="gradient-text font-bold">90+ PageSpeed scores</strong>, builds brand identities from scratch,
-            and leads end-to-end delivery — from Figma wireframes to live production deployments with full technical SEO and ERP integration.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {["End-to-End Ownership", "Design-to-Dev", "Brand Identity", "ERP Integration", "Technical SEO", "Full-Time · Remote · Freelance"].map((tag, i) => (
-              <span
-                key={tag}
-                className="px-4 py-2 text-[11px] font-bold tracking-widest uppercase rounded-full"
-                style={{ background: `${COLORS[i % 4]}10`, border: `1px solid ${COLORS[i % 4]}28`, color: COLORS[i % 4] }}
-              >
-                {tag}
-              </span>
-            ))}
+        <SectionHeader label="About Me" color="#E05454" t={t} />
+        <div className="grid md:grid-cols-[auto_1fr] gap-10 items-start">
+
+          {/* Avatar + quick facts */}
+          <div className="reveal flex flex-col items-center md:items-start gap-5">
+            <div
+              className="w-44 h-44 rounded-3xl flex items-center justify-center text-5xl font-black text-white shrink-0 select-none"
+              style={{ background: "linear-gradient(135deg, #E05454 0%, #C13383 35%, #792CA2 70%, #443199 100%)" }}
+            >
+              KN
+            </div>
+            <div className="space-y-2.5">
+              <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
+                <MapPin className="w-3.5 h-3.5 shrink-0" />
+                Hyderabad, India
+              </div>
+              <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
+                <Calendar className="w-3.5 h-3.5 shrink-0" />
+                10+ Years in Web Dev
+              </div>
+              <div className="flex items-center gap-2 text-[12px] font-medium" style={{ color: "#22c55e" }}>
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#22c55e" }} />
+                  <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#22c55e" }} />
+                </span>
+                Open to work
+              </div>
+            </div>
+          </div>
+
+          {/* Bio card */}
+          <div
+            className="rounded-3xl p-8 md:p-12 relative overflow-hidden reveal transition-colors duration-300"
+            style={{ background: t.aboutBg, border: `1px solid ${t.aboutBorder}`, animationDelay: "150ms" }}
+          >
+            <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
+            <p className={`${t.aboutText} text-base leading-relaxed mb-5 transition-colors duration-300`}>
+              I&apos;m Karthik — a Senior Web Developer based in Hyderabad with over a decade of building websites that
+              actually perform. What started as a passion for clean markup has grown into full end-to-end ownership of
+              digital products: from the first Figma frame to a live, search-ranking, enterprise-grade site.
+            </p>
+            <p className={`${t.aboutText} text-base leading-relaxed mb-8 transition-colors duration-300`}>
+              I&apos;ve shipped <strong className="gradient-text font-bold">50+ websites</strong> across finance, SaaS, IT,
+              education, and immigration — consistently hitting{" "}
+              <strong className="gradient-text font-bold">90+ PageSpeed scores</strong> and handling everything from
+              custom WordPress themes and ERP integrations to React component libraries and full technical SEO.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {["End-to-End Ownership", "Design-to-Dev", "Brand Identity", "ERP Integration", "Technical SEO", "Full-Time · Remote · Freelance"].map((tag, i) => (
+                <span
+                  key={tag}
+                  className="px-4 py-2 text-[11px] font-bold tracking-widest uppercase rounded-full"
+                  style={{ background: `${COLORS[i % 4]}10`, border: `1px solid ${COLORS[i % 4]}28`, color: COLORS[i % 4] }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -840,11 +1075,11 @@ export default function Home() {
       <section id="skills" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
         <SectionHeader label="Technical Skills" color="#C13383" t={t} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {skillCategories.map(({ label, color, Icon, skills }) => (
+          {skillCategories.map(({ label, color, Icon, skills }, i) => (
             <div
               key={label}
-              className="rounded-2xl p-7 relative overflow-hidden transition-colors duration-300"
-              style={{ background: t.skillCatBg, border: `1px solid ${t.skillCatBorder}` }}
+              className="rounded-2xl p-7 relative overflow-hidden reveal transition-colors duration-300"
+              style={{ background: t.skillCatBg, border: `1px solid ${t.skillCatBorder}`, animationDelay: `${i * 80}ms` }}
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
               <div className="flex items-center gap-3 mb-5">
@@ -874,13 +1109,13 @@ export default function Home() {
 
       {/* ── EXPERIENCE ── */}
       <section id="experience" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Experience" color="#792CA2" t={t} />
+        <SectionHeader label="Corporate / IT / Development Team Experience" color="#792CA2" t={t} />
         <div className="space-y-8">
           {experience.map((job, idx) => (
             <div
               key={job.company}
-              className="rounded-2xl p-8 md:p-10 relative overflow-hidden transition-colors duration-300"
-              style={{ background: t.expCardBg, border: `1px solid ${t.expCardBorder}` }}
+              className="rounded-2xl p-8 md:p-10 relative overflow-hidden reveal transition-colors duration-300"
+              style={{ background: t.expCardBg, border: `1px solid ${t.expCardBorder}`, animationDelay: `${idx * 150}ms` }}
             >
               <div className="absolute top-0 left-0 bottom-0 w-[3px] rounded-l-2xl" style={{ background: job.color }} />
               <div className="pl-2">
@@ -926,13 +1161,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── CERTIFICATIONS ── */}
+      <section id="certifications" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="Certifications" color="#E05454" t={t} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {certifications.map((cert, i) => (
+            <div
+              key={cert.name}
+              className="rounded-2xl p-6 relative overflow-hidden reveal transition-colors duration-300"
+              style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: `${i * 80}ms` }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: cert.color }} />
+              <div className="flex items-start gap-4">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                  style={{ background: `${cert.color}15`, border: `1px solid ${cert.color}30` }}
+                >
+                  <Award className="w-5 h-5" style={{ color: cert.color }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className={`${t.cardHeading} font-bold text-sm mb-1 transition-colors duration-300`}>{cert.name}</h3>
+                  <p className={`${t.subText} text-[12px] mb-2 leading-snug transition-colors duration-300`}>{cert.credential}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold" style={{ color: cert.color }}>{cert.issuer}</span>
+                    <span className={`text-[10px] font-bold tracking-widest uppercase ${t.expMeta} transition-colors duration-300`}>{cert.year}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── WORDPRESS ── */}
       <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
         <SectionHeader label="Custom WordPress Development" color="#C13383" t={t} />
         <div className="grid md:grid-cols-2 gap-8">
           <div
-            className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)" }}
+            className="rounded-2xl p-8 reveal transition-colors duration-300"
+            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)", animationDelay: "0ms" }}
           >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Themes & CMS</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
@@ -942,8 +1209,8 @@ export default function Home() {
             </p>
           </div>
           <div
-            className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)" }}
+            className="rounded-2xl p-8 reveal transition-colors duration-300"
+            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)", animationDelay: "130ms" }}
           >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>ERP & Plugin Integration</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
@@ -959,8 +1226,8 @@ export default function Home() {
         <SectionHeader label="React / Next.js UI Development" color="#7928A2" t={t} />
         <div className="grid md:grid-cols-2 gap-8">
           <div
-            className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)" }}
+            className="rounded-2xl p-8 reveal transition-colors duration-300"
+            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)", animationDelay: "0ms" }}
           >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Component-Driven UIs</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
@@ -969,8 +1236,8 @@ export default function Home() {
             </p>
           </div>
           <div
-            className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)" }}
+            className="rounded-2xl p-8 reveal transition-colors duration-300"
+            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)", animationDelay: "130ms" }}
           >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Next.js Applications</h3>
             <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
@@ -992,8 +1259,8 @@ export default function Home() {
           {pipelineStages.map((stage, i) => (
             <div
               key={stage.stage}
-              className="rounded-2xl p-8 relative overflow-hidden transition-colors duration-300"
-              style={{ background: t.pipeBg, border: `1px solid ${t.pipeBorder}` }}
+              className="rounded-2xl p-8 relative overflow-hidden reveal transition-colors duration-300"
+              style={{ background: t.pipeBg, border: `1px solid ${t.pipeBorder}`, animationDelay: `${i * 100}ms` }}
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: stage.color }} />
               <div className="flex items-center gap-3 mb-2">
@@ -1027,7 +1294,7 @@ export default function Home() {
       <section id="insights" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
         <SectionHeader label="Dev Insights" color="#E05454" t={t} />
         <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
-          Hard-won patterns across WordPress, React, Next.js, and the open web — the kind of depth that stands out in technical interviews.
+          Battle-tested patterns from 10+ years of production delivery — across WordPress, React, Next.js, and the modern web.
         </p>
         <DevInsights t={t} isDark={isDark} />
       </section>
@@ -1042,10 +1309,42 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── TESTIMONIALS ── */}
+      <section id="testimonials" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="Testimonials" color="#C13383" t={t} />
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((tl, i) => (
+            <div
+              key={i}
+              className="rounded-2xl p-7 relative overflow-hidden reveal transition-colors duration-300 flex flex-col"
+              style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: `${i * 120}ms` }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: tl.color }} />
+              <Quote className="w-7 h-7 mb-4 shrink-0" style={{ color: tl.color, opacity: 0.4 }} />
+              <p className={`${t.aboutText} text-[13px] leading-relaxed mb-6 flex-1 transition-colors duration-300`}>
+                &ldquo;{tl.quote}&rdquo;
+              </p>
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black text-white shrink-0"
+                  style={{ background: `linear-gradient(135deg, ${tl.color}, ${COLORS[(i + 1) % 4]})` }}
+                >
+                  {tl.initials}
+                </div>
+                <div>
+                  <div className={`${t.cardHeading} font-bold text-sm transition-colors duration-300`}>{tl.author}</div>
+                  <div className={`${t.subText} text-[11px] transition-colors duration-300`}>{tl.role}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ── CONTACT ── */}
       <section id="contact" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
         <div
-          className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center transition-colors duration-300"
+          className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center reveal transition-colors duration-300"
           style={{
             background: "linear-gradient(135deg, rgba(224,84,84,0.07) 0%, rgba(193,51,131,0.06) 30%, rgba(121,44,162,0.06) 60%, rgba(68,49,153,0.08) 100%)",
             border: `1px solid ${t.contactBorder}`,
@@ -1101,6 +1400,7 @@ export default function Home() {
         &copy; {new Date().getFullYear()} Karthik Neelarapu &bull; Senior Web Developer &bull; Hyderabad, India
       </footer>
     </main>
+    </>
   );
 }
 
@@ -1132,43 +1432,45 @@ function ProjectCard({
   t: Theme;
 }) {
   return (
-    <a
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block rounded-2xl p-6 relative overflow-hidden transition-all duration-500 hover:-translate-y-1"
-      style={{ background: t.projectCardBg, border: `1px solid ${t.projectCardBorder}` }}
-    >
-      <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-        style={{ background: `radial-gradient(ellipse at 50% -20%, ${color}18 0%, transparent 65%)` }}
-      />
-      <div className="flex items-start justify-between mb-4">
-        <span
-          className="px-2.5 py-1 text-[9px] font-black tracking-widest uppercase rounded-full"
-          style={{ background: `${color}15`, color }}
-        >
-          {project.category}
-        </span>
-        <span className="text-[11px] font-mono tabular-nums" style={{ color: `${color}60` }}>
-          {String(index + 1).padStart(2, "0")}
-        </span>
-      </div>
-      <h3 className={`${t.projectTitle} text-xl font-bold mb-3 transition-all duration-300 group-hover:translate-x-1`}>
-        {project.name}
-      </h3>
-      <p className={`${t.projectDesc} text-sm leading-relaxed mb-6 line-clamp-3 transition-colors duration-300`}>
-        {project.desc}
-      </p>
-      <div
-        className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest transition-all duration-300"
-        style={{ color }}
+    <div className="reveal" style={{ animationDelay: `${index * 55}ms` }}>
+      <a
+        href={project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group block rounded-2xl p-6 relative overflow-hidden transition-all duration-500 hover:-translate-y-1"
+        style={{ background: t.projectCardBg, border: `1px solid ${t.projectCardBorder}` }}
       >
-        Visit Site
-        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-      </div>
-    </a>
+        <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+          style={{ background: `radial-gradient(ellipse at 50% -20%, ${color}18 0%, transparent 65%)` }}
+        />
+        <div className="flex items-start justify-between mb-4">
+          <span
+            className="px-2.5 py-1 text-[9px] font-black tracking-widest uppercase rounded-full"
+            style={{ background: `${color}15`, color }}
+          >
+            {project.category}
+          </span>
+          <span className="text-[11px] font-mono tabular-nums" style={{ color: `${color}60` }}>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+        <h3 className={`${t.projectTitle} text-xl font-bold mb-3 transition-all duration-300 group-hover:translate-x-1`}>
+          {project.name}
+        </h3>
+        <p className={`${t.projectDesc} text-sm leading-relaxed mb-6 line-clamp-3 transition-colors duration-300`}>
+          {project.desc}
+        </p>
+        <div
+          className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest transition-all duration-300"
+          style={{ color }}
+        >
+          Visit Site
+          <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </div>
+      </a>
+    </div>
   );
 }
 
@@ -1254,43 +1556,44 @@ function DevInsights({ t, isDark }: { t: Theme; isDark: boolean }) {
         {filtered.map((tip, i) => {
           const IconComp = tip.icon;
           return (
-            <div
-              key={i}
-              className="rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
-              style={{ background: t.insightCardBg, border: `1px solid ${t.insightCardBorder}` }}
-            >
-              {/* Top accent bar */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: tip.color }} />
-
-              {/* Subtle hover glow */}
+            <div key={i} className="reveal" style={{ animationDelay: `${i * 60}ms` }}>
               <div
-                className="absolute inset-0 pointer-events-none rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500"
-                style={{ background: `radial-gradient(ellipse at 50% 0%, ${tip.color}10 0%, transparent 70%)` }}
-              />
-
-              {/* Icon + badge */}
-              <div className="flex items-center gap-2 mb-4">
-                <div
-                  className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ background: `${tip.color}15`, border: `1px solid ${tip.color}25` }}
-                >
-                  <IconComp className="w-3.5 h-3.5" style={{ color: tip.color }} />
-                </div>
-                <span
-                  className="text-[9px] font-black tracking-[0.2em] uppercase px-2.5 py-1 rounded-full"
-                  style={{ background: `${tip.color}12`, color: tip.color }}
-                >
-                  {tip.cat}
-                </span>
-              </div>
-
-              {/* Tip text */}
-              <p
-                className="text-[13px] leading-relaxed transition-colors duration-300"
-                style={{ color: t.insightText }}
+                className="rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5 h-full"
+                style={{ background: t.insightCardBg, border: `1px solid ${t.insightCardBorder}` }}
               >
-                {tip.text}
-              </p>
+                {/* Top accent bar */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: tip.color }} />
+
+                {/* Subtle hover glow */}
+                <div
+                  className="absolute inset-0 pointer-events-none rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500"
+                  style={{ background: `radial-gradient(ellipse at 50% 0%, ${tip.color}10 0%, transparent 70%)` }}
+                />
+
+                {/* Icon + badge */}
+                <div className="flex items-center gap-2 mb-4">
+                  <div
+                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                    style={{ background: `${tip.color}15`, border: `1px solid ${tip.color}25` }}
+                  >
+                    <IconComp className="w-3.5 h-3.5" style={{ color: tip.color }} />
+                  </div>
+                  <span
+                    className="text-[9px] font-black tracking-[0.2em] uppercase px-2.5 py-1 rounded-full"
+                    style={{ background: `${tip.color}12`, color: tip.color }}
+                  >
+                    {tip.cat}
+                  </span>
+                </div>
+
+                {/* Tip text */}
+                <p
+                  className="text-[13px] leading-relaxed transition-colors duration-300"
+                  style={{ color: t.insightText }}
+                >
+                  {tip.text}
+                </p>
+              </div>
             </div>
           );
         })}

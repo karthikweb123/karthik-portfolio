@@ -65,3 +65,27 @@ html[data-theme="light"] ::-webkit-scrollbar-track { background: #faf9ff; }
 .orb-2 { animation: float-reverse 10s ease-in-out infinite; }
 .orb-3 { animation: float-slow 12s ease-in-out infinite 2s; }
 .orb-4 { animation: float-reverse 9s ease-in-out infinite 1s; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+@keyframes reveal-up {
+  to { opacity: 1; transform: none; }
+}
+.reveal.in-view {
+  animation: reveal-up 0.7s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+/* Scroll progress bar */
+.scroll-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  z-index: 9999;
+  background: linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199);
+  pointer-events: none;
+  transition: width 0.06s linear;
+}

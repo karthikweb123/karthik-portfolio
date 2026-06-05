@@ -54,7 +54,7 @@ const WhatsAppIcon = ({ className, style }: { className?: string; style?: React.
     style={style}
   >
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.827L.057 23.882a.5.5 0 0 0 .611.64l6.265-1.644A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.366l-.358-.213-3.722.977.993-3.62-.233-.372A9.818 9.818 0 1 1 12 21.818z" />
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.522 5.827L.057 23.882a.5.5 0 0 0 .611.64l6.265-1.644A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.366l-.358-.213-3.722.977.993-3.62-.233-.372A9.818 9.818 1 1 1 12 21.818z" />
   </svg>
 );
 
@@ -109,6 +109,12 @@ const darkTheme = {
   pipeBg: "rgba(255,255,255,0.02)",
   pipeBorder: "rgba(255,255,255,0.06)",
   pipeItem: "text-slate-400",
+  insightText: "rgba(148,163,184,1)",
+  insightTabInactive: "rgba(255,255,255,0.05)",
+  insightTabInactiveText: "rgba(255,255,255,0.5)",
+  insightTabBorder: "rgba(255,255,255,0.08)",
+  insightCardBg: "rgba(255,255,255,0.02)",
+  insightCardBorder: "rgba(255,255,255,0.06)",
 };
 
 const lightTheme = {
@@ -160,6 +166,12 @@ const lightTheme = {
   pipeBg: "rgba(255,255,255,0.9)",
   pipeBorder: "rgba(0,0,0,0.07)",
   pipeItem: "text-slate-600",
+  insightText: "rgba(51,65,85,1)",
+  insightTabInactive: "rgba(0,0,0,0.04)",
+  insightTabInactiveText: "rgba(0,0,0,0.45)",
+  insightTabBorder: "rgba(0,0,0,0.08)",
+  insightCardBg: "rgba(255,255,255,0.95)",
+  insightCardBorder: "rgba(0,0,0,0.07)",
 };
 
 type Theme = typeof darkTheme;
@@ -372,11 +384,241 @@ const pipelineStages = [
 ];
 
 const stats = [
-  { value: "9+", label: "Years Experience" },
+  { value: "10+", label: "Years Experience" },
   { value: "50+", label: "Websites Delivered" },
   { value: "90+", label: "PageSpeed Score" },
   { value: "15+", label: "Enterprise Clients" },
 ];
+
+// ── Dev Insights data ──────────────────────────────────────────────────────────
+
+type TipItem = {
+  cat: string;
+  color: string;
+  icon: React.ElementType;
+  text: React.ReactNode;
+};
+
+function C({ color, children }: { color: string; children: React.ReactNode }) {
+  return (
+    <code
+      className="text-[11px] px-1.5 py-0.5 rounded font-mono"
+      style={{ background: `${color}18`, color }}
+    >
+      {children}
+    </code>
+  );
+}
+
+const devTips: TipItem[] = [
+  {
+    cat: "WordPress",
+    color: "#C13383",
+    icon: Globe,
+    text: (
+      <>
+        WP Rocket & Perfmatters automate most Core Web Vitals fixes — but knowing{" "}
+        <C color="#C13383">fetchpriority</C>, <C color="#C13383">width/height</C> attributes, and
+        long-task budgets shows real depth to interviewers.
+      </>
+    ),
+  },
+  {
+    cat: "Next.js",
+    color: "#443199",
+    icon: Zap,
+    text: (
+      <>
+        Inject JSON-LD via a <C color="#443199">&lt;Script&gt;</C> component in{" "}
+        <C color="#443199">layout.js</C> — server-rendered structured data gets indexed on the
+        first crawl wave, not the delayed JS wave.
+      </>
+    ),
+  },
+  {
+    cat: "WordPress",
+    color: "#C13383",
+    icon: Code2,
+    text: (
+      <>
+        Always pair <C color="#C13383">current_user_can()</C> with{" "}
+        <C color="#C13383">wp_nonce_field()</C> and{" "}
+        <C color="#C13383">check_admin_referer()</C> — skipping either leaves admin forms open to
+        CSRF attacks.
+      </>
+    ),
+  },
+  {
+    cat: "SEO",
+    color: "#E05454",
+    icon: Search,
+    text: (
+      <>
+        Yoast SEO & Rank Math handle canonicals automatically — but WooCommerce filter URLs (e.g.{" "}
+        <C color="#E05454">?pa_color=red</C>) often need manual{" "}
+        <C color="#E05454">rel="canonical"</C> overrides.
+      </>
+    ),
+  },
+  {
+    cat: "SEO",
+    color: "#E05454",
+    icon: Search,
+    text: (
+      <>
+        The URL Inspection tool in Google Search Console shows exactly what Googlebot renders —
+        your browser&apos;s DevTools and Googlebot&apos;s view can differ dramatically for
+        JS-heavy pages.
+      </>
+    ),
+  },
+  {
+    cat: "WordPress",
+    color: "#C13383",
+    icon: Globe,
+    text: (
+      <>
+        Never disallow <C color="#C13383">/wp-admin/</C> without explicitly allowing{" "}
+        <C color="#C13383">admin-ajax.php</C> — it silently breaks front-end AJAX: infinite
+        scroll, cart updates, live search.
+      </>
+    ),
+  },
+  {
+    cat: "WordPress",
+    color: "#C13383",
+    icon: Code2,
+    text: (
+      <>
+        Forgetting to <C color="#C13383">return</C> inside a filter callback is a classic trap —
+        the hook runs silently but the original unmodified value is used downstream.
+      </>
+    ),
+  },
+  {
+    cat: "WordPress",
+    color: "#C13383",
+    icon: Server,
+    text: (
+      <>
+        Taxonomy queries use indexed JOIN operations and are dramatically faster than{" "}
+        <C color="#C13383">meta_query</C> at scale — model repeatable attributes as taxonomies,
+        not post meta.
+      </>
+    ),
+  },
+  {
+    cat: "WordPress",
+    color: "#C13383",
+    icon: Palette,
+    text: (
+      <>
+        For FSE block themes, override colors, typography, and spacing in the child theme&apos;s{" "}
+        <C color="#C13383">theme.json</C> — the modern, PHP-free approach that survives theme
+        updates cleanly.
+      </>
+    ),
+  },
+  {
+    cat: "Next.js",
+    color: "#443199",
+    icon: Layout,
+    text: (
+      <>
+        Server Components have no <C color="#443199">useState</C> /{" "}
+        <C color="#443199">useEffect</C>. Client Components need the{" "}
+        <C color="#443199">&quot;use client&quot;</C> directive. This boundary is the #1 App
+        Router interview topic in 2026.
+      </>
+    ),
+  },
+  {
+    cat: "Next.js",
+    color: "#443199",
+    icon: Zap,
+    text: (
+      <>
+        Set <C color="#443199">{"title: { template: '%s | Brand', default: 'Brand' }"}</C> in the
+        root layout — every child page&apos;s <C color="#443199">metadata.title</C> automatically
+        inherits the brand suffix.
+      </>
+    ),
+  },
+  {
+    cat: "React",
+    color: "#792CA2",
+    icon: Code2,
+    text: (
+      <>
+        Zustand covers 80% of Redux use cases with far less boilerplate — but Redux Toolkit is
+        still preferred for very complex state that needs time-travel debugging and strict action
+        tracing.
+      </>
+    ),
+  },
+  {
+    cat: "React",
+    color: "#792CA2",
+    icon: Zap,
+    text: (
+      <>
+        Don&apos;t prematurely memoize with <C color="#792CA2">React.memo</C> /{" "}
+        <C color="#792CA2">useMemo</C> — memoization itself has overhead. Profile with React
+        DevTools Profiler first, then optimize actual bottlenecks.
+      </>
+    ),
+  },
+  {
+    cat: "CSS",
+    color: "#C13383",
+    icon: Palette,
+    text: (
+      <>
+        Tailwind CSS v4 uses <C color="#C13383">@theme</C> directives in CSS to define design
+        tokens — but native CSS custom properties knowledge remains essential for interviews and
+        debugging.
+      </>
+    ),
+  },
+  {
+    cat: "JavaScript",
+    color: "#E05454",
+    icon: Code2,
+    text: (
+      <>
+        Event delegation is especially valuable in WordPress custom JS and Shopify storefront
+        scripts where elements are dynamically added to the DOM after page load.
+      </>
+    ),
+  },
+  {
+    cat: "JavaScript",
+    color: "#E05454",
+    icon: Server,
+    text: (
+      <>
+        <C color="#E05454">Promise.all()</C> rejects immediately if any promise fails.{" "}
+        <C color="#E05454">Promise.allSettled()</C> always resolves with every result — essential
+        when you need partial success states.
+      </>
+    ),
+  },
+  {
+    cat: "CSS",
+    color: "#C13383",
+    icon: Layout,
+    text: (
+      <>
+        CSS container queries are now widely supported and preferred over media queries for
+        reusable components in 2026 — they respond to the parent&apos;s width, not the viewport.
+      </>
+    ),
+  },
+];
+
+const insightCategories = ["All", "WordPress", "Next.js", "React", "JavaScript", "CSS", "SEO"];
+
+// ── Main Component ─────────────────────────────────────────────────────────────
 
 export default function Home() {
   const [isDark, setIsDark] = useState(false);
@@ -391,17 +633,24 @@ export default function Home() {
       className={`min-h-screen ${t.mainText} overflow-x-hidden transition-colors duration-300`}
       style={{ background: t.mainBg }}
     >
-
       {/* Ambient background orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="orb-1 absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[140px]"
-          style={{ background: "radial-gradient(circle, #443199 0%, transparent 70%)", opacity: isDark ? 0.25 : 0.15 }} />
-        <div className="orb-2 absolute top-1/2 -right-40 w-[400px] h-[400px] rounded-full blur-[120px]"
-          style={{ background: "radial-gradient(circle, #792CA2 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }} />
-        <div className="orb-3 absolute bottom-1/3 left-1/3 w-[350px] h-[350px] rounded-full blur-[110px]"
-          style={{ background: "radial-gradient(circle, #C13383 0%, transparent 70%)", opacity: isDark ? 0.15 : 0.1 }} />
-        <div className="orb-4 absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full blur-[100px]"
-          style={{ background: "radial-gradient(circle, #E05454 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }} />
+        <div
+          className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[140px]"
+          style={{ background: "radial-gradient(circle, #443199 0%, transparent 70%)", opacity: isDark ? 0.25 : 0.15 }}
+        />
+        <div
+          className="absolute top-1/2 -right-40 w-[400px] h-[400px] rounded-full blur-[120px]"
+          style={{ background: "radial-gradient(circle, #792CA2 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }}
+        />
+        <div
+          className="absolute bottom-1/3 left-1/3 w-[350px] h-[350px] rounded-full blur-[110px]"
+          style={{ background: "radial-gradient(circle, #C13383 0%, transparent 70%)", opacity: isDark ? 0.15 : 0.1 }}
+        />
+        <div
+          className="absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full blur-[100px]"
+          style={{ background: "radial-gradient(circle, #E05454 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }}
+        />
       </div>
 
       {/* NAVBAR */}
@@ -410,15 +659,13 @@ export default function Home() {
         style={{ background: t.navBg, borderBottom: `1px solid ${t.navBorder}` }}
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
           <div className="font-black tracking-tight text-lg" style={{ color: isDark ? "#fff" : "#0f0720" }}>
-            KARTHIK
-            <span className="gradient-text">.</span>
+            KARTHIK<span className="gradient-text">.</span>
           </div>
 
           <div className="flex items-center gap-6">
             <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase">
-              {["Work", "Skills", "Experience", "Contact"].map((item) => (
+              {["Work", "Skills", "Experience", "Insights", "Contact"].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -429,7 +676,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Theme toggle */}
             <button
               onClick={() => setIsDark(!isDark)}
               aria-label="Toggle theme"
@@ -455,24 +701,17 @@ export default function Home() {
 
       {/* ── HERO ── */}
       <section className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-28 text-center">
-
-        {/* Status pill */}
-        <div className="inline-flex items-center gap-2.5 px-5 py-2 mb-10 rounded-full text-[10px] font-bold tracking-[0.25em] uppercase"
-          style={{
-            background: "rgba(224,84,84,0.08)",
-            border: "1px solid rgba(224,84,84,0.25)",
-            color: "#E05454",
-          }}>
+        <div
+          className="inline-flex items-center gap-2.5 px-5 py-2 mb-10 rounded-full text-[10px] font-bold tracking-[0.25em] uppercase"
+          style={{ background: "rgba(224,84,84,0.08)", border: "1px solid rgba(224,84,84,0.25)", color: "#E05454" }}
+        >
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-              style={{ background: "#E05454" }}></span>
-            <span className="relative inline-flex rounded-full h-2 w-2"
-              style={{ background: "#E05454" }}></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#E05454" }} />
+            <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#E05454" }} />
           </span>
           Available for Full-Time &bull; Remote &bull; Freelance
         </div>
 
-        {/* Heading */}
         <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
           <span className={`${t.heading} block transition-colors duration-300`}>Senior Web</span>
           <span className="gradient-text block">Developer</span>
@@ -480,12 +719,12 @@ export default function Home() {
         </h1>
 
         <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}>
-          9+ years delivering high-performance websites across finance, SaaS, IT, education, and immigration.
+          10+ years delivering high-performance websites across finance, SaaS, IT, education, and immigration.
           Consistently achieves 90+ PageSpeed scores — from Figma wireframes to live production deployments
           with full technical SEO and ERP integration.
         </p>
 
-        {/* Stats row */}
+        {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16">
           {stats.map(({ value, label }) => (
             <div
@@ -501,51 +740,48 @@ export default function Home() {
 
         {/* Expertise cards */}
         <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto mb-16 text-left">
-
-          <div className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
-            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}>
-            <div className="absolute top-0 left-0 right-0 h-[1px]"
-              style={{ background: "linear-gradient(90deg, #C13383, #E05454)" }} />
+          <div
+            className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
+            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}
+          >
+            <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #C13383, #E05454)" }} />
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #C13383, #E05454)" }}>
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #C13383, #E05454)" }}>
                 <Globe className="w-4 h-4 text-white" />
               </div>
               <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>WordPress Specialist</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skillsWordPress.map((item, i) => (
-                <span key={item} className="px-3 py-1.5 text-xs font-semibold rounded-full"
-                  style={{
-                    background: `${COLORS[i % 4]}12`,
-                    border: `1px solid ${COLORS[i % 4]}25`,
-                    color: COLORS[i % 4],
-                  }}>
+                <span
+                  key={item}
+                  className="px-3 py-1.5 text-xs font-semibold rounded-full"
+                  style={{ background: `${COLORS[i % 4]}12`, border: `1px solid ${COLORS[i % 4]}25`, color: COLORS[i % 4] }}
+                >
                   {item}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
-            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}>
-            <div className="absolute top-0 left-0 right-0 h-[1px]"
-              style={{ background: "linear-gradient(90deg, #792CA2, #443199)" }} />
+          <div
+            className="rounded-3xl p-7 relative overflow-hidden transition-colors duration-300"
+            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}` }}
+          >
+            <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #792CA2, #443199)" }} />
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, #792CA2, #443199)" }}>
+              <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #792CA2, #443199)" }}>
                 <Layout className="w-4 h-4 text-white" />
               </div>
               <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Frontend & UI/UX</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {skillsFrontend.map((item, i) => (
-                <span key={item} className="px-3 py-1.5 text-xs font-semibold rounded-full"
-                  style={{
-                    background: `${COLORS[(i + 2) % 4]}12`,
-                    border: `1px solid ${COLORS[(i + 2) % 4]}25`,
-                    color: COLORS[(i + 2) % 4],
-                  }}>
+                <span
+                  key={item}
+                  className="px-3 py-1.5 text-xs font-semibold rounded-full"
+                  style={{ background: `${COLORS[(i + 2) % 4]}12`, border: `1px solid ${COLORS[(i + 2) % 4]}25`, color: COLORS[(i + 2) % 4] }}
+                >
                   {item}
                 </span>
               ))}
@@ -553,21 +789,20 @@ export default function Home() {
           </div>
         </div>
 
-        {/* CTA buttons */}
+        {/* CTA */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
           <a
             href="#contact"
             className="px-10 py-4 rounded-full font-bold text-white text-sm tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-            style={{
-              background: "linear-gradient(135deg, #E05454 0%, #C13383 40%, #792CA2 70%, #443199 100%)",
-              boxShadow: "0 0 40px rgba(193,51,131,0.3)",
-            }}>
+            style={{ background: "linear-gradient(135deg, #E05454 0%, #C13383 40%, #792CA2 70%, #443199 100%)", boxShadow: "0 0 40px rgba(193,51,131,0.3)" }}
+          >
             Let&apos;s Connect
           </a>
           <a
             href="#work"
             className={`px-10 py-4 rounded-full font-bold ${t.viewBtnText} text-sm tracking-wide transition-all duration-300 ${t.viewBtnHover}`}
-            style={{ background: t.viewBtnBg, border: `1px solid ${t.viewBtnBorder}` }}>
+            style={{ background: t.viewBtnBg, border: `1px solid ${t.viewBtnBorder}` }}
+          >
             View Projects
           </a>
         </div>
@@ -580,10 +815,9 @@ export default function Home() {
           className="rounded-3xl p-10 md:p-14 relative overflow-hidden transition-colors duration-300"
           style={{ background: t.aboutBg, border: `1px solid ${t.aboutBorder}` }}
         >
-          <div className="absolute top-0 left-0 right-0 h-[1px]"
-            style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
+          <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
           <p className={`${t.aboutText} text-base md:text-lg leading-relaxed mb-8 transition-colors duration-300`}>
-            Senior Web Developer with <strong className="gradient-text font-bold">9+ years of experience</strong> delivering{" "}
+            Senior Web Developer with <strong className="gradient-text font-bold">10+ years of experience</strong> delivering{" "}
             <strong className="gradient-text font-bold">50+ websites</strong> across finance, SaaS, IT, education, and immigration verticals.
             Consistently achieves <strong className="gradient-text font-bold">90+ PageSpeed scores</strong>, builds brand identities from scratch,
             and leads end-to-end delivery — from Figma wireframes to live production deployments with full technical SEO and ERP integration.
@@ -593,11 +827,7 @@ export default function Home() {
               <span
                 key={tag}
                 className="px-4 py-2 text-[11px] font-bold tracking-widest uppercase rounded-full"
-                style={{
-                  background: `${COLORS[i % 4]}10`,
-                  border: `1px solid ${COLORS[i % 4]}28`,
-                  color: COLORS[i % 4],
-                }}
+                style={{ background: `${COLORS[i % 4]}10`, border: `1px solid ${COLORS[i % 4]}28`, color: COLORS[i % 4] }}
               >
                 {tag}
               </span>
@@ -618,22 +848,20 @@ export default function Home() {
             >
               <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: `${color}18`, border: `1px solid ${color}30` }}>
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ background: `${color}18`, border: `1px solid ${color}30` }}
+                >
                   <Icon className="w-4 h-4" style={{ color }} />
                 </div>
                 <h3 className={`${t.skillCatLabel} font-bold text-sm tracking-wide transition-colors duration-300`}>{label}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                {skills.map((skill, i) => (
+                {skills.map((skill) => (
                   <span
                     key={skill}
                     className="px-3 py-1.5 text-[11px] font-semibold rounded-full transition-all duration-200 hover:scale-105 cursor-default"
-                    style={{
-                      background: `${color}10`,
-                      border: `1px solid ${color}25`,
-                      color,
-                    }}
+                    style={{ background: `${color}10`, border: `1px solid ${color}25`, color }}
                   >
                     {skill}
                   </span>
@@ -656,13 +884,13 @@ export default function Home() {
             >
               <div className="absolute top-0 left-0 bottom-0 w-[3px] rounded-l-2xl" style={{ background: job.color }} />
               <div className="pl-2">
-                {/* Header */}
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-7">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span
                         className="px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-full"
-                        style={{ background: `${job.color}15`, color: job.color }}>
+                        style={{ background: `${job.color}15`, color: job.color }}
+                      >
                         {idx === 0 ? "Most Recent" : "Previous Role"}
                       </span>
                     </div>
@@ -684,7 +912,6 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {/* Bullets */}
                 <ul className="space-y-3">
                   {job.highlights.map((point) => (
                     <li key={point} className={`flex gap-3 text-[13px] leading-relaxed ${t.expBullet} transition-colors duration-300`}>
@@ -703,19 +930,23 @@ export default function Home() {
       <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
         <SectionHeader label="Custom WordPress Development" color="#C13383" t={t} />
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: `rgba(193,51,131,0.05)`, border: `1px solid rgba(193,51,131,0.15)` }}>
+          <div
+            className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)" }}
+          >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Themes & CMS</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
               Building tailored WordPress installations with fully custom themes and content management systems — no page-builder lock-in.
               Every content type, taxonomy, and admin UI crafted to match the client&apos;s exact editorial workflow.
               7+ enterprise-grade custom themes delivered with 90+ PageSpeed on every build.
             </p>
           </div>
-          <div className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: `rgba(193,51,131,0.05)`, border: `1px solid rgba(193,51,131,0.15)` }}>
+          <div
+            className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)" }}
+          >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>ERP & Plugin Integration</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
               Pixel-perfect Figma-to-WordPress builds with responsive layouts and custom Gutenberg blocks. Complex web form integration
               via PHP and Boomi into NetSuite ERP workflows — reducing manual data handling and streamlining operations for enterprise clients.
             </p>
@@ -727,18 +958,22 @@ export default function Home() {
       <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
         <SectionHeader label="React / Next.js UI Development" color="#7928A2" t={t} />
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: `rgba(121,40,162,0.05)`, border: `1px solid rgba(121,40,162,0.15)` }}>
+          <div
+            className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)" }}
+          >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Component-Driven UIs</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
               Crafting reusable, accessible React component libraries with clean prop APIs. From design-system foundations to fully
               interactive dashboards — built for maintainability and scale.
             </p>
           </div>
-          <div className="rounded-2xl p-8 transition-colors duration-300"
-            style={{ background: `rgba(121,40,162,0.05)`, border: `1px solid rgba(121,40,162,0.15)` }}>
+          <div
+            className="rounded-2xl p-8 transition-colors duration-300"
+            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)" }}
+          >
             <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Next.js Applications</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: t.projectDesc }}>
+            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
               Full-stack Next.js apps with server components, dynamic routing, and optimised data-fetching strategies.
               Deployed to Vercel with edge caching, image optimisation, and Core Web Vitals in mind.
             </p>
@@ -764,7 +999,8 @@ export default function Home() {
               <div className="flex items-center gap-3 mb-2">
                 <span
                   className="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 rounded-full"
-                  style={{ background: `${stage.color}15`, color: stage.color }}>
+                  style={{ background: `${stage.color}15`, color: stage.color }}
+                >
                   {String(i + 1).padStart(2, "0")}
                 </span>
               </div>
@@ -787,10 +1023,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── DEV INSIGHTS ── */}
+      <section id="insights" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+        <SectionHeader label="Dev Insights" color="#E05454" t={t} />
+        <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
+          Hard-won patterns across WordPress, React, Next.js, and the open web — the kind of depth that stands out in technical interviews.
+        </p>
+        <DevInsights t={t} isDark={isDark} />
+      </section>
+
       {/* ── PROJECTS ── */}
       <section id="work" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
         <SectionHeader label="Selected Work" color="#C13383" t={t} />
-
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {allProjects.map((project, i) => (
             <ProjectCard key={project.name} project={project} index={i} color={COLORS[i % 4]} t={t} />
@@ -800,17 +1044,15 @@ export default function Home() {
 
       {/* ── CONTACT ── */}
       <section id="contact" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
-        <div className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center transition-colors duration-300"
+        <div
+          className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center transition-colors duration-300"
           style={{
             background: "linear-gradient(135deg, rgba(224,84,84,0.07) 0%, rgba(193,51,131,0.06) 30%, rgba(121,44,162,0.06) 60%, rgba(68,49,153,0.08) 100%)",
             border: `1px solid ${t.contactBorder}`,
-          }}>
-
-          {/* Corner glows */}
-          <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full blur-[120px]"
-            style={{ background: "#E05454", opacity: 0.2 }} />
-          <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full blur-[120px]"
-            style={{ background: "#443199", opacity: 0.2 }} />
+          }}
+        >
+          <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full blur-[120px]" style={{ background: "#E05454", opacity: 0.2 }} />
+          <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full blur-[120px]" style={{ background: "#443199", opacity: 0.2 }} />
 
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-8">
             <span className={`${t.heading} transition-colors duration-300`}>Let&apos;s Build</span>
@@ -862,7 +1104,7 @@ export default function Home() {
   );
 }
 
-/* ── Sub-components ── */
+// ── Sub-components ─────────────────────────────────────────────────────────────
 
 function SectionHeader({ label, color, t }: { label: string; color: string; t: Theme }) {
   return (
@@ -870,8 +1112,10 @@ function SectionHeader({ label, color, t }: { label: string; color: string; t: T
       <h2 className={`${t.sectionHeading} text-4xl font-black tracking-tighter uppercase whitespace-nowrap transition-colors duration-300`}>
         {label}
       </h2>
-      <div className="h-px flex-1 rounded-full"
-        style={{ background: `linear-gradient(90deg, ${color}80, transparent)` }} />
+      <div
+        className="h-px flex-1 rounded-full"
+        style={{ background: `linear-gradient(90deg, ${color}80, transparent)` }}
+      />
     </div>
   );
 }
@@ -893,48 +1137,34 @@ function ProjectCard({
       target="_blank"
       rel="noopener noreferrer"
       className="group block rounded-2xl p-6 relative overflow-hidden transition-all duration-500 hover:-translate-y-1"
-      style={{
-        background: t.projectCardBg,
-        border: `1px solid ${t.projectCardBorder}`,
-      }}
+      style={{ background: t.projectCardBg, border: `1px solid ${t.projectCardBorder}` }}
     >
-      {/* Top accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
-        style={{ background: color }} />
-
-      {/* Hover radial glow */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
       <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
         style={{ background: `radial-gradient(ellipse at 50% -20%, ${color}18 0%, transparent 65%)` }}
       />
-
-      {/* Card header row */}
       <div className="flex items-start justify-between mb-4">
         <span
           className="px-2.5 py-1 text-[9px] font-black tracking-widest uppercase rounded-full"
-          style={{ background: `${color}15`, color }}>
+          style={{ background: `${color}15`, color }}
+        >
           {project.category}
         </span>
-        <span className="text-[11px] font-mono tabular-nums"
-          style={{ color: `${color}60` }}>
+        <span className="text-[11px] font-mono tabular-nums" style={{ color: `${color}60` }}>
           {String(index + 1).padStart(2, "0")}
         </span>
       </div>
-
-      {/* Title */}
       <h3 className={`${t.projectTitle} text-xl font-bold mb-3 transition-all duration-300 group-hover:translate-x-1`}>
         {project.name}
       </h3>
-
-      {/* Description */}
       <p className={`${t.projectDesc} text-sm leading-relaxed mb-6 line-clamp-3 transition-colors duration-300`}>
         {project.desc}
       </p>
-
-      {/* Link CTA */}
       <div
         className="inline-flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest transition-all duration-300"
-        style={{ color }}>
+        style={{ color }}
+      >
         Visit Site
         <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
       </div>
@@ -961,10 +1191,7 @@ function ContactItem({
     <a href={href} className="group flex flex-col items-center">
       <div
         className="mb-4 p-5 rounded-2xl transition-all duration-300 group-hover:scale-105"
-        style={{
-          background: t.contactIconBg,
-          border: `1px solid ${t.contactIconBorder}`,
-        }}
+        style={{ background: t.contactIconBg, border: `1px solid ${t.contactIconBorder}` }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLDivElement).style.borderColor = `${color}50`;
           (e.currentTarget as HTMLDivElement).style.boxShadow = `0 0 20px ${color}25`;
@@ -981,5 +1208,93 @@ function ContactItem({
         {sublabel}
       </span>
     </a>
+  );
+}
+
+function DevInsights({ t, isDark }: { t: Theme; isDark: boolean }) {
+  const [activeTab, setActiveTab] = useState("All");
+
+  const filtered = activeTab === "All" ? devTips : devTips.filter((tip) => tip.cat === activeTab);
+
+  const catColor = (cat: string) =>
+    cat === "WordPress" ? "#C13383"
+    : cat === "Next.js" ? "#443199"
+    : cat === "React" ? "#792CA2"
+    : cat === "JavaScript" ? "#E05454"
+    : cat === "CSS" ? "#C13383"
+    : cat === "SEO" ? "#E05454"
+    : null;
+
+  return (
+    <div>
+      {/* Filter tabs */}
+      <div className="flex flex-wrap gap-2 mb-10">
+        {insightCategories.map((cat) => {
+          const isActive = cat === activeTab;
+          const cc = catColor(cat);
+          return (
+            <button
+              key={cat}
+              onClick={() => setActiveTab(cat)}
+              className="px-5 py-2 rounded-full text-[11px] font-black tracking-widest uppercase transition-all duration-300 hover:scale-105"
+              style={{
+                background: isActive && cc ? cc : isActive ? "#555" : t.insightTabInactive,
+                color: isActive ? "#fff" : t.insightTabInactiveText,
+                border: isActive ? "1px solid transparent" : `1px solid ${t.insightTabBorder}`,
+              }}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Tips grid */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filtered.map((tip, i) => {
+          const IconComp = tip.icon;
+          return (
+            <div
+              key={i}
+              className="rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5"
+              style={{ background: t.insightCardBg, border: `1px solid ${t.insightCardBorder}` }}
+            >
+              {/* Top accent bar */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: tip.color }} />
+
+              {/* Subtle hover glow */}
+              <div
+                className="absolute inset-0 pointer-events-none rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500"
+                style={{ background: `radial-gradient(ellipse at 50% 0%, ${tip.color}10 0%, transparent 70%)` }}
+              />
+
+              {/* Icon + badge */}
+              <div className="flex items-center gap-2 mb-4">
+                <div
+                  className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                  style={{ background: `${tip.color}15`, border: `1px solid ${tip.color}25` }}
+                >
+                  <IconComp className="w-3.5 h-3.5" style={{ color: tip.color }} />
+                </div>
+                <span
+                  className="text-[9px] font-black tracking-[0.2em] uppercase px-2.5 py-1 rounded-full"
+                  style={{ background: `${tip.color}12`, color: tip.color }}
+                >
+                  {tip.cat}
+                </span>
+              </div>
+
+              {/* Tip text */}
+              <p
+                className="text-[13px] leading-relaxed transition-colors duration-300"
+                style={{ color: t.insightText }}
+              >
+                {tip.text}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }

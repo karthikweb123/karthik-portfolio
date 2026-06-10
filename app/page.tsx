@@ -1046,16 +1046,21 @@ export default function Home() {
           >
             <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
             <p className={`${t.aboutText} text-base leading-relaxed mb-5 transition-colors duration-300`}>
-              I&apos;m Karthik — a Senior Web Developer based in Hyderabad with over a decade of building websites that
-              actually perform. What started as a passion for clean markup has grown into full end-to-end ownership of
-              digital products: from the first Figma frame to a live, search-ranking, enterprise-grade site.
-            </p>
-            <p className={`${t.aboutText} text-base leading-relaxed mb-8 transition-colors duration-300`}>
-              I&apos;ve shipped <strong className="gradient-text font-bold">50+ websites</strong> across finance, SaaS, IT,
-              education, and immigration — consistently hitting{" "}
-              <strong className="gradient-text font-bold">90+ PageSpeed scores</strong> and handling everything from
-              custom WordPress themes and ERP integrations to React component libraries and full technical SEO.
-            </p>
+  I&apos;m Karthik — a Senior Web Developer &amp; Designer based in Hyderabad
+  with over a decade of shipping websites that perform, rank, and convert. I work
+  in short Agile sprints — typically 1&ndash;2 week cycles — so clients see real
+  progress every week, not a big reveal at the end. Structured feedback loops and
+  iterative builds keep scope tight and rework minimal.
+</p>
+<p className={`${t.aboutText} text-base leading-relaxed mb-8 transition-colors duration-300`}>
+  I&apos;ve shipped{" "}
+  <strong className="gradient-text font-bold">50+ websites</strong> across
+  finance, SaaS, IT, education, and immigration — consistently hitting{" "}
+  <strong className="gradient-text font-bold">90+ PageSpeed scores</strong> and
+  handling everything from custom WordPress themes and ERP integrations to React
+  component libraries and full technical SEO.{" "}
+  <strong className="gradient-text font-bold">One person. Pro team discipline.</strong>
+</p>
             <div className="flex flex-wrap gap-3">
               {["End-to-End Ownership", "Design-to-Dev", "Brand Identity", "ERP Integration", "Technical SEO", "Full-Time · Remote · Freelance"].map((tag, i) => (
                 <span

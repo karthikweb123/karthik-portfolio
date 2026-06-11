@@ -814,7 +814,7 @@ function ScrollProgress() {
 // ── Main Component ─────────────────────────────────────────────────────────────
 
 export default function Home() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   const t = isDark ? darkTheme : lightTheme;
 
   useEffect(() => {

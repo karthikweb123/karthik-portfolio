@@ -911,18 +911,22 @@ export default function Home() {
           Available for Full-Time &bull; Remote &bull; Freelance
         </div>
 
-        <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-8">
-          <span className={`${t.heading} block transition-colors duration-300`}>Senior Web</span>
-          <span className="gradient-text block">Developer</span>
-          <span className={`${t.heading} block transition-colors duration-300`}>&amp; WordPress</span>
-        </h1>
+<h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
+  <span className="gradient-text block">Web Developer</span>
+</h1>
 
-        <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}>
-          10+ years delivering high-performance websites across finance, SaaS, IT, education, and immigration.
-          Consistently achieves 90+ PageSpeed scores — from Figma wireframes to live production deployments
-          with full technical SEO and ERP integration.
-        </p>
+<h2 className={`${t.subText} text-xl md:text-2xl font-medium mb-8 transition-colors duration-300`}>
+  Legacy to Modern
+</h2>
 
+<p
+  className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}
+>
+  10+ years building fast, scalable websites and web applications across
+  finance, SaaS, IT, education, and immigration. From Figma designs to
+  production deployment, delivering high-performance user experiences,
+  technical SEO, and business-driven solutions.
+</p>
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16">
           {stats.map(({ value, label }, i) => (

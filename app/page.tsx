@@ -18,6 +18,9 @@ import {
   Calendar,
   Award,
   Quote,
+  CheckCircle2,
+  ChevronRight,
+  ChevronLeft,
 } from "lucide-react";
 
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -60,7 +63,11 @@ const WhatsAppIcon = ({ className, style }: { className?: string; style?: React.
   </svg>
 );
 
+// ── Constants ──────────────────────────────────────────────────────────────────
+
 const COLORS = ["#E05454", "#C13383", "#792CA2", "#443199"];
+
+// ── Themes ─────────────────────────────────────────────────────────────────────
 
 const darkTheme = {
   mainBg: "#08060f",
@@ -117,6 +124,21 @@ const darkTheme = {
   insightTabBorder: "rgba(255,255,255,0.08)",
   insightCardBg: "rgba(255,255,255,0.02)",
   insightCardBorder: "rgba(255,255,255,0.06)",
+  // lifecycle
+  lifecycleBg: "rgba(255,255,255,0.02)",
+  lifecycleBorder: "rgba(255,255,255,0.06)",
+  lifecycleCardBg: "rgba(255,255,255,0.03)",
+  lifecycleCardBorder: "rgba(255,255,255,0.08)",
+  lifecycleText: "text-slate-400",
+  lifecycleSubText: "text-slate-500",
+  lifecycleDotFuture: "rgba(255,255,255,0.08)",
+  lifecycleDotFutureBorder: "rgba(255,255,255,0.15)",
+  lifecycleDotFutureText: "rgba(255,255,255,0.3)",
+  lifecycleConnector: "rgba(255,255,255,0.08)",
+  lifecyclePhaseText: "text-slate-500",
+  lifecycleBtnBg: "rgba(255,255,255,0.06)",
+  lifecycleBtnBorder: "rgba(255,255,255,0.1)",
+  lifecycleBtnText: "text-white",
 };
 
 const lightTheme = {
@@ -174,9 +196,26 @@ const lightTheme = {
   insightTabBorder: "rgba(0,0,0,0.08)",
   insightCardBg: "rgba(255,255,255,0.95)",
   insightCardBorder: "rgba(0,0,0,0.07)",
+  // lifecycle
+  lifecycleBg: "rgba(255,255,255,0.9)",
+  lifecycleBorder: "rgba(0,0,0,0.07)",
+  lifecycleCardBg: "rgba(255,255,255,0.95)",
+  lifecycleCardBorder: "rgba(0,0,0,0.08)",
+  lifecycleText: "text-slate-600",
+  lifecycleSubText: "text-slate-500",
+  lifecycleDotFuture: "rgba(0,0,0,0.05)",
+  lifecycleDotFutureBorder: "rgba(0,0,0,0.12)",
+  lifecycleDotFutureText: "rgba(0,0,0,0.3)",
+  lifecycleConnector: "rgba(0,0,0,0.1)",
+  lifecyclePhaseText: "text-slate-500",
+  lifecycleBtnBg: "rgba(0,0,0,0.05)",
+  lifecycleBtnBorder: "rgba(0,0,0,0.1)",
+  lifecycleBtnText: "text-slate-800",
 };
 
 type Theme = typeof darkTheme;
+
+// ── Data ───────────────────────────────────────────────────────────────────────
 
 const allProjects = [
   {
@@ -464,6 +503,158 @@ const testimonials = [
   },
 ];
 
+// ── Product Development Lifecycle data ────────────────────────────────────────
+
+const lifecycleSteps = [
+  {
+    title: "Requirement Gathering",
+    phase: "Discovery",
+    phaseColor: "#E05454",
+    desc: "Align stakeholders, define the problem scope, and capture functional and non-functional requirements. This stage sets the foundation — unclear requirements compound into expensive rework later.",
+    deliverables: [
+      "Product Requirements Document (PRD)",
+      "Stakeholder alignment notes",
+      "Scope definition & boundaries",
+      "Acceptance criteria draft",
+    ],
+    tools: ["Confluence", "Notion", "Google Docs", "Miro", "Jira"],
+  },
+  {
+    title: "User Research",
+    phase: "Discovery",
+    phaseColor: "#E05454",
+    desc: "Understand who you're building for. Interviews, surveys, and behavioral data reveal real needs versus assumed ones. Skipping this leads to building the right thing wrong — or the wrong thing entirely.",
+    deliverables: [
+      "User interview transcripts",
+      "Affinity maps",
+      "Persona definitions",
+      "Jobs-to-be-done framework",
+    ],
+    tools: ["Maze", "Hotjar", "Dovetail", "Google Forms", "Lookback"],
+  },
+  {
+    title: "Competitor Analysis",
+    phase: "Discovery",
+    phaseColor: "#E05454",
+    desc: "Map the landscape to find gaps, benchmark UX patterns, and identify where your product can meaningfully differentiate. Avoid re-inventing conventions that already work.",
+    deliverables: [
+      "Competitive matrix",
+      "Feature gap analysis",
+      "UX benchmark notes",
+      "Opportunity map",
+    ],
+    tools: ["SimilarWeb", "Notion", "Figma", "Miro", "G2 / Capterra"],
+  },
+  {
+    title: "User Flows",
+    phase: "Design",
+    phaseColor: "#C13383",
+    desc: "Define the paths users take to accomplish key goals. Before a single screen is designed, flows expose logic gaps, missing states, and edge cases that are cheap to fix at this stage.",
+    deliverables: [
+      "Primary user journey maps",
+      "Happy path + edge case flows",
+      "Decision tree diagrams",
+      "Entry & exit point definitions",
+    ],
+    tools: ["Miro", "FigJam", "Whimsical", "Lucidchart", "Figma"],
+  },
+  {
+    title: "Wireframing",
+    phase: "Design",
+    phaseColor: "#C13383",
+    desc: "Translate flows into low-fidelity screen layouts. Wireframes communicate structure, hierarchy, and interaction logic without the distraction of visual polish — making structural feedback faster.",
+    deliverables: [
+      "Lo-fi screen layouts",
+      "Information architecture",
+      "Component inventory",
+      "Annotation notes",
+    ],
+    tools: ["Figma", "Balsamiq", "Whimsical", "Sketch", "Pen + paper"],
+  },
+  {
+    title: "UI Design",
+    phase: "Design",
+    phaseColor: "#C13383",
+    desc: "Apply the visual layer — typography, color, spacing, iconography, and component design. The design system is codified here, ensuring consistency across every screen and state.",
+    deliverables: [
+      "Hi-fi screen designs",
+      "Design system / tokens",
+      "Component library",
+      "Dark & light mode variants",
+    ],
+    tools: ["Figma", "Adobe XD", "Zeplin", "Storybook", "Tokens Studio"],
+  },
+  {
+    title: "Prototyping",
+    phase: "Design",
+    phaseColor: "#C13383",
+    desc: "Make the design interactive. Clickable prototypes let stakeholders experience the product before a single line of code is written — catching UX issues at the least expensive moment.",
+    deliverables: [
+      "Clickable Figma prototype",
+      "Interaction specs",
+      "Animation guidelines",
+      "Usability test script",
+    ],
+    tools: ["Figma", "Framer", "ProtoPie", "InVision", "Principle"],
+  },
+  {
+    title: "Development",
+    phase: "Build",
+    phaseColor: "#792CA2",
+    desc: "Engineering turns designs into working software. Follows Dev → Staging → Production workflow with feature branches, environment parity, and code reviews at each stage.",
+    deliverables: [
+      "Frontend implementation",
+      "Backend APIs",
+      "Database schemas",
+      "Feature-branch PRs",
+      "Unit tests",
+    ],
+    tools: ["React / Next.js", "WordPress", "GitHub", "VS Code", "Docker"],
+  },
+  {
+    title: "Testing (QA / UAT)",
+    phase: "Build",
+    phaseColor: "#792CA2",
+    desc: "Systematic verification that the product works as designed. QA covers functional, performance, and accessibility testing. UAT is the client or end-user sign-off before production.",
+    deliverables: [
+      "QA test cases & results",
+      "Bug report log",
+      "UAT sign-off document",
+      "Regression test suite",
+      "Accessibility audit",
+    ],
+    tools: ["Playwright", "Jest", "BrowserStack", "Lighthouse", "WAVE"],
+  },
+  {
+    title: "Deployment",
+    phase: "Launch",
+    phaseColor: "#443199",
+    desc: "Moving the verified build to production. Includes pre-deployment backups, staged rollout if applicable, cache purging, and post-release smoke testing. A rollback plan is always in place.",
+    deliverables: [
+      "Production release",
+      "Deployment checklist",
+      "Rollback plan",
+      "Cache & CDN config",
+      "Go-live verification",
+    ],
+    tools: ["Vercel", "Cloudflare", "GitHub Actions", "WP CLI", "Slack alerts"],
+  },
+  {
+    title: "Maintenance & Improvements",
+    phase: "Growth",
+    phaseColor: "#5B3DAF",
+    desc: "Post-launch is where products mature. Monitoring, performance tracking, and iterative improvements based on real user data close the loop — feeding new requirements back into stage 1.",
+    deliverables: [
+      "Performance monitoring",
+      "Error tracking",
+      "Feature iteration backlog",
+      "Analytics dashboards",
+      "Changelog",
+    ],
+    tools: ["Sentry", "GA4", "Hotjar", "Jira", "Uptime Robot"],
+  },
+];
+
 // ── Dev Insights data ──────────────────────────────────────────────────────────
 
 type TipItem = {
@@ -743,7 +934,6 @@ function ParticleCanvas({ isDark }: { isDark: boolean }) {
 
     function tick() {
       ctx!.clearRect(0, 0, W, H);
-
       for (let i = 0; i < pts.length; i++) {
         for (let j = i + 1; j < pts.length; j++) {
           const dx = pts[i].x - pts[j].x;
@@ -759,7 +949,6 @@ function ParticleCanvas({ isDark }: { isDark: boolean }) {
           }
         }
       }
-
       pts.forEach((p) => {
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -768,7 +957,6 @@ function ParticleCanvas({ isDark }: { isDark: boolean }) {
         p.x = (p.x + p.vx + W) % W;
         p.y = (p.y + p.vy + H) % H;
       });
-
       raf.current = requestAnimationFrame(tick);
     }
     tick();
@@ -811,6 +999,201 @@ function ScrollProgress() {
   return <div className="scroll-bar" style={{ width: `${pct}%` }} />;
 }
 
+// ── Product Lifecycle Component ────────────────────────────────────────────────
+
+const LIFECYCLE_PALETTE = [
+  "#E05454", "#E05454", "#E05454",
+  "#C13383", "#C13383", "#C13383", "#C13383",
+  "#792CA2", "#792CA2",
+  "#443199",
+  "#5B3DAF",
+];
+
+function ProductLifecycle({ t, isDark }: { t: Theme; isDark: boolean }) {
+  const [current, setCurrent] = useState(0);
+  const step = lifecycleSteps[current];
+  const stepColor = LIFECYCLE_PALETTE[current];
+
+  const go = (dir: number) => {
+    setCurrent((c) => Math.max(0, Math.min(lifecycleSteps.length - 1, c + dir)));
+  };
+
+  return (
+    <div>
+      {/* Progress dots */}
+      <div className="flex items-center justify-center gap-0 mb-10 flex-wrap">
+        {lifecycleSteps.map((s, i) => {
+          const c = LIFECYCLE_PALETTE[i];
+          const isActive = i === current;
+          const isDone = i < current;
+          return (
+            <div key={i} className="flex items-center">
+              <button
+                onClick={() => setCurrent(i)}
+                title={s.title}
+                className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold transition-all duration-200 hover:scale-110 shrink-0"
+                style={
+                  isActive
+                    ? { background: c, color: "#fff", transform: "scale(1.2)", boxShadow: `0 0 0 3px ${c}30` }
+                    : isDone
+                    ? { background: `${c}60`, color: "#fff" }
+                    : {
+                        background: t.lifecycleDotFuture,
+                        border: `1px solid ${t.lifecycleDotFutureBorder}`,
+                        color: t.lifecycleDotFutureText,
+                      }
+                }
+              >
+                {isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : i + 1}
+              </button>
+              {i < lifecycleSteps.length - 1 && (
+                <div
+                  className="h-px mx-1 shrink-0"
+                  style={{
+                    width: "14px",
+                    background: i < current ? `${LIFECYCLE_PALETTE[i]}60` : t.lifecycleConnector,
+                  }}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Main card */}
+      <div
+        className="rounded-3xl p-8 md:p-10 relative overflow-hidden reveal transition-colors duration-300"
+        style={{ background: t.lifecycleCardBg, border: `1px solid ${t.lifecycleCardBorder}` }}
+      >
+        {/* Top accent bar */}
+        <div
+          className="absolute top-0 left-0 right-0 h-[2px] rounded-t-3xl"
+          style={{ background: `linear-gradient(90deg, ${stepColor}, ${LIFECYCLE_PALETTE[Math.min(current + 1, lifecycleSteps.length - 1)]})` }}
+        />
+
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
+          <div className="flex-1">
+            {/* Step counter + phase */}
+            <div className="flex items-center gap-3 mb-3">
+              <span
+                className="text-[10px] font-black tracking-widest uppercase px-3 py-1.5 rounded-full"
+                style={{ background: `${stepColor}15`, color: stepColor }}
+              >
+                {String(current + 1).padStart(2, "0")} / {lifecycleSteps.length}
+              </span>
+              <span
+                className="text-[10px] font-black tracking-widest uppercase px-3 py-1.5 rounded-full"
+                style={{ background: `${step.phaseColor}10`, color: step.phaseColor, border: `1px solid ${step.phaseColor}25` }}
+              >
+                {step.phase}
+              </span>
+            </div>
+
+            <h3
+              className="text-3xl font-black tracking-tight mb-4"
+              style={{ color: stepColor }}
+            >
+              {step.title}
+            </h3>
+
+            <p className={`${t.lifecycleText} text-[14px] leading-relaxed transition-colors duration-300 max-w-2xl`}>
+              {step.desc}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Deliverables */}
+          <div>
+            <p
+              className="text-[10px] font-black tracking-[0.2em] uppercase mb-4"
+              style={{ color: stepColor }}
+            >
+              Key Deliverables
+            </p>
+            <ul className="space-y-3">
+              {step.deliverables.map((d) => (
+                <li key={d} className={`flex items-start gap-3 text-[13px] leading-relaxed ${t.lifecycleText} transition-colors duration-300`}>
+                  <span
+                    className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full"
+                    style={{ background: stepColor }}
+                  />
+                  {d}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Tools */}
+          <div>
+            <p
+              className="text-[10px] font-black tracking-[0.2em] uppercase mb-4"
+              style={{ color: stepColor }}
+            >
+              Tools &amp; Methods
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {step.tools.map((tool, i) => (
+                <span
+                  key={tool}
+                  className="px-3 py-1.5 text-[11px] font-semibold rounded-full"
+                  style={{
+                    background: `${LIFECYCLE_PALETTE[(current + i) % LIFECYCLE_PALETTE.length]}12`,
+                    border: `1px solid ${LIFECYCLE_PALETTE[(current + i) % LIFECYCLE_PALETTE.length]}28`,
+                    color: LIFECYCLE_PALETTE[(current + i) % LIFECYCLE_PALETTE.length],
+                  }}
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex items-center justify-between mt-10 pt-6" style={{ borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)"}` }}>
+          <button
+            onClick={() => go(-1)}
+            disabled={current === 0}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-[12px] font-bold tracking-wide transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105"
+            style={{ background: t.lifecycleBtnBg, border: `1px solid ${t.lifecycleBtnBorder}` }}
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span className={t.lifecycleBtnText}>Previous</span>
+          </button>
+
+          {/* Mini phase labels */}
+          <div className="hidden md:flex items-center gap-2">
+            {["Discovery", "Design", "Build", "Launch", "Growth"].map((ph) => (
+              <span
+                key={ph}
+                className="text-[9px] font-black tracking-widest uppercase px-2.5 py-1 rounded-full transition-all duration-200"
+                style={{
+                  background: step.phase === ph ? `${stepColor}15` : "transparent",
+                  color: step.phase === ph ? stepColor : t.lifecyclePhaseText.includes("slate") ? (isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)") : "rgba(100,116,139,1)",
+                  border: step.phase === ph ? `1px solid ${stepColor}30` : "1px solid transparent",
+                }}
+              >
+                {ph}
+              </span>
+            ))}
+          </div>
+
+          <button
+            onClick={() => go(1)}
+            disabled={current === lifecycleSteps.length - 1}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-[12px] font-bold tracking-wide text-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105"
+            style={{ background: stepColor }}
+          >
+            <span>Next</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main Component ─────────────────────────────────────────────────────────────
 
 export default function Home() {
@@ -825,590 +1208,595 @@ export default function Home() {
 
   return (
     <>
-    <ScrollProgress />
-    <main
-      className={`min-h-screen ${t.mainText} overflow-x-hidden transition-colors duration-300`}
-      style={{ background: t.mainBg }}
-    >
-      {/* Ambient background orbs */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div
-          className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[140px]"
-          style={{ background: "radial-gradient(circle, #443199 0%, transparent 70%)", opacity: isDark ? 0.25 : 0.15 }}
-        />
-        <div
-          className="absolute top-1/2 -right-40 w-[400px] h-[400px] rounded-full blur-[120px]"
-          style={{ background: "radial-gradient(circle, #792CA2 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }}
-        />
-        <div
-          className="absolute bottom-1/3 left-1/3 w-[350px] h-[350px] rounded-full blur-[110px]"
-          style={{ background: "radial-gradient(circle, #C13383 0%, transparent 70%)", opacity: isDark ? 0.15 : 0.1 }}
-        />
-        <div
-          className="absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full blur-[100px]"
-          style={{ background: "radial-gradient(circle, #E05454 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }}
-        />
-      </div>
-
-      <ParticleCanvas isDark={isDark} />
-
-      {/* NAVBAR */}
-      <nav
-        className="fixed top-0 w-full z-50 backdrop-blur-xl transition-colors duration-300"
-        style={{ background: t.navBg, borderBottom: `1px solid ${t.navBorder}` }}
+      <ScrollProgress />
+      <main
+        className={`min-h-screen ${t.mainText} overflow-x-hidden transition-colors duration-300`}
+        style={{ background: t.mainBg }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="font-black tracking-tight text-lg" style={{ color: isDark ? "#fff" : "#0f0720" }}>
-            KARTHIK<span className="gradient-text">.</span>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase">
-              {["About", "Work", "Skills", "Experience", "Testimonials", "Contact"].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className={`${t.navLinkClass} transition-colors duration-300`}
-                >
-                  {item}
-                </a>
-              ))}
-            </div>
-
-            <button
-              onClick={() => setIsDark(!isDark)}
-              aria-label="Toggle theme"
-              className="p-2 rounded-full transition-all duration-300 hover:scale-110"
-              style={{ background: t.toggleBg, border: `1px solid ${t.toggleBorder}` }}
-            >
-              {isDark
-                ? <Sun className={`w-4 h-4 ${t.toggleIconClass}`} />
-                : <Moon className={`w-4 h-4 ${t.toggleIconClass}`} />}
-            </button>
-
-            <div className="flex items-center gap-4 pl-4" style={{ borderLeft: `1px solid ${t.navIconDivider}` }}>
-              <a href="https://github.com/karthikweb123" target="_blank" rel="noopener noreferrer">
-                <GitHubIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
-              </a>
-              <a href="https://www.linkedin.com/in/karthik-neelarapu-831b3018" target="_blank" rel="noopener noreferrer">
-                <LinkedInIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
-              </a>
-            </div>
-          </div>
+        {/* Ambient background orbs */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+          <div
+            className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[140px]"
+            style={{ background: "radial-gradient(circle, #443199 0%, transparent 70%)", opacity: isDark ? 0.25 : 0.15 }}
+          />
+          <div
+            className="absolute top-1/2 -right-40 w-[400px] h-[400px] rounded-full blur-[120px]"
+            style={{ background: "radial-gradient(circle, #792CA2 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }}
+          />
+          <div
+            className="absolute bottom-1/3 left-1/3 w-[350px] h-[350px] rounded-full blur-[110px]"
+            style={{ background: "radial-gradient(circle, #C13383 0%, transparent 70%)", opacity: isDark ? 0.15 : 0.1 }}
+          />
+          <div
+            className="absolute -bottom-20 right-1/4 w-[300px] h-[300px] rounded-full blur-[100px]"
+            style={{ background: "radial-gradient(circle, #E05454 0%, transparent 70%)", opacity: isDark ? 0.2 : 0.12 }}
+          />
         </div>
-      </nav>
 
-      {/* ── HERO ── */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-28 text-center">
-        <div
-          className="inline-flex items-center gap-2.5 px-5 py-2 mb-10 rounded-full text-[10px] font-bold tracking-[0.25em] uppercase"
-          style={{ background: "rgba(224,84,84,0.08)", border: "1px solid rgba(224,84,84,0.25)", color: "#E05454" }}
+        <ParticleCanvas isDark={isDark} />
+
+        {/* NAVBAR */}
+        <nav
+          className="fixed top-0 w-full z-50 backdrop-blur-xl transition-colors duration-300"
+          style={{ background: t.navBg, borderBottom: `1px solid ${t.navBorder}` }}
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#E05454" }} />
-            <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#E05454" }} />
-          </span>
-          Available for Full-Time &bull; Remote &bull; Freelance
-        </div>
-
-<h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
-  <span className="gradient-text block">Web Developer</span>
-</h1>
-
-<h2 className={`${t.subText} text-xl md:text-2xl font-medium mb-8 transition-colors duration-300`}>
-  Legacy to Modern
-</h2>
-
-<p
-  className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}
->
-  10+ years building fast, scalable websites and web applications across
-  finance, SaaS, IT, education, and immigration. From Figma designs to
-  production deployment, delivering high-performance user experiences,
-  technical SEO, and business-driven solutions.
-</p>
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16">
-          {stats.map(({ value, label }, i) => (
-            <div
-              key={label}
-              className="rounded-2xl p-5 reveal transition-colors duration-300"
-              style={{ background: t.statBg, border: `1px solid ${t.statBorder}`, animationDelay: `${i * 90}ms` }}
-            >
-              <div className="text-3xl md:text-4xl font-black gradient-text leading-none mb-1">{value}</div>
-              <div className={`text-[10px] font-bold tracking-[0.15em] uppercase ${t.statLabel}`}>{label}</div>
+          <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div className="font-black tracking-tight text-lg" style={{ color: isDark ? "#fff" : "#0f0720" }}>
+              KARTHIK<span className="gradient-text">.</span>
             </div>
-          ))}
-        </div>
 
-        {/* Expertise cards */}
-        <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto mb-16 text-left">
+            <div className="flex items-center gap-6">
+              <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase">
+                {["About", "Work", "Skills", "Experience", "Lifecycle", "Testimonials", "Contact"].map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className={`${t.navLinkClass} transition-colors duration-300`}
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setIsDark(!isDark)}
+                aria-label="Toggle theme"
+                className="p-2 rounded-full transition-all duration-300 hover:scale-110"
+                style={{ background: t.toggleBg, border: `1px solid ${t.toggleBorder}` }}
+              >
+                {isDark
+                  ? <Sun className={`w-4 h-4 ${t.toggleIconClass}`} />
+                  : <Moon className={`w-4 h-4 ${t.toggleIconClass}`} />}
+              </button>
+
+              <div className="flex items-center gap-4 pl-4" style={{ borderLeft: `1px solid ${t.navIconDivider}` }}>
+                <a href="https://github.com/karthikweb123" target="_blank" rel="noopener noreferrer">
+                  <GitHubIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
+                </a>
+                <a href="https://www.linkedin.com/in/karthik-neelarapu-831b3018" target="_blank" rel="noopener noreferrer">
+                  <LinkedInIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        {/* ── HERO ── */}
+        <section className="relative z-10 max-w-7xl mx-auto px-6 pt-40 pb-28 text-center">
           <div
-            className="rounded-3xl p-7 relative overflow-hidden reveal transition-colors duration-300"
-            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: "0ms" }}
+            className="inline-flex items-center gap-2.5 px-5 py-2 mb-10 rounded-full text-[10px] font-bold tracking-[0.25em] uppercase"
+            style={{ background: "rgba(224,84,84,0.08)", border: "1px solid rgba(224,84,84,0.25)", color: "#E05454" }}
           >
-            <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #C13383, #E05454)" }} />
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #C13383, #E05454)" }}>
-                <Globe className="w-4 h-4 text-white" />
-              </div>
-              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>WordPress Specialist</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {skillsWordPress.map((item, i) => (
-                <span
-                  key={item}
-                  className="px-3 py-1.5 text-xs font-semibold rounded-full"
-                  style={{ background: `${COLORS[i % 4]}12`, border: `1px solid ${COLORS[i % 4]}25`, color: COLORS[i % 4] }}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#E05454" }} />
+              <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#E05454" }} />
+            </span>
+            Available for Full-Time &bull; Remote &bull; Freelance
           </div>
 
-          <div
-            className="rounded-3xl p-7 relative overflow-hidden reveal transition-colors duration-300"
-            style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: "130ms" }}
-          >
-            <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #792CA2, #443199)" }} />
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #792CA2, #443199)" }}>
-                <Layout className="w-4 h-4 text-white" />
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
+            <span className="gradient-text block">Web Developer</span>
+          </h1>
+
+          <h2 className={`${t.subText} text-xl md:text-2xl font-medium mb-8 transition-colors duration-300`}>
+            Legacy to Modern
+          </h2>
+
+          <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}>
+            10+ years building fast, scalable websites and web applications across
+            finance, SaaS, IT, education, and immigration. From Figma designs to
+            production deployment, delivering high-performance user experiences,
+            technical SEO, and business-driven solutions.
+          </p>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-16">
+            {stats.map(({ value, label }, i) => (
+              <div
+                key={label}
+                className="rounded-2xl p-5 reveal transition-colors duration-300"
+                style={{ background: t.statBg, border: `1px solid ${t.statBorder}`, animationDelay: `${i * 90}ms` }}
+              >
+                <div className="text-3xl md:text-4xl font-black gradient-text leading-none mb-1">{value}</div>
+                <div className={`text-[10px] font-bold tracking-[0.15em] uppercase ${t.statLabel}`}>{label}</div>
               </div>
-              <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Frontend & UI/UX</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {skillsFrontend.map((item, i) => (
-                <span
-                  key={item}
-                  className="px-3 py-1.5 text-xs font-semibold rounded-full"
-                  style={{ background: `${COLORS[(i + 2) % 4]}12`, border: `1px solid ${COLORS[(i + 2) % 4]}25`, color: COLORS[(i + 2) % 4] }}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
+            ))}
           </div>
-        </div>
 
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-          <a
-            href="#contact"
-            className="px-10 py-4 rounded-full font-bold text-white text-sm tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-            style={{ background: "linear-gradient(135deg, #E05454 0%, #C13383 40%, #792CA2 70%, #443199 100%)", boxShadow: "0 0 40px rgba(193,51,131,0.3)" }}
-          >
-            Let&apos;s Connect
-          </a>
-          <a
-            href="#work"
-            className={`px-10 py-4 rounded-full font-bold ${t.viewBtnText} text-sm tracking-wide transition-all duration-300 ${t.viewBtnHover}`}
-            style={{ background: t.viewBtnBg, border: `1px solid ${t.viewBtnBorder}` }}
-          >
-            View Projects
-          </a>
-        </div>
-      </section>
-
-      {/* ── ABOUT ── */}
-      <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="About Me" color="#E05454" t={t} />
-        <div className="grid md:grid-cols-[auto_1fr] gap-10 items-start">
-
-          {/* Avatar + quick facts */}
-          <div className="reveal flex flex-col items-center md:items-start gap-5">
+          {/* Expertise cards */}
+          <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto mb-16 text-left">
             <div
-              className="w-44 h-44 rounded-3xl flex items-center justify-center text-5xl font-black text-white shrink-0 select-none"
-              style={{ background: "linear-gradient(135deg, #E05454 0%, #C13383 35%, #792CA2 70%, #443199 100%)" }}
+              className="rounded-3xl p-7 relative overflow-hidden reveal transition-colors duration-300"
+              style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: "0ms" }}
             >
-              KN
-            </div>
-            <div className="space-y-2.5">
-              <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
-                <MapPin className="w-3.5 h-3.5 shrink-0" />
-                Hyderabad, India
-              </div>
-              <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
-                <Calendar className="w-3.5 h-3.5 shrink-0" />
-                10+ Years in Web Dev
-              </div>
-              <div className="flex items-center gap-2 text-[12px] font-medium" style={{ color: "#22c55e" }}>
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#22c55e" }} />
-                  <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#22c55e" }} />
-                </span>
-                Open to work
-              </div>
-            </div>
-          </div>
-
-          {/* Bio card */}
-          <div
-            className="rounded-3xl p-8 md:p-12 relative overflow-hidden reveal transition-colors duration-300"
-            style={{ background: t.aboutBg, border: `1px solid ${t.aboutBorder}`, animationDelay: "150ms" }}
-          >
-            <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
-            <p className={`${t.aboutText} text-base leading-relaxed mb-5 transition-colors duration-300`}>
-  I&apos;m Karthik — a Senior Web Developer &amp; Designer based in Hyderabad
-  with over a decade of shipping websites that perform, rank, and convert. I work
-  in short Agile sprints — typically 1&ndash;2 week cycles — so clients see real
-  progress every week, not a big reveal at the end. Structured feedback loops and
-  iterative builds keep scope tight and rework minimal.
-</p>
-<p className={`${t.aboutText} text-base leading-relaxed mb-8 transition-colors duration-300`}>
-  I&apos;ve shipped{" "}
-  <strong className="gradient-text font-bold">50+ websites</strong> across
-  finance, SaaS, IT, education, and immigration — consistently hitting{" "}
-  <strong className="gradient-text font-bold">90+ PageSpeed scores</strong> and
-  handling everything from custom WordPress themes and ERP integrations to React
-  component libraries and full technical SEO.{" "}
-  <strong className="gradient-text font-bold">One person. Pro team discipline.</strong>
-</p>
-            <div className="flex flex-wrap gap-3">
-              {["End-to-End Ownership", "Design-to-Dev", "Brand Identity", "ERP Integration", "Technical SEO", "Full-Time · Remote · Freelance"].map((tag, i) => (
-                <span
-                  key={tag}
-                  className="px-4 py-2 text-[11px] font-bold tracking-widest uppercase rounded-full"
-                  style={{ background: `${COLORS[i % 4]}10`, border: `1px solid ${COLORS[i % 4]}28`, color: COLORS[i % 4] }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── SKILLS ── */}
-      <section id="skills" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Technical Skills" color="#C13383" t={t} />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {skillCategories.map(({ label, color, Icon, skills }, i) => (
-            <div
-              key={label}
-              className="rounded-2xl p-7 relative overflow-hidden reveal transition-colors duration-300"
-              style={{ background: t.skillCatBg, border: `1px solid ${t.skillCatBorder}`, animationDelay: `${i * 80}ms` }}
-            >
-              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
+              <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #C13383, #E05454)" }} />
               <div className="flex items-center gap-3 mb-5">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center"
-                  style={{ background: `${color}18`, border: `1px solid ${color}30` }}
-                >
-                  <Icon className="w-4 h-4" style={{ color }} />
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #C13383, #E05454)" }}>
+                  <Globe className="w-4 h-4 text-white" />
                 </div>
-                <h3 className={`${t.skillCatLabel} font-bold text-sm tracking-wide transition-colors duration-300`}>{label}</h3>
+                <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>WordPress Specialist</h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
+                {skillsWordPress.map((item, i) => (
                   <span
-                    key={skill}
-                    className="px-3 py-1.5 text-[11px] font-semibold rounded-full transition-all duration-200 hover:scale-105 cursor-default"
-                    style={{ background: `${color}10`, border: `1px solid ${color}25`, color }}
+                    key={item}
+                    className="px-3 py-1.5 text-xs font-semibold rounded-full"
+                    style={{ background: `${COLORS[i % 4]}12`, border: `1px solid ${COLORS[i % 4]}25`, color: COLORS[i % 4] }}
                   >
-                    {skill}
+                    {item}
                   </span>
                 ))}
               </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ── EXPERIENCE ── */}
-      <section id="experience" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Corporate / IT / Development Team Experience" color="#792CA2" t={t} />
-        <div className="space-y-8">
-          {experience.map((job, idx) => (
             <div
-              key={job.company}
-              className="rounded-2xl p-8 md:p-10 relative overflow-hidden reveal transition-colors duration-300"
-              style={{ background: t.expCardBg, border: `1px solid ${t.expCardBorder}`, animationDelay: `${idx * 150}ms` }}
+              className="rounded-3xl p-7 relative overflow-hidden reveal transition-colors duration-300"
+              style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: "130ms" }}
             >
-              <div className="absolute top-0 left-0 bottom-0 w-[3px] rounded-l-2xl" style={{ background: job.color }} />
-              <div className="pl-2">
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-7">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span
-                        className="px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-full"
-                        style={{ background: `${job.color}15`, color: job.color }}
-                      >
-                        {idx === 0 ? "Most Recent" : "Previous Role"}
-                      </span>
+              <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #792CA2, #443199)" }} />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #792CA2, #443199)" }}>
+                  <Layout className="w-4 h-4 text-white" />
+                </div>
+                <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Frontend & UI/UX</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {skillsFrontend.map((item, i) => (
+                  <span
+                    key={item}
+                    className="px-3 py-1.5 text-xs font-semibold rounded-full"
+                    style={{ background: `${COLORS[(i + 2) % 4]}12`, border: `1px solid ${COLORS[(i + 2) % 4]}25`, color: COLORS[(i + 2) % 4] }}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <a
+              href="#contact"
+              className="px-10 py-4 rounded-full font-bold text-white text-sm tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              style={{ background: "linear-gradient(135deg, #E05454 0%, #C13383 40%, #792CA2 70%, #443199 100%)", boxShadow: "0 0 40px rgba(193,51,131,0.3)" }}
+            >
+              Let&apos;s Connect
+            </a>
+            <a
+              href="#work"
+              className={`px-10 py-4 rounded-full font-bold ${t.viewBtnText} text-sm tracking-wide transition-all duration-300 ${t.viewBtnHover}`}
+              style={{ background: t.viewBtnBg, border: `1px solid ${t.viewBtnBorder}` }}
+            >
+              View Projects
+            </a>
+          </div>
+        </section>
+
+        {/* ── ABOUT ── */}
+        <section id="about" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="About Me" color="#E05454" t={t} />
+          <div className="grid md:grid-cols-[auto_1fr] gap-10 items-start">
+            <div className="reveal flex flex-col items-center md:items-start gap-5">
+              <div
+                className="w-44 h-44 rounded-3xl flex items-center justify-center text-5xl font-black text-white shrink-0 select-none"
+                style={{ background: "linear-gradient(135deg, #E05454 0%, #C13383 35%, #792CA2 70%, #443199 100%)" }}
+              >
+                KN
+              </div>
+              <div className="space-y-2.5">
+                <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
+                  <MapPin className="w-3.5 h-3.5 shrink-0" />
+                  Hyderabad, India
+                </div>
+                <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
+                  <Calendar className="w-3.5 h-3.5 shrink-0" />
+                  10+ Years in Web Dev
+                </div>
+                <div className="flex items-center gap-2 text-[12px] font-medium" style={{ color: "#22c55e" }}>
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#22c55e" }} />
+                    <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#22c55e" }} />
+                  </span>
+                  Open to work
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="rounded-3xl p-8 md:p-12 relative overflow-hidden reveal transition-colors duration-300"
+              style={{ background: t.aboutBg, border: `1px solid ${t.aboutBorder}`, animationDelay: "150ms" }}
+            >
+              <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
+              <p className={`${t.aboutText} text-base leading-relaxed mb-5 transition-colors duration-300`}>
+                I&apos;m Karthik — a Senior Web Developer &amp; Designer based in Hyderabad
+                with over a decade of shipping websites that perform, rank, and convert. I work
+                in short Agile sprints — typically 1&ndash;2 week cycles — so clients see real
+                progress every week, not a big reveal at the end. Structured feedback loops and
+                iterative builds keep scope tight and rework minimal.
+              </p>
+              <p className={`${t.aboutText} text-base leading-relaxed mb-8 transition-colors duration-300`}>
+                I&apos;ve shipped{" "}
+                <strong className="gradient-text font-bold">50+ websites</strong> across
+                finance, SaaS, IT, education, and immigration — consistently hitting{" "}
+                <strong className="gradient-text font-bold">90+ PageSpeed scores</strong> and
+                handling everything from custom WordPress themes and ERP integrations to React
+                component libraries and full technical SEO.{" "}
+                <strong className="gradient-text font-bold">One person. Pro team discipline.</strong>
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {["End-to-End Ownership", "Design-to-Dev", "Brand Identity", "ERP Integration", "Technical SEO", "Full-Time · Remote · Freelance"].map((tag, i) => (
+                  <span
+                    key={tag}
+                    className="px-4 py-2 text-[11px] font-bold tracking-widest uppercase rounded-full"
+                    style={{ background: `${COLORS[i % 4]}10`, border: `1px solid ${COLORS[i % 4]}28`, color: COLORS[i % 4] }}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── SKILLS ── */}
+        <section id="skills" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Technical Skills" color="#C13383" t={t} />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {skillCategories.map(({ label, color, Icon, skills }, i) => (
+              <div
+                key={label}
+                className="rounded-2xl p-7 relative overflow-hidden reveal transition-colors duration-300"
+                style={{ background: t.skillCatBg, border: `1px solid ${t.skillCatBorder}`, animationDelay: `${i * 80}ms` }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: color }} />
+                <div className="flex items-center gap-3 mb-5">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center"
+                    style={{ background: `${color}18`, border: `1px solid ${color}30` }}
+                  >
+                    <Icon className="w-4 h-4" style={{ color }} />
+                  </div>
+                  <h3 className={`${t.skillCatLabel} font-bold text-sm tracking-wide transition-colors duration-300`}>{label}</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 text-[11px] font-semibold rounded-full transition-all duration-200 hover:scale-105 cursor-default"
+                      style={{ background: `${color}10`, border: `1px solid ${color}25`, color }}
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── EXPERIENCE ── */}
+        <section id="experience" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Corporate / IT / Development Team Experience" color="#792CA2" t={t} />
+          <div className="space-y-8">
+            {experience.map((job, idx) => (
+              <div
+                key={job.company}
+                className="rounded-2xl p-8 md:p-10 relative overflow-hidden reveal transition-colors duration-300"
+                style={{ background: t.expCardBg, border: `1px solid ${t.expCardBorder}`, animationDelay: `${idx * 150}ms` }}
+              >
+                <div className="absolute top-0 left-0 bottom-0 w-[3px] rounded-l-2xl" style={{ background: job.color }} />
+                <div className="pl-2">
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-7">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span
+                          className="px-3 py-1 text-[10px] font-black tracking-widest uppercase rounded-full"
+                          style={{ background: `${job.color}15`, color: job.color }}
+                        >
+                          {idx === 0 ? "Most Recent" : "Previous Role"}
+                        </span>
+                      </div>
+                      <h3 className={`${t.expCompany} text-2xl font-black tracking-tight mt-2 transition-colors duration-300`}>
+                        {job.role}
+                      </h3>
+                      <div className="flex items-center gap-4 mt-1.5">
+                        <span className="font-bold text-base" style={{ color: job.color }}>{job.company}</span>
+                      </div>
                     </div>
-                    <h3 className={`${t.expCompany} text-2xl font-black tracking-tight mt-2 transition-colors duration-300`}>
-                      {job.role}
-                    </h3>
-                    <div className="flex items-center gap-4 mt-1.5">
-                      <span className="font-bold text-base" style={{ color: job.color }}>{job.company}</span>
+                    <div className="flex flex-col gap-1.5 md:text-right shrink-0">
+                      <div className={`flex items-center gap-1.5 ${t.expMeta} text-[12px] font-medium md:justify-end transition-colors duration-300`}>
+                        <Calendar className="w-3.5 h-3.5" />
+                        {job.period}
+                      </div>
+                      <div className={`flex items-center gap-1.5 ${t.expMeta} text-[12px] font-medium md:justify-end transition-colors duration-300`}>
+                        <MapPin className="w-3.5 h-3.5" />
+                        {job.location}
+                      </div>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-1.5 md:text-right shrink-0">
-                    <div className={`flex items-center gap-1.5 ${t.expMeta} text-[12px] font-medium md:justify-end transition-colors duration-300`}>
-                      <Calendar className="w-3.5 h-3.5" />
-                      {job.period}
-                    </div>
-                    <div className={`flex items-center gap-1.5 ${t.expMeta} text-[12px] font-medium md:justify-end transition-colors duration-300`}>
-                      <MapPin className="w-3.5 h-3.5" />
-                      {job.location}
+                  <ul className="space-y-3">
+                    {job.highlights.map((point) => (
+                      <li key={point} className={`flex gap-3 text-[13px] leading-relaxed ${t.expBullet} transition-colors duration-300`}>
+                        <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full" style={{ background: job.color }} />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── CERTIFICATIONS ── */}
+        <section id="certifications" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Certifications" color="#E05454" t={t} />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {certifications.map((cert, i) => (
+              <div
+                key={cert.name}
+                className="rounded-2xl p-6 relative overflow-hidden reveal transition-colors duration-300"
+                style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: `${i * 80}ms` }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: cert.color }} />
+                <div className="flex items-start gap-4">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: `${cert.color}15`, border: `1px solid ${cert.color}30` }}
+                  >
+                    <Award className="w-5 h-5" style={{ color: cert.color }} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className={`${t.cardHeading} font-bold text-sm mb-1 transition-colors duration-300`}>{cert.name}</h3>
+                    <p className={`${t.subText} text-[12px] mb-2 leading-snug transition-colors duration-300`}>{cert.credential}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold" style={{ color: cert.color }}>{cert.issuer}</span>
+                      <span className={`text-[10px] font-bold tracking-widest uppercase ${t.expMeta} transition-colors duration-300`}>{cert.year}</span>
                     </div>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── WORDPRESS ── */}
+        <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Custom WordPress Development" color="#C13383" t={t} />
+          <div className="grid md:grid-cols-2 gap-8">
+            <div
+              className="rounded-2xl p-8 reveal transition-colors duration-300"
+              style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)", animationDelay: "0ms" }}
+            >
+              <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Themes & CMS</h3>
+              <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
+                Building tailored WordPress installations with fully custom themes and content management systems — no page-builder lock-in.
+                Every content type, taxonomy, and admin UI crafted to match the client&apos;s exact editorial workflow.
+                7+ enterprise-grade custom themes delivered with 90+ PageSpeed on every build.
+              </p>
+            </div>
+            <div
+              className="rounded-2xl p-8 reveal transition-colors duration-300"
+              style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)", animationDelay: "130ms" }}
+            >
+              <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>ERP & Plugin Integration</h3>
+              <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
+                Pixel-perfect Figma-to-WordPress builds with responsive layouts and custom Gutenberg blocks. Complex web form integration
+                via PHP and Boomi into NetSuite ERP workflows — reducing manual data handling and streamlining operations for enterprise clients.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── REACT / NEXT.JS ── */}
+        <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="React / Next.js UI Development" color="#7928A2" t={t} />
+          <div className="grid md:grid-cols-2 gap-8">
+            <div
+              className="rounded-2xl p-8 reveal transition-colors duration-300"
+              style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)", animationDelay: "0ms" }}
+            >
+              <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Component-Driven UIs</h3>
+              <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
+                Crafting reusable, accessible React component libraries with clean prop APIs. From design-system foundations to fully
+                interactive dashboards — built for maintainability and scale.
+              </p>
+            </div>
+            <div
+              className="rounded-2xl p-8 reveal transition-colors duration-300"
+              style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)", animationDelay: "130ms" }}
+            >
+              <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Next.js Applications</h3>
+              <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
+                Full-stack Next.js apps with server components, dynamic routing, and optimised data-fetching strategies.
+                Deployed to Vercel with edge caching, image optimisation, and Core Web Vitals in mind.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── DEPLOYMENT PIPELINE ── */}
+        <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Deployment Pipeline" color="#443199" t={t} />
+          <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
+            Structured Dev → Staging → Production workflow maintained across all projects with version control,
+            pre-deployment backups, and post-release verification.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {pipelineStages.map((stage, i) => (
+              <div
+                key={stage.stage}
+                className="rounded-2xl p-8 relative overflow-hidden reveal transition-colors duration-300"
+                style={{ background: t.pipeBg, border: `1px solid ${t.pipeBorder}`, animationDelay: `${i * 100}ms` }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: stage.color }} />
+                <div className="flex items-center gap-3 mb-2">
+                  <span
+                    className="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 rounded-full"
+                    style={{ background: `${stage.color}15`, color: stage.color }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <h3 className="text-xl font-black mb-1 transition-colors duration-300" style={{ color: stage.color }}>
+                  {stage.stage}
+                </h3>
+                <p className={`text-[11px] font-bold tracking-widest uppercase mb-5 ${t.expMeta} transition-colors duration-300`}>
+                  {stage.subtitle}
+                </p>
                 <ul className="space-y-3">
-                  {job.highlights.map((point) => (
-                    <li key={point} className={`flex gap-3 text-[13px] leading-relaxed ${t.expBullet} transition-colors duration-300`}>
-                      <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full" style={{ background: job.color }} />
-                      {point}
+                  {stage.items.map((item) => (
+                    <li key={item} className={`flex gap-2.5 text-[12px] leading-relaxed ${t.pipeItem} transition-colors duration-300`}>
+                      <span className="mt-1.5 shrink-0 w-1 h-1 rounded-full" style={{ background: stage.color }} />
+                      {item}
                     </li>
                   ))}
                 </ul>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* ── CERTIFICATIONS ── */}
-      <section id="certifications" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Certifications" color="#E05454" t={t} />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {certifications.map((cert, i) => (
-            <div
-              key={cert.name}
-              className="rounded-2xl p-6 relative overflow-hidden reveal transition-colors duration-300"
-              style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: `${i * 80}ms` }}
-            >
-              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: cert.color }} />
-              <div className="flex items-start gap-4">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ background: `${cert.color}15`, border: `1px solid ${cert.color}30` }}
-                >
-                  <Award className="w-5 h-5" style={{ color: cert.color }} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className={`${t.cardHeading} font-bold text-sm mb-1 transition-colors duration-300`}>{cert.name}</h3>
-                  <p className={`${t.subText} text-[12px] mb-2 leading-snug transition-colors duration-300`}>{cert.credential}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold" style={{ color: cert.color }}>{cert.issuer}</span>
-                    <span className={`text-[10px] font-bold tracking-widest uppercase ${t.expMeta} transition-colors duration-300`}>{cert.year}</span>
+        {/* ── PRODUCT DEVELOPMENT LIFECYCLE ── */}
+        <section id="lifecycle" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Product Development Lifecycle" color="#C13383" t={t} />
+          <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
+            End-to-end delivery methodology — from requirement gathering through to post-launch growth. Every project follows this structured 11-stage process.
+          </p>
+          <ProductLifecycle t={t} isDark={isDark} />
+        </section>
+
+        {/* ── DEV INSIGHTS ── */}
+        <section id="insights" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Dev Insights" color="#E05454" t={t} />
+          <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
+            Battle-tested patterns from 10+ years of production delivery — across WordPress, React, Next.js, and the modern web.
+          </p>
+          <DevInsights t={t} isDark={isDark} />
+        </section>
+
+        {/* ── PROJECTS ── */}
+        <section id="work" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
+          <SectionHeader label="Selected Work" color="#C13383" t={t} />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {allProjects.map((project, i) => (
+              <ProjectCard key={project.name} project={project} index={i} color={COLORS[i % 4]} t={t} />
+            ))}
+          </div>
+        </section>
+
+        {/* ── TESTIMONIALS ── */}
+        <section id="testimonials" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
+          <SectionHeader label="Testimonials" color="#C13383" t={t} />
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((tl, i) => (
+              <div
+                key={i}
+                className="rounded-2xl p-7 relative overflow-hidden reveal transition-colors duration-300 flex flex-col"
+                style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: `${i * 120}ms` }}
+              >
+                <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: tl.color }} />
+                <Quote className="w-7 h-7 mb-4 shrink-0" style={{ color: tl.color, opacity: 0.4 }} />
+                <p className={`${t.aboutText} text-[13px] leading-relaxed mb-6 flex-1 transition-colors duration-300`}>
+                  &ldquo;{tl.quote}&rdquo;
+                </p>
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black text-white shrink-0"
+                    style={{ background: `linear-gradient(135deg, ${tl.color}, ${COLORS[(i + 1) % 4]})` }}
+                  >
+                    {tl.initials}
+                  </div>
+                  <div>
+                    <div className={`${t.cardHeading} font-bold text-sm transition-colors duration-300`}>{tl.author}</div>
+                    <div className={`${t.subText} text-[11px] transition-colors duration-300`}>{tl.role}</div>
                   </div>
                 </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── CONTACT ── */}
+        <section id="contact" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
+          <div
+            className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center reveal transition-colors duration-300"
+            style={{
+              background: "linear-gradient(135deg, rgba(224,84,84,0.07) 0%, rgba(193,51,131,0.06) 30%, rgba(121,44,162,0.06) 60%, rgba(68,49,153,0.08) 100%)",
+              border: `1px solid ${t.contactBorder}`,
+            }}
+          >
+            <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full blur-[120px]" style={{ background: "#E05454", opacity: 0.2 }} />
+            <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full blur-[120px]" style={{ background: "#443199", opacity: 0.2 }} />
+
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-8">
+              <span className={`${t.heading} transition-colors duration-300`}>Let&apos;s Build</span>
+              <br />
+              <span className="gradient-text">Something Great</span>
+            </h2>
+
+            <p className={`${t.contactP} max-w-2xl mx-auto mb-14 text-lg leading-relaxed transition-colors duration-300`}>
+              Open to WordPress development, frontend engineering, UI/UX design, full-stack web applications,
+              and long-term product collaborations. Full-time, remote, or freelance.
+            </p>
+
+            <div className="flex flex-col md:flex-row justify-center items-center gap-12">
+              <ContactItem
+                href="mailto:karthikneelaram@gmail.com"
+                icon={<Mail className="w-6 h-6" style={{ color: "#E05454" }} />}
+                color="#E05454"
+                label="karthikneelaram@gmail.com"
+                sublabel="Email"
+                t={t}
+              />
+              <div className="hidden md:block h-16 w-px" style={{ background: t.contactDivider }} />
+              <ContactItem
+                href="tel:+919502905237"
+                icon={<Phone className="w-6 h-6" style={{ color: "#792CA2" }} />}
+                color="#792CA2"
+                label="+91 9502905237"
+                sublabel="Phone"
+                t={t}
+              />
+              <div className="hidden md:block h-16 w-px" style={{ background: t.contactDivider }} />
+              <ContactItem
+                href="https://wa.me/919494935616"
+                icon={<WhatsAppIcon className="w-6 h-6" style={{ color: "#25D366" }} />}
+                color="#25D366"
+                label="+91 94949 35616"
+                sublabel="WhatsApp"
+                t={t}
+              />
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── WORDPRESS ── */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Custom WordPress Development" color="#C13383" t={t} />
-        <div className="grid md:grid-cols-2 gap-8">
-          <div
-            className="rounded-2xl p-8 reveal transition-colors duration-300"
-            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)", animationDelay: "0ms" }}
-          >
-            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Themes & CMS</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
-              Building tailored WordPress installations with fully custom themes and content management systems — no page-builder lock-in.
-              Every content type, taxonomy, and admin UI crafted to match the client&apos;s exact editorial workflow.
-              7+ enterprise-grade custom themes delivered with 90+ PageSpeed on every build.
-            </p>
           </div>
-          <div
-            className="rounded-2xl p-8 reveal transition-colors duration-300"
-            style={{ background: "rgba(193,51,131,0.05)", border: "1px solid rgba(193,51,131,0.15)", animationDelay: "130ms" }}
-          >
-            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>ERP & Plugin Integration</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
-              Pixel-perfect Figma-to-WordPress builds with responsive layouts and custom Gutenberg blocks. Complex web form integration
-              via PHP and Boomi into NetSuite ERP workflows — reducing manual data handling and streamlining operations for enterprise clients.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ── REACT / NEXT.JS ── */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="React / Next.js UI Development" color="#7928A2" t={t} />
-        <div className="grid md:grid-cols-2 gap-8">
-          <div
-            className="rounded-2xl p-8 reveal transition-colors duration-300"
-            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)", animationDelay: "0ms" }}
-          >
-            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Component-Driven UIs</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
-              Crafting reusable, accessible React component libraries with clean prop APIs. From design-system foundations to fully
-              interactive dashboards — built for maintainability and scale.
-            </p>
-          </div>
-          <div
-            className="rounded-2xl p-8 reveal transition-colors duration-300"
-            style={{ background: "rgba(121,40,162,0.05)", border: "1px solid rgba(121,40,162,0.15)", animationDelay: "130ms" }}
-          >
-            <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#7928A2" }}>Next.js Applications</h3>
-            <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
-              Full-stack Next.js apps with server components, dynamic routing, and optimised data-fetching strategies.
-              Deployed to Vercel with edge caching, image optimisation, and Core Web Vitals in mind.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── DEPLOYMENT PIPELINE ── */}
-      <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Deployment Pipeline" color="#443199" t={t} />
-        <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
-          Structured Dev → Staging → Production workflow maintained across all projects with version control,
-          pre-deployment backups, and post-release verification.
-        </p>
-        <div className="grid md:grid-cols-3 gap-6">
-          {pipelineStages.map((stage, i) => (
-            <div
-              key={stage.stage}
-              className="rounded-2xl p-8 relative overflow-hidden reveal transition-colors duration-300"
-              style={{ background: t.pipeBg, border: `1px solid ${t.pipeBorder}`, animationDelay: `${i * 100}ms` }}
-            >
-              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: stage.color }} />
-              <div className="flex items-center gap-3 mb-2">
-                <span
-                  className="text-[10px] font-black tracking-widest uppercase px-2.5 py-1 rounded-full"
-                  style={{ background: `${stage.color}15`, color: stage.color }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <h3 className="text-xl font-black mb-1 transition-colors duration-300" style={{ color: stage.color }}>
-                {stage.stage}
-              </h3>
-              <p className={`text-[11px] font-bold tracking-widest uppercase mb-5 ${t.expMeta} transition-colors duration-300`}>
-                {stage.subtitle}
-              </p>
-              <ul className="space-y-3">
-                {stage.items.map((item) => (
-                  <li key={item} className={`flex gap-2.5 text-[12px] leading-relaxed ${t.pipeItem} transition-colors duration-300`}>
-                    <span className="mt-1.5 shrink-0 w-1 h-1 rounded-full" style={{ background: stage.color }} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── DEV INSIGHTS ── */}
-      <section id="insights" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Dev Insights" color="#E05454" t={t} />
-        <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
-          Battle-tested patterns from 10+ years of production delivery — across WordPress, React, Next.js, and the modern web.
-        </p>
-        <DevInsights t={t} isDark={isDark} />
-      </section>
-
-      {/* ── PROJECTS ── */}
-      <section id="work" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
-        <SectionHeader label="Selected Work" color="#C13383" t={t} />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {allProjects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} color={COLORS[i % 4]} t={t} />
-          ))}
-        </div>
-      </section>
-
-      {/* ── TESTIMONIALS ── */}
-      <section id="testimonials" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-        <SectionHeader label="Testimonials" color="#C13383" t={t} />
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((tl, i) => (
-            <div
-              key={i}
-              className="rounded-2xl p-7 relative overflow-hidden reveal transition-colors duration-300 flex flex-col"
-              style={{ background: t.cardBg, border: `1px solid ${t.cardBorder}`, animationDelay: `${i * 120}ms` }}
-            >
-              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: tl.color }} />
-              <Quote className="w-7 h-7 mb-4 shrink-0" style={{ color: tl.color, opacity: 0.4 }} />
-              <p className={`${t.aboutText} text-[13px] leading-relaxed mb-6 flex-1 transition-colors duration-300`}>
-                &ldquo;{tl.quote}&rdquo;
-              </p>
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black text-white shrink-0"
-                  style={{ background: `linear-gradient(135deg, ${tl.color}, ${COLORS[(i + 1) % 4]})` }}
-                >
-                  {tl.initials}
-                </div>
-                <div>
-                  <div className={`${t.cardHeading} font-bold text-sm transition-colors duration-300`}>{tl.author}</div>
-                  <div className={`${t.subText} text-[11px] transition-colors duration-300`}>{tl.role}</div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CONTACT ── */}
-      <section id="contact" className="relative z-10 max-w-7xl mx-auto px-6 pb-32">
-        <div
-          className="relative overflow-hidden rounded-[3rem] p-16 md:p-24 text-center reveal transition-colors duration-300"
-          style={{
-            background: "linear-gradient(135deg, rgba(224,84,84,0.07) 0%, rgba(193,51,131,0.06) 30%, rgba(121,44,162,0.06) 60%, rgba(68,49,153,0.08) 100%)",
-            border: `1px solid ${t.contactBorder}`,
-          }}
-        >
-          <div className="absolute -top-20 -left-20 w-64 h-64 rounded-full blur-[120px]" style={{ background: "#E05454", opacity: 0.2 }} />
-          <div className="absolute -bottom-20 -right-20 w-64 h-64 rounded-full blur-[120px]" style={{ background: "#443199", opacity: 0.2 }} />
-
-          <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-8">
-            <span className={`${t.heading} transition-colors duration-300`}>Let&apos;s Build</span>
-            <br />
-            <span className="gradient-text">Something Great</span>
-          </h2>
-
-          <p className={`${t.contactP} max-w-2xl mx-auto mb-14 text-lg leading-relaxed transition-colors duration-300`}>
-            Open to WordPress development, frontend engineering, UI/UX design, full-stack web applications,
-            and long-term product collaborations. Full-time, remote, or freelance.
-          </p>
-
-          <div className="flex flex-col md:flex-row justify-center items-center gap-12">
-            <ContactItem
-              href="mailto:karthikneelaram@gmail.com"
-              icon={<Mail className="w-6 h-6" style={{ color: "#E05454" }} />}
-              color="#E05454"
-              label="karthikneelaram@gmail.com"
-              sublabel="Email"
-              t={t}
-            />
-            <div className="hidden md:block h-16 w-px" style={{ background: t.contactDivider }} />
-            <ContactItem
-              href="tel:+919502905237"
-              icon={<Phone className="w-6 h-6" style={{ color: "#792CA2" }} />}
-              color="#792CA2"
-              label="+91 9502905237"
-              sublabel="Phone"
-              t={t}
-            />
-            <div className="hidden md:block h-16 w-px" style={{ background: t.contactDivider }} />
-            <ContactItem
-              href="https://wa.me/919494935616"
-              icon={<WhatsAppIcon className="w-6 h-6" style={{ color: "#25D366" }} />}
-              color="#25D366"
-              label="+91 94949 35616"
-              sublabel="WhatsApp"
-              t={t}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className={`relative z-10 text-center text-[10px] font-bold tracking-[0.3em] uppercase ${t.footer} pb-16 transition-colors duration-300`}>
-        &copy; {new Date().getFullYear()} Karthik Neelarapu &bull; Senior Web Developer &bull; Hyderabad, India
-      </footer>
-    </main>
+        {/* FOOTER */}
+        <footer className={`relative z-10 text-center text-[10px] font-bold tracking-[0.3em] uppercase ${t.footer} pb-16 transition-colors duration-300`}>
+          &copy; {new Date().getFullYear()} Karthik Neelarapu &bull; Senior Web Developer &bull; Hyderabad, India
+        </footer>
+      </main>
     </>
   );
 }
@@ -1529,16 +1917,15 @@ function DevInsights({ t, isDark }: { t: Theme; isDark: boolean }) {
 
   const catColor = (cat: string) =>
     cat === "WordPress" ? "#C13383"
-    : cat === "Next.js" ? "#443199"
-    : cat === "React" ? "#792CA2"
-    : cat === "JavaScript" ? "#E05454"
-    : cat === "CSS" ? "#C13383"
-    : cat === "SEO" ? "#E05454"
-    : null;
+      : cat === "Next.js" ? "#443199"
+        : cat === "React" ? "#792CA2"
+          : cat === "JavaScript" ? "#E05454"
+            : cat === "CSS" ? "#C13383"
+              : cat === "SEO" ? "#E05454"
+                : null;
 
   return (
     <div>
-      {/* Filter tabs */}
       <div className="flex flex-wrap gap-2 mb-10">
         {insightCategories.map((cat) => {
           const isActive = cat === activeTab;
@@ -1560,7 +1947,6 @@ function DevInsights({ t, isDark }: { t: Theme; isDark: boolean }) {
         })}
       </div>
 
-      {/* Tips grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filtered.map((tip, i) => {
           const IconComp = tip.icon;
@@ -1570,16 +1956,7 @@ function DevInsights({ t, isDark }: { t: Theme; isDark: boolean }) {
                 className="rounded-2xl p-6 relative overflow-hidden transition-all duration-300 hover:-translate-y-0.5 h-full"
                 style={{ background: t.insightCardBg, border: `1px solid ${t.insightCardBorder}` }}
               >
-                {/* Top accent bar */}
                 <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl" style={{ background: tip.color }} />
-
-                {/* Subtle hover glow */}
-                <div
-                  className="absolute inset-0 pointer-events-none rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: `radial-gradient(ellipse at 50% 0%, ${tip.color}10 0%, transparent 70%)` }}
-                />
-
-                {/* Icon + badge */}
                 <div className="flex items-center gap-2 mb-4">
                   <div
                     className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
@@ -1594,8 +1971,6 @@ function DevInsights({ t, isDark }: { t: Theme; isDark: boolean }) {
                     {tip.cat}
                   </span>
                 </div>
-
-                {/* Tip text */}
                 <p
                   className="text-[13px] leading-relaxed transition-colors duration-300"
                   style={{ color: t.insightText }}

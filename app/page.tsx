@@ -1270,7 +1270,8 @@ export default function Home() {
               </button>
 
               <div className="flex items-center gap-4 pl-4" style={{ borderLeft: `1px solid ${t.navIconDivider}` }}>
-                <a href="https://github.com/karthikweb123" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/karthikweb123" target="_blank" rel="noopener noreferrer" aria-label="Visit Karthik's GitHub Profile">
+  </a>
                   <GitHubIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
                 </a>
                 <a href="https://www.linkedin.com/in/karthik-neelarapu-831b3018" target="_blank" rel="noopener noreferrer">

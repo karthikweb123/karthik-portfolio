@@ -1291,7 +1291,7 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#E05454" }} />
               <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#E05454" }} />
             </span>
-            Available for Virtual Interview
+            Available for Virtual Interviews
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">

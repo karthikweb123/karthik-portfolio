@@ -219,6 +219,12 @@ type Theme = typeof darkTheme;
 
 const allProjects = [
   {
+  name: "VR Cybernauts",
+  url: "https://vrcybernauts.com/",
+  category: "Cybersecurity & Education",
+  desc: "Complete UI/UX design + custom WordPress development from scratch. Sole owner of design, frontend and CMS architecture, with dynamic Courses, Batches and Services, plus full technical SEO.",
+},
+  {
     name: "Hathority",
     url: "https://hathority.com/",
     category: "Enterprise & IT",

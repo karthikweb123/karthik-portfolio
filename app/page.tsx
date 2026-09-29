@@ -322,8 +322,8 @@ const skillsWordPress = [
 ];
 
 const skillsFrontend = [
-  "HTML5", "CSS3", "JavaScript", "TypeScript",
-  "React", "Vue.js", "Bootstrap", "Figma", "Technical SEO",
+  "Technical SEO", "Core Web Vitals", "Google Search Console", "GA4",
+  "Schema Markup", "PageSpeed", "On-Page SEO", "Canonical Tags",
 ];
 
 const skillCategories = [
@@ -431,7 +431,7 @@ const pipelineStages = [
 ];
 
 const stats = [
-  { value: "10+", label: "Years Experience" },
+  { value: "11+", label: "Years Experience" },
   { value: "50+", label: "Websites Delivered" },
   { value: "90+", label: "PageSpeed Score" },
   { value: "15+", label: "Enterprise Clients" },
@@ -1297,7 +1297,7 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#E05454" }} />
               <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#E05454" }} />
             </span>
-            React / Next.js / WordPress Developer
+            WORDPRESS + TECHNICAL SEO DEVELOPER
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
@@ -1309,10 +1309,10 @@ export default function Home() {
           </h2>
 
           <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}>
-            10+ years building fast, scalable websites and web applications across
-            finance, SaaS, IT, education, and immigration. From Figma designs to
-            production deployment, delivering high-performance user experiences,
-            technical SEO, and business-driven solutions.
+            11+ years of experience building and optimizing business websites, with a strong
+            focus on WordPress, PHP, technical SEO, website performance and responsive
+            frontend development. I build custom WordPress websites, landing pages and
+            CMS solutions that are fast, SEO-friendly and easy to manage.
           </p>
 
           {/* Stats */}
@@ -1364,7 +1364,7 @@ export default function Home() {
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: "linear-gradient(135deg, #792CA2, #443199)" }}>
                   <Layout className="w-4 h-4 text-white" />
                 </div>
-                <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Frontend & UI/UX</h3>
+                <h3 className={`${t.cardHeading} text-lg font-bold transition-colors duration-300`}>Technical SEO & Performance</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {skillsFrontend.map((item, i) => (
@@ -1417,7 +1417,7 @@ export default function Home() {
                 </div>
                 <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
                   <Calendar className="w-3.5 h-3.5 shrink-0" />
-                  10+ Years in Web Dev
+                  11+ Years in Web Development
                 </div>
                 <div className="flex items-center gap-2 text-[12px] font-medium" style={{ color: "#22c55e" }}>
                   <span className="relative flex h-2 w-2">
@@ -1617,7 +1617,7 @@ export default function Home() {
 
         {/* ── REACT / NEXT.JS ── */}
         <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
-          <SectionHeader label="React / Next.js UI Development" color="#7928A2" t={t} />
+          <SectionHeader label="React / Next.js" color="#7928A2" t={t} />
           <div className="grid md:grid-cols-2 gap-8">
             <div
               className="rounded-2xl p-8 reveal transition-colors duration-300"
@@ -1697,7 +1697,7 @@ export default function Home() {
         <section id="insights" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
           <SectionHeader label="Dev Insights" color="#E05454" t={t} />
           <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
-            Battle-tested patterns from 10+ years of production delivery — across WordPress, React, Next.js, and the modern web.
+            Battle-tested patterns from 11+ years of production delivery — across WordPress, React, Next.js, and the modern web.
           </p>
           <DevInsights t={t} isDark={isDark} />
         </section>
@@ -1763,8 +1763,8 @@ export default function Home() {
             </h2>
 
             <p className={`${t.contactP} max-w-2xl mx-auto mb-14 text-lg leading-relaxed transition-colors duration-300`}>
-              Open to WordPress development, frontend engineering, UI/UX design, full-stack web applications,
-              and long-term product collaborations. Full-time, remote, or freelance.
+              Open to full-time opportunities in Web Development, WordPress Development,
+              Technical SEO and Website Management. Available for Hyderabad-based and remote roles.
             </p>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-12">

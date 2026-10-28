@@ -1,3 +1,6 @@
+// Portfolio component refresh based on the supplied source.
+// Before publishing: verify all metrics, project claims, certifications, and testimonial permissions.
+// Also update app/layout.tsx metadata and Open Graph tags to match the title used below.
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -21,6 +24,8 @@ import {
   CheckCircle2,
   ChevronRight,
   ChevronLeft,
+  Menu,
+  X,
 } from "lucide-react";
 
 const GitHubIcon = ({ className }: { className?: string }) => (
@@ -388,7 +393,7 @@ const experience = [
     highlights: [
       "Designed Hathority's complete brand identity — logo, typography, colours — and built the corporate website from scratch as sole UI/UX and frontend owner.",
       "Led UI/UX design across 15+ client projects — wireframes, Figma prototypes, and pixel-perfect builds focused on conversion and brand consistency.",
-      "Built 7+ custom WordPress themes for enterprise clients in finance, SaaS, and IT — achieving 90+ PageSpeed scores on every delivery.",
+      "Built custom WordPress themes for clients in finance, SaaS, and IT, with a focus on performance, maintainability, and responsive delivery.",
       "Integrated complex web forms via PHP and Boomi into NetSuite ERP workflows, reducing manual data handling for clients.",
       "Drove technical SEO strategy across all client sites — schema markup, Core Web Vitals, meta optimisation — improving organic rankings.",
       "Produced marketing creatives, ad banners, and LinkedIn content for 5+ client brands, supporting digital campaign performance.",
@@ -401,7 +406,7 @@ const experience = [
     period: "Jan 2016 – Sep 2020",
     color: "#792CA2",
     highlights: [
-      "Designed and developed 30+ high-converting landing pages (HTML, CSS, Bootstrap) — all scoring 90+ PageSpeed with full technical SEO.",
+      "Designed and developed 30+ landing pages using HTML, CSS, and Bootstrap, with responsive layouts and technical SEO best practices.",
       "Built and maintained 20+ custom WordPress websites across immigration, education, and financial services verticals.",
       "Implemented end-to-end technical SEO: schema markup, canonical tags, Open Graph, and keyword-aligned content — contributing to top-ranking pages for key immigration queries.",
       "Produced 100+ marketing creatives (banners, display ads, videos) and managed LinkedIn and blog content for a globally operating immigration consultancy.",
@@ -446,7 +451,7 @@ const pipelineStages = [
 const stats = [
   { value: "15+", label: "Years Experience" },
   { value: "100+", label: "Websites Delivered" },
-  { value: "90+", label: "PageSpeed Score" },
+  { value: "SEO", label: "Performance Focus" },
   { value: "15+", label: "Enterprise Clients" },
 ];
 
@@ -930,6 +935,11 @@ function ParticleCanvas({ isDark }: { isDark: boolean }) {
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
+
+    // Keep decorative animation disabled for users who request reduced motion.
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -997,6 +1007,7 @@ function ParticleCanvas({ isDark }: { isDark: boolean }) {
     <canvas
       ref={ref}
       className="fixed inset-0 pointer-events-none"
+      aria-hidden="true"
       style={{ zIndex: 1 }}
     />
   );
@@ -1217,6 +1228,7 @@ function ProductLifecycle({ t, isDark }: { t: Theme; isDark: boolean }) {
 
 export default function Home() {
   const [isDark, setIsDark] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const t = isDark ? darkTheme : lightTheme;
 
   useEffect(() => {
@@ -1265,11 +1277,19 @@ export default function Home() {
             </div>
 
             <div className="flex items-center gap-6">
-              <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.2em] uppercase">
-                {["About", "Work", "Skills", "Experience", "Lifecycle", "Testimonials", "Contact"].map((item) => (
+              <div className="hidden lg:flex gap-5 text-[10px] font-bold tracking-[0.16em] uppercase">
+                {[
+                  ["About", "about"],
+                  ["Work", "work"],
+                  ["Skills", "skills"],
+                  ["Experience", "experience"],
+                  ["Certifications", "certifications"],
+                  ["Insights", "insights"],
+                  ["Contact", "contact"],
+                ].map(([item, id]) => (
                   <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
+                    key={id}
+                    href={`#${id}`}
                     className={`${t.navLinkClass} transition-colors duration-300`}
                   >
                     {item}
@@ -1296,8 +1316,51 @@ export default function Home() {
                   <LinkedInIcon className={`w-5 h-5 ${t.navIconClass} transition-colors duration-300`} />
                 </a>
               </div>
+
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen((open) => !open)}
+                aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-expanded={mobileMenuOpen}
+                aria-controls="mobile-navigation"
+                className="lg:hidden p-2 rounded-full transition-colors"
+                style={{ background: t.toggleBg, border: `1px solid ${t.toggleBorder}` }}
+              >
+                {mobileMenuOpen ? <X className={`w-5 h-5 ${t.navIconClass}`} /> : <Menu className={`w-5 h-5 ${t.navIconClass}`} />}
+              </button>
             </div>
           </div>
+          {mobileMenuOpen && (
+            <div
+              id="mobile-navigation"
+              className="lg:hidden px-6 pb-5 pt-2 border-t"
+              style={{ borderColor: t.navBorder, background: t.navBg }}
+            >
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  ["About", "about"],
+                  ["Selected Work", "work"],
+                  ["Skills", "skills"],
+                  ["Experience", "experience"],
+                  ["Certifications", "certifications"],
+                  ["Dev Insights", "insights"],
+                  ["Lifecycle", "lifecycle"],
+                  ["Testimonials", "testimonials"],
+                  ["Contact", "contact"],
+                ].map(([item, id]) => (
+                  <a
+                    key={id}
+                    href={`#${id}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`rounded-xl px-3 py-3 text-sm font-semibold ${t.navLinkClass}`}
+                    style={{ background: t.toggleBg }}
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </nav>
 
         {/* ── HERO ── */}
@@ -1310,15 +1373,15 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#E05454" }} />
               <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: "#E05454" }} />
             </span>
-            WORDPRESS + TECHNICAL SEO DEVELOPER
+SENIOR WEB DEVELOPER · WORDPRESS · PHP · TECHNICAL SEO
           </div>
 
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-4">
-            <span className="gradient-text block">Web Developer</span>
+            <span className="gradient-text block">Senior Web Developer</span>
           </h1>
 
           <h2 className={`${t.subText} text-xl md:text-2xl font-medium mb-8 transition-colors duration-300`}>
-            Legacy to Modern
+Custom WordPress Websites & Business Web Applications
           </h2>
 
           <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}>
@@ -1400,7 +1463,14 @@ export default function Home() {
               className="px-10 py-4 rounded-full font-bold text-white text-sm tracking-wide transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               style={{ background: "linear-gradient(135deg, #E05454 0%, #C13383 40%, #792CA2 70%, #443199 100%)", boxShadow: "0 0 40px rgba(193,51,131,0.3)" }}
             >
-              Let&apos;s Connect
+              Discuss a Project
+            </a>
+            <a
+              href="mailto:karthikneelaram@gmail.com?subject=Web%20Development%20Opportunity"
+              className={`px-10 py-4 rounded-full font-bold ${t.viewBtnText} text-sm tracking-wide transition-all duration-300 ${t.viewBtnHover}`}
+              style={{ background: t.viewBtnBg, border: `1px solid ${t.viewBtnBorder}` }}
+            >
+              Recruiter / Hiring Enquiry
             </a>
             <a
               href="#work"
@@ -1448,20 +1518,17 @@ export default function Home() {
             >
               <div className="absolute top-0 left-0 right-0 h-[1px]" style={{ background: "linear-gradient(90deg, #E05454, #C13383, #792CA2, #443199)" }} />
               <p className={`${t.aboutText} text-base leading-relaxed mb-5 transition-colors duration-300`}>
-                I&apos;m Karthik — a Senior Web Developer &amp; Designer based in Hyderabad
-                with over a decade of shipping websites that perform, rank, and convert. I work
-                in short Agile sprints — typically 1&ndash;2 week cycles — so clients see real
-                progress every week, not a big reveal at the end. Structured feedback loops and
-                iterative builds keep scope tight and rework minimal.
+                I&apos;m Karthik, a web developer and designer based in Hyderabad with 15+ years
+                of experience across website development, UI/UX, CMS implementation, and technical
+                SEO. I work with businesses to build new websites, improve existing platforms, and
+                deliver practical web solutions with clear communication and iterative feedback.
               </p>
               <p className={`${t.aboutText} text-base leading-relaxed mb-8 transition-colors duration-300`}>
-                I&apos;ve shipped{" "}
-                <strong className="gradient-text font-bold">100+ websites</strong> across
-                finance, SaaS, IT, education, and immigration — consistently hitting{" "}
-                <strong className="gradient-text font-bold">90+ PageSpeed scores</strong> and
-                handling everything from custom WordPress themes and ERP integrations to React
-                component libraries and full technical SEO.{" "}
-                <strong className="gradient-text font-bold">One person. Pro team discipline.</strong>
+                My core strengths include custom WordPress themes and CMS architecture, PHP and
+                MySQL development, responsive frontend implementation, technical SEO, performance
+                optimisation, and website deployment. I also build with modern JavaScript tools
+                where the project calls for them, and I am continuing to expand my React and Next.js
+                portfolio through practical projects.
               </p>
               <div className="flex flex-wrap gap-3">
                 {["End-to-End Ownership", "Design-to-Dev", "Brand Identity", "ERP Integration", "Technical SEO", "Full-Time · Remote · Freelance"].map((tag, i) => (
@@ -1610,9 +1677,9 @@ export default function Home() {
             >
               <h3 className="text-lg font-bold mb-3 tracking-tight" style={{ color: "#C13383" }}>Custom Themes & CMS</h3>
               <p className="text-[13px] leading-relaxed" style={{ color: isDark ? "rgba(100,116,139,1)" : "rgba(100,116,139,1)" }}>
-                Building tailored WordPress installations with fully custom themes and content management systems — no page-builder lock-in.
-                Every content type, taxonomy, and admin UI crafted to match the client&apos;s exact editorial workflow.
-                7+ enterprise-grade custom themes delivered with 90+ PageSpeed on every build.
+                Building tailored WordPress websites with custom themes and content management workflows.
+                Content types, taxonomies, and admin interfaces can be designed around each client&apos;s
+                editorial needs, with performance and maintainability considered throughout development.
               </p>
             </div>
             <div
@@ -1659,8 +1726,8 @@ export default function Home() {
         <section className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
           <SectionHeader label="Deployment Pipeline" color="#443199" t={t} />
           <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
-            Structured Dev → Staging → Production workflow maintained across all projects with version control,
-            pre-deployment backups, and post-release verification.
+            A practical release workflow using version control, pre-deployment backups, staging checks
+            where available, and post-release verification.
           </p>
           <div className="grid md:grid-cols-3 gap-6">
             {pipelineStages.map((stage, i) => (
@@ -1742,13 +1809,16 @@ export default function Home() {
                 </p>
                 <div className="flex items-center gap-3">
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black text-white shrink-0"
-                    style={{ background: `linear-gradient(135deg, ${tl.color}, ${COLORS[(i + 1) % 4]})` }}
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: `${tl.color}15`, border: `1px solid ${tl.color}35` }}
+                    aria-hidden="true"
                   >
-                    {tl.initials}
+                    <Quote className="w-4 h-4" style={{ color: tl.color }} />
                   </div>
                   <div>
-                    <div className={`${t.cardHeading} font-bold text-sm transition-colors duration-300`}>{tl.author}</div>
+                    {tl.author ? (
+                      <div className={`${t.cardHeading} font-bold text-sm transition-colors duration-300`}>{tl.author}</div>
+                    ) : null}
                     <div className={`${t.subText} text-[11px] transition-colors duration-300`}>{tl.role}</div>
                   </div>
                 </div>
@@ -1776,9 +1846,27 @@ export default function Home() {
             </h2>
 
             <p className={`${t.contactP} max-w-2xl mx-auto mb-14 text-lg leading-relaxed transition-colors duration-300`}>
-              Open to full-time opportunities in Web Development, WordPress Development,
-              Technical SEO and Website Management. Available for Hyderabad-based and remote roles.
+              Available for suitable full-time roles in Hyderabad or remotely, and for freelance
+              projects involving WordPress, PHP, business websites, website maintenance, and technical SEO.
+              Tell me what you are building or improving, and we can discuss the next step.
             </p>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-3 mb-10">
+              <a
+                href="mailto:karthikneelaram@gmail.com?subject=Freelance%20Web%20Development%20Enquiry"
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+                style={{ background: "linear-gradient(135deg, #E05454, #792CA2)" }}
+              >
+                Discuss a Project <ArrowUpRight className="w-4 h-4" />
+              </a>
+              <a
+                href="mailto:karthikneelaram@gmail.com?subject=Job%20Opportunity"
+                className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-bold ${t.viewBtnText}`}
+                style={{ background: t.viewBtnBg, border: `1px solid ${t.viewBtnBorder}` }}
+              >
+                Hiring Enquiry <ArrowUpRight className="w-4 h-4" />
+              </a>
+            </div>
 
             <div className="flex flex-col md:flex-row justify-center items-center gap-12">
               <ContactItem

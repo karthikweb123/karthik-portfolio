@@ -431,8 +431,8 @@ const pipelineStages = [
 ];
 
 const stats = [
-  { value: "11+", label: "Years Experience" },
-  { value: "50+", label: "Websites Delivered" },
+  { value: "15+", label: "Years Experience" },
+  { value: "100+", label: "Websites Delivered" },
   { value: "90+", label: "PageSpeed Score" },
   { value: "15+", label: "Enterprise Clients" },
 ];
@@ -1309,7 +1309,7 @@ export default function Home() {
           </h2>
 
           <p className={`${t.subText} text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14 transition-colors duration-300`}>
-            11+ years of experience building and optimizing business websites, with a strong
+            15+ years of experience building and optimizing business websites, with a strong
             focus on WordPress, PHP, technical SEO, website performance and responsive
             frontend development. I build custom WordPress websites, landing pages and
             CMS solutions that are fast, SEO-friendly and easy to manage.
@@ -1417,7 +1417,7 @@ export default function Home() {
                 </div>
                 <div className={`flex items-center gap-2 text-[12px] font-medium ${t.expMeta} transition-colors duration-300`}>
                   <Calendar className="w-3.5 h-3.5 shrink-0" />
-                  11+ Years in Web Development
+                  15+ Years in Web Development
                 </div>
                 <div className="flex items-center gap-2 text-[12px] font-medium" style={{ color: "#22c55e" }}>
                   <span className="relative flex h-2 w-2">
@@ -1443,7 +1443,7 @@ export default function Home() {
               </p>
               <p className={`${t.aboutText} text-base leading-relaxed mb-8 transition-colors duration-300`}>
                 I&apos;ve shipped{" "}
-                <strong className="gradient-text font-bold">50+ websites</strong> across
+                <strong className="gradient-text font-bold">100+ websites</strong> across
                 finance, SaaS, IT, education, and immigration — consistently hitting{" "}
                 <strong className="gradient-text font-bold">90+ PageSpeed scores</strong> and
                 handling everything from custom WordPress themes and ERP integrations to React
@@ -1697,7 +1697,7 @@ export default function Home() {
         <section id="insights" className="relative z-10 max-w-7xl mx-auto px-6 pb-28">
           <SectionHeader label="Dev Insights" color="#E05454" t={t} />
           <p className={`${t.subText} text-sm mb-10 transition-colors duration-300`}>
-            Battle-tested patterns from 11+ years of production delivery — across WordPress, React, Next.js, and the modern web.
+            Battle-tested patterns from 15+ years of production delivery — across WordPress, React, Next.js, and the modern web.
           </p>
           <DevInsights t={t} isDark={isDark} />
         </section>

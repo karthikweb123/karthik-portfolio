@@ -219,6 +219,19 @@ type Theme = typeof darkTheme;
 
 const allProjects = [
   {
+  name: "Northfield Schools",
+  url: "https://northfieldschools.adliftdigital.com/",
+  category: "Education & School CMS",
+  desc: "Complete UI/UX design and custom WordPress development from scratch, featuring a custom CMS architecture, dynamic school content management, academics, admissions, faculty information, galleries and extracurricular activities, with technical SEO and responsive design.",
+},
+
+{
+  name: "Northfield International School – Admissions Landing Page",
+  url: "https://northfieldschools.adliftdigital.com/lp/nfis/",
+  category: "Education & Lead Generation",
+  desc: "Designed and developed a dedicated admissions landing page with a modern, conversion-focused UI/UX, responsive layouts, school highlights, campus information, interactive enquiry forms, grade selection and admission-focused calls to action.",
+},
+  {
   name: "VR Cybernauts",
   url: "https://vrcybernauts.com/",
   category: "Cybersecurity & Education",
